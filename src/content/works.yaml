@@ -1,26 +1,12 @@
-# works.yaml — portfolio データの SSOT
-# file loader は各要素に一意な id (または slug) フィールドを要求するため、
-# title から導出した kebab-case の id を明示的に付与している。
-- id: syokan
-  title: syokan
-  summary: LLM が JSON を唱えると rich UI が召喚される personal view layer
-  repo: https://github.com/wwwyo/syokan
-  date: 2026-05
-- id: goteki
-  title: 五滴
-  summary: 画像から使用色の面積比 Top 5 を五滴抽出する
-  url: https://tools.wwwyo.dev/goteki/
-  repo: https://github.com/wwwyo/tools
-  date: 2026-07
-- id: shirobikari
-  title: シロビカリ
-  summary: 画像をめっちゃ光らせる HDR 変換
-  url: https://tools.wwwyo.dev/shirobikari/
-  repo: https://github.com/wwwyo/tools
-  date: 2026-07
-- id: usuppera
-  title: 薄っぺらな戯
-  summary: LLM っぽい定型句を添削する
-  url: https://tools.wwwyo.dev/usuppera/
-  repo: https://github.com/wwwyo/tools
-  date: 2026-07
+# works.yaml — portfolio データの SSOT。スキーマは AGENTS.md の情報設計セクションを参照
+# file loader は各要素に一意な id フィールドを要求する。
+#
+# 記入例:
+# - id: example-tool
+#   title: ツール名
+#   summary: 一言説明
+#   url: https://tools.wwwyo.dev/example/   # 任意: デモ・公開先
+#   repo: https://github.com/wwwyo/example  # 任意
+#   date: 2026-07                           # YYYY-MM
+#   tags: [llm, web]                        # 任意
+[]
