@@ -1,16 +1,8 @@
 ---
-import "../styles/global.css";
+import Base from "../layouts/Base.astro";
 ---
 
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>404 - wwwyo.dev</title>
-  </head>
-  <body>
-    <main>
-      <p>404 Not Found</p>
-    </main>
-  </body>
-</html>
+<Base title="404 - wwwyo.dev" description="ページが見つかりません">
+  <p>ページが見つかりません。</p>
+  <p><a href="/">ホームに戻る</a></p>
+</Base>

@@ -1,0 +1,86 @@
+---
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <a href="/" class="site-title">wwwyo.dev</a>
+      </header>
+      <main>
+        <slot />
+      </main>
+      <footer class="site-footer">
+        <a href="https://github.com/wwwyo">GitHub</a>
+        <a href="https://zenn.dev/www_y">Zenn</a>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style>
+  .page {
+    max-width: var(--content-max-width);
+    margin: 0 auto;
+    padding: 0 var(--spacing-md);
+  }
+
+  .site-header {
+    padding: var(--spacing-lg) 0 var(--spacing-md);
+  }
+
+  .site-title {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-mono);
+    color: var(--muted-foreground);
+    text-decoration: none;
+  }
+
+  .site-title:hover {
+    color: var(--primary);
+  }
+
+  main {
+    padding: var(--spacing-md) 0 var(--spacing-xl);
+  }
+
+  .site-footer {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) 0 var(--spacing-xl);
+    border-top: 1px solid var(--border);
+  }
+
+  .site-footer a {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-mono);
+    color: var(--muted-foreground);
+    text-decoration: none;
+  }
+
+  .site-footer a:hover {
+    color: var(--primary);
+  }
+</style>

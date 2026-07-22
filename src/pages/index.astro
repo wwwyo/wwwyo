@@ -1,16 +1,89 @@
 ---
-import "../styles/global.css";
+import { getCollection } from "astro:content";
+import Base from "../layouts/Base.astro";
+
+const works = (await getCollection("works")).sort((a, b) =>
+  b.data.date.localeCompare(a.data.date),
+);
 ---
 
-<html lang="ja">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>wwwyo.dev</title>
-  </head>
-  <body>
-    <main>
-      <p>wwwyo.dev</p>
-    </main>
-  </body>
-</html>
+<Base
+  title="wwwyo.dev"
+  description="wwwyo — software engineer。Web と LLM の道具を作っています。"
+>
+  <p class="intro">wwwyo — software engineer。Web と LLM の道具を作っています。</p>
+
+  <h2 class="works-heading">works</h2>
+  <ul class="works">
+    {
+      works.map((work) => (
+        <li class="work">
+          <div class="work-title-row">
+            <a class="work-title" href={work.data.url ?? work.data.repo}>
+              {work.data.title}
+            </a>
+            <span class="work-date">{work.data.date}</span>
+          </div>
+          <p class="work-summary">
+            {work.data.summary}
+            {work.data.url && work.data.repo && (
+              <a class="work-repo" href={work.data.repo}>
+                repo
+              </a>
+            )}
+          </p>
+        </li>
+      ))
+    }
+  </ul>
+</Base>
+
+<style>
+  .intro {
+    margin: 0 0 var(--spacing-xl);
+  }
+
+  .works-heading {
+    margin: 0 0 var(--spacing-md);
+  }
+
+  .works {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .work + .work {
+    margin-top: var(--spacing-lg);
+  }
+
+  .work-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-md);
+  }
+
+  .work-title {
+    color: var(--foreground);
+    font-weight: 600;
+  }
+
+  .work-date {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-mono);
+    color: var(--muted-foreground);
+    white-space: nowrap;
+  }
+
+  .work-summary {
+    margin: var(--spacing-xs) 0 0;
+    color: var(--muted-foreground);
+  }
+
+  .work-repo {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-mono);
+    margin-left: var(--spacing-sm);
+  }
+</style>

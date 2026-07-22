@@ -1,1 +1,143 @@
 @import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --primary: #c2520e;
+  --primary-foreground: #ffffff;
+  --muted: #f6f5f3;
+  --muted-foreground: #6b6b6b;
+  --border: #e4e2df;
+
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+    "Noto Sans JP", "Yu Gothic UI", Meiryo, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono",
+    monospace;
+
+  --font-size-body: 16px;
+  --line-height-body: 1.9;
+  --letter-spacing-body: 0.03em;
+
+  --font-size-heading: 1.375rem;
+  --line-height-heading: 1.5;
+  --letter-spacing-heading: 0.02em;
+
+  --font-size-mono: 0.875rem;
+  --line-height-mono: 1.7;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+  --spacing-xl: 64px;
+
+  --rounded-code: 4px;
+
+  --content-max-width: 40rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #111111;
+    --foreground: #e8e6e3;
+    --primary: #f08849;
+    --primary-foreground: #111111;
+    --muted: #1c1b1a;
+    --muted-foreground: #9a9891;
+    --border: #2c2a28;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: var(--background);
+}
+
+body {
+  margin: 0;
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  font-weight: 400;
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+  line-break: strict;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-body);
+  font-size: var(--font-size-heading);
+  font-weight: 700;
+  line-height: var(--line-height-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  font-feature-settings: "palt";
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+a {
+  color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: var(--primary);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--primary);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a {
+    transition: color 0.15s ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition: none;
+  }
+}
+
+code,
+pre {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-mono);
+  line-height: var(--line-height-mono);
+  color: var(--foreground);
+}
+
+code {
+  background-color: var(--muted);
+  border-radius: var(--rounded-code);
+  padding: 2px;
+}
+
+pre {
+  background-color: var(--muted);
+  border-radius: var(--rounded-code);
+  padding: var(--spacing-md);
+  overflow-x: auto;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: var(--spacing-lg) 0;
+}
