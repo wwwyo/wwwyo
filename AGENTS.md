@@ -25,9 +25,9 @@ wwwyo.dev/
 
 ## 情報設計
 
-- **blog URL**: `/blog/[slug]/`。slug はファイル名で日付は入れない（interactive 記事は寿命が長く、URL は短く保つ）。一覧は `/blog/`。タグ・ページネーションは記事が増えるまで作らない
+- **blog URL**: `/blog/[slug]/`。slug はファイル名で日付は入れない（interactive 記事は寿命が長く、URL は短く保つ）。一覧はトップページ（`/`）。タグ・ページネーションは記事が増えるまで作らない
 - **blog frontmatter**: `title` / `description` / `pubDate`（+ 必要になったら `updatedDate`）
-- **RSS**: 1記事目の公開時に `@astrojs/rss` で `/rss.xml` を追加する（それまで依存を増やさない）
+- **RSS**: `/rss.xml` を `@astrojs/rss` で配信している
 - **OGP**: 当面はサイト共通の静的画像1枚。記事別 OGP は wwwyo/tools の satori + `@resvg/resvg-js` ビルド時静的生成の知見を流用して、記事が増えてから導入
 
 ## セットアップ

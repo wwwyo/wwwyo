@@ -1,17 +1,49 @@
 ---
 import Base from "../layouts/Base.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+function formatDate(date: Date) {
+  return date.toISOString().slice(0, 10);
+}
 ---
 
-<Base
-  title="wwwyo.dev"
-  description="wwwyo — software engineer。Web と LLM の道具を作っています。"
->
-  <p class="intro">wwwyo — software engineer。Web と LLM の道具を作っています。</p>
-  <p>作った道具は <a href="https://tools.wwwyo.dev">tools.wwwyo.dev</a> に置いています。</p>
+<Base title="wwwyo's blog" description="wwwyo's blog">
+  <ul class="post-list">
+    {
+      posts.map((post) => (
+        <li>
+          <time class="post-date" datetime={post.data.pubDate.toISOString()}>
+            {formatDate(post.data.pubDate)}
+          </time>
+          <a href={`/blog/${post.id}/`}>{post.data.title}</a>
+        </li>
+      ))
+    }
+  </ul>
 </Base>
 
 <style>
-  .intro {
-    margin: 0 0 var(--spacing-md);
+  .post-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-list li {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-md);
+    padding: var(--spacing-sm) 0;
+  }
+
+  .post-date {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-mono);
+    color: var(--muted-foreground);
+    white-space: nowrap;
   }
 </style>

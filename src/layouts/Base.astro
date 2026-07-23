@@ -4,9 +4,12 @@ import "../styles/global.css";
 interface Props {
   title: string;
   description: string;
+  heroHeader?: boolean;
 }
 
-const { title, description } = Astro.props;
+const { title, description, heroHeader = Astro.url.pathname === "/" } =
+  Astro.props;
+const pageTitle = title === "wwwyo's blog" ? title : `${title} - wwwyo's blog`;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
@@ -15,27 +18,28 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{title}</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalURL} />
 
-    <meta property="og:title" content={title} />
+    <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:type" content="website" />
   </head>
   <body>
     <div class="page">
-      <header class="site-header">
-        <a href="/" class="site-title">wwwyo.dev</a>
+      <header class:list={["site-header", { "site-header--hero": heroHeader }]}>
+        <a href="/" class="site-title">wwwyo's blog</a>
+        <nav class="site-nav">
+          <a href="/about">About</a>
+          <a href="https://tools.wwwyo.dev">Tools</a>
+          <a href="https://github.com/wwwyo">GitHub</a>
+        </nav>
       </header>
       <main>
         <slot />
       </main>
-      <footer class="site-footer">
-        <a href="https://github.com/wwwyo">GitHub</a>
-        <a href="https://zenn.dev/www_y">Zenn</a>
-      </footer>
     </div>
   </body>
 </html>
@@ -48,6 +52,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
 
   .site-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm) var(--spacing-md);
     padding: var(--spacing-lg) 0 var(--spacing-md);
   }
 
@@ -62,25 +71,36 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     color: var(--primary);
   }
 
-  main {
-    padding: var(--spacing-md) 0 var(--spacing-xl);
+  .site-header--hero .site-title {
+    font-family: var(--font-body);
+    font-size: var(--font-size-heading);
+    font-weight: 700;
+    letter-spacing: var(--letter-spacing-heading);
+    font-feature-settings: "palt";
+    color: var(--foreground);
   }
 
-  .site-footer {
+  .site-header--hero .site-title:hover {
+    color: var(--primary);
+  }
+
+  .site-nav {
     display: flex;
     gap: var(--spacing-md);
-    padding: var(--spacing-md) 0 var(--spacing-xl);
-    border-top: 1px solid var(--border);
   }
 
-  .site-footer a {
+  .site-nav a {
     font-family: var(--font-mono);
     font-size: var(--font-size-mono);
     color: var(--muted-foreground);
     text-decoration: none;
   }
 
-  .site-footer a:hover {
+  .site-nav a:hover {
     color: var(--primary);
+  }
+
+  main {
+    padding: var(--spacing-md) 0 var(--spacing-xl);
   }
 </style>
