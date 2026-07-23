@@ -1,0 +1,174 @@
+---
+import { Image } from "astro:assets";
+import Breadcrumb from "../../../components/Breadcrumb.astro";
+import Base from "../../../layouts/Base.astro";
+import { hobbyProjects } from "../../../data/hobby";
+
+export function getStaticPaths() {
+  return hobbyProjects.map((project) => ({
+    params: { slug: project.slug },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const paragraphs = project.description.split("\n");
+---
+
+<Base title={project.title} description={project.summary}>
+  <article>
+    <Breadcrumb items={[{ label: "Hobby", href: "/hobby/" }, { label: project.title }]} />
+    <header class="post-header">
+      <h1>{project.title}</h1>
+      <p class="project-period">
+        {project.period}
+        {project.stopped && <span class="project-stopped">（停止中）</span>}
+      </p>
+      {
+        project.externalUrl && (
+          <p class="project-link">
+            <a href={project.externalUrl} target="_blank" rel="noopener noreferrer">
+              {project.externalUrl}
+            </a>
+          </p>
+        )
+      }
+      {
+        project.achievement && (
+          <p class="project-achievement">
+            🏆{" "}
+            {project.achievement.url ? (
+              <a href={project.achievement.url} target="_blank" rel="noopener noreferrer">
+                {project.achievement.label}
+              </a>
+            ) : (
+              project.achievement.label
+            )}
+          </p>
+        )
+      }
+    </header>
+
+    {project.media && (
+    <div class="project-media">
+      {
+        project.media?.type === "images" &&
+          project.media.images.map((image) => (
+            <Image src={image} alt="" width={960} />
+          ))
+      }
+      {
+        project.media?.type === "video" && (
+          <video
+            src={project.media.src}
+            poster={project.media.poster.src}
+            autoplay
+            loop
+            muted
+            playsinline
+            controls
+          />
+        )
+      }
+      {
+        project.media?.type === "youtube" && (
+          <div class="video-embed">
+            <iframe
+              src={`https://www.youtube-nocookie.com/embed/${project.media.videoId}${project.media.start ? `?start=${project.media.start}` : ""}`}
+              title={project.title}
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            />
+          </div>
+        )
+      }
+    </div>
+    )}
+
+    <div class="project-description">
+      {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+
+    {
+      project.demoVideo && (
+        <div class="project-demo">
+          <h2>Demo</h2>
+          <video src={project.demoVideo.src} controls playsinline preload="metadata" />
+        </div>
+      )
+    }
+  </article>
+</Base>
+
+<style>
+  .post-header {
+    margin: var(--spacing-md) 0 var(--spacing-lg);
+  }
+
+  .post-header h1 {
+    margin: 0 0 var(--spacing-xs);
+  }
+
+  .project-period {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--font-size-mono);
+    color: var(--muted-foreground);
+  }
+
+  .project-stopped {
+    color: var(--muted-foreground);
+  }
+
+  .project-media {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .project-media img,
+  .project-media video {
+    width: 100%;
+    height: auto;
+    border-radius: var(--rounded-code);
+  }
+
+  .video-embed {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .video-embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: var(--rounded-code);
+  }
+
+  .project-description p {
+    margin: 0 0 var(--spacing-md);
+  }
+
+  .project-demo {
+    margin-top: var(--spacing-lg);
+  }
+
+  .project-demo video {
+    width: 100%;
+    height: auto;
+    border-radius: var(--rounded-code);
+  }
+
+  .project-achievement {
+    margin: var(--spacing-sm) 0 0;
+  }
+
+  .project-link {
+    margin: var(--spacing-sm) 0 0;
+  }
+</style>

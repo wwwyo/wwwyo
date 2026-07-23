@@ -1,4 +1,5 @@
 ---
+import Breadcrumb from "../../../components/Breadcrumb.astro";
 import Base from "../../../layouts/Base.astro";
 import { getCollection, render } from "astro:content";
 
@@ -20,6 +21,7 @@ function formatDate(date: Date) {
 
 <Base title={post.data.title} description={post.data.description} ogType="article" pubDate={post.data.pubDate}>
   <article>
+    <Breadcrumb items={[{ label: "Blog", href: "/" }, { label: post.data.title }]} />
     <header class="post-header">
       <h1>{post.data.title}</h1>
       <time class="post-date" datetime={post.data.pubDate.toISOString()}>
@@ -32,7 +34,7 @@ function formatDate(date: Date) {
 
 <style>
   .post-header {
-    margin-bottom: var(--spacing-lg);
+    margin: var(--spacing-md) 0 var(--spacing-lg);
   }
 
   .post-header h1 {

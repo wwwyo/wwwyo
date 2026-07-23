@@ -7,7 +7,7 @@
 - **interactive 記事だけを置く**: 静的テキストで済む記事は zenn / qiita / note に書く。ここには MDX + island でしか成立しない記事を置く（差別化）
 - **tools の埋め込みは iframe**: [wwwyo/tools](https://github.com/wwwyo/tools) のコードを import しない。`tools.wwwyo.dev` の deploy 済み URL を iframe で埋め込む（tools 側の「ツール間共有 FORBIDDEN」原則を repo をまたいでも守る）
 - **デフォルト zero-JS**: 記事本文は静的 HTML。ブラウザで動かすコンポーネントだけ `client:visible` を付ける
-- **works 一覧は置かない**: 成果物は [tools.wwwyo.dev](https://tools.wwwyo.dev) へのリンクで済ませ、wwwyo.dev 側で portfolio データを持たない
+- **現行 works 一覧は置かない**: 成果物は [tools.wwwyo.dev](https://tools.wwwyo.dev) へのリンクで済ませ、wwwyo.dev 側で portfolio データを持たない。ただし過去の個人プロジェクトのアーカイブは `/hobby` に静的な一覧 + 詳細ページとして置く
 
 ## ディレクトリ構造
 
@@ -29,6 +29,8 @@ wwwyo.dev/
 - **blog frontmatter**: `title` / `description` / `pubDate`（+ 必要になったら `updatedDate`）
 - **RSS**: `/rss.xml` を `@astrojs/rss` で配信している
 - **OGP**: 当面はサイト共通の静的画像1枚。記事別 OGP は wwwyo/tools の satori + `@resvg/resvg-js` ビルド時静的生成の知見を流用して、記事が増えてから導入
+- **hobby**: `/hobby` に過去の個人プロジェクトを年の降順で一覧表示し、各プロジェクトは `/hobby/[slug]/` の詳細ページ（画像・動画・外部リンク）へリンクする。データは `src/data/hobby.ts` に集約する
+- **リンクはページ冒頭に置く**: 詳細ページの外部リンク・受賞などの重要情報はヘッダー直下（メディア・本文より上）に書く。読者は最後まで読まない前提でレイアウトする
 
 ## セットアップ
 
