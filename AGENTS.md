@@ -5,7 +5,7 @@
 ## 設計原則
 
 - **interactive 記事だけを置く**: 静的テキストで済む記事は zenn / qiita / note に書く。ここには MDX + island でしか成立しない記事を置く（差別化）
-- **tools の埋め込みは iframe**: [wwwyo/tools](https://github.com/wwwyo/tools) のコードを import しない。`tools.wwwyo.dev` の deploy 済み URL を iframe で埋め込む（tools 側の「ツール間共有 FORBIDDEN」原則を repo をまたいでも守る）
+- **tools の埋め込みは iframe**: [wwwyo/tools](https://github.com/wwwyo/tools) のコードを import しないj
 - **デフォルト zero-JS**: 記事本文は静的 HTML。ブラウザで動かすコンポーネントだけ `client:visible` を付ける
 - **現行 works 一覧は置かない**: 成果物は [tools.wwwyo.dev](https://tools.wwwyo.dev) へのリンクで済ませ、wwwyo.dev 側で portfolio データを持たない。ただし過去の個人プロジェクトのアーカイブは `/hobby` に静的な一覧 + 詳細ページとして置く
 
@@ -49,6 +49,11 @@ bun run deploy # ビルド + Cloudflare Workers へ deploy
 - Astro + MDX + React（`@astrojs/react`。island は `client:visible` を基本にする）
 - Tailwind CSS v4
 - Cloudflare Workers static assets（Wrangler で deploy、custom domain: wwwyo.dev）
+
+## CSP（Content Security Policy）
+
+- **CSP は Astro の `security.csp` で管理する**（`astro.config.mjs`）。island hydration 等の inline script の hash 入り meta CSP をビルド時にページごとに生成する。`public/_headers` の CSP には meta で指定できない `frame-ancestors` だけを置く（両方に directive を書くと積集合で評価されるため、script-src 等を header 側に足さないこと）
+- **記事・コンポーネントで `style=""` 属性を使わない**: style-src に hash が含まれるため `'unsafe-inline'` はブラウザに無視される。装飾は CSS クラス（`global.css`）で行う。JS からの `element.style` 操作は CSP の対象外なので island 内の React は問題ない
 
 ## パッケージ管理
 

@@ -157,6 +157,15 @@ article h4 {
   margin: var(--spacing-lg) 0 var(--spacing-md);
 }
 
+/* CSP で style 属性が使えない（style-src に hash があると unsafe-inline が
+   無視される）ため、記事内画像はクラスで装飾する */
+.article-image {
+  max-width: 24rem;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--rounded-code);
+}
+
 article ul,
 article ol {
   margin: var(--spacing-md) 0;
