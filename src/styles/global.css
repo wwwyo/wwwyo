@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import "./uaplus.css";
 
 :root {
   --background: #ffffff;
@@ -140,4 +140,34 @@ hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: var(--spacing-lg) 0;
+}
+
+/* 記事本文（MDX レンダリング結果）の余白。Tailwind preflight が margin を
+   リセットするため、article 配下に限って明示的に戻す */
+article p {
+  margin: var(--spacing-md) 0;
+}
+
+article h2 {
+  margin: var(--spacing-xl) 0 var(--spacing-md);
+}
+
+article h3,
+article h4 {
+  margin: var(--spacing-lg) 0 var(--spacing-md);
+}
+
+article ul,
+article ol {
+  margin: var(--spacing-md) 0;
+  padding-left: 1.5em;
+}
+
+article pre {
+  margin: var(--spacing-md) 0;
+}
+
+article img {
+  max-width: 100%;
+  height: auto;
 }
