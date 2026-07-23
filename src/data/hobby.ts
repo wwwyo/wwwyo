@@ -146,7 +146,7 @@ export const hobbyProjects: HobbyProject[] = [
     period: "2022/09",
     summary: "モバイルアプリハッカソン SPAJAM の予選で 2 位を取ったときのアプリ。",
     description:
-      "モバイルアプリハッカソン SPAJAM の予選で 2 位を取ったときのアプリ（予選落ち）。バックエンドを TypeScript / Node.js / Firebase で作り、位置情報から近い人を検出するロジックなどを実装した。",
+      "モバイルアプリハッカソン SPAJAM の予選で 2 位を取ったときのアプリ。バックエンドを TypeScript / Node.js / Firebase で作り、位置情報から近い人を検出するロジックなどを実装した。",
     achievement: { label: "SPAJAM 2022 予選 第 2 位" },
     thumbnail: warashibe1,
     media: { type: "youtube", videoId: "bpuTqjN51q0", thumbnail: warashibe1 },
