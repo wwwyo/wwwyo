@@ -135,7 +135,7 @@ export const hobbyProjects: HobbyProject[] = [
     summary:
       "化学構造などの情報を特徴量として機械学習モデルを作成し、回帰分析するための Web アプリ。",
     description:
-      "化学構造などの情報を特徴量として機械学習モデルを作成し、回帰分析するための Web アプリ。既存のソフトが高額すぎたので自作した。\n技術: Python / Machine Learning / Streamlit。",
+      "卒業研究の文脈で取り組んだ、化学構造などの情報を特徴量として機械学習モデルを作成し、回帰分析するための Web アプリ。\n技術: Python / Machine Learning / Streamlit。",
     externalUrl: "https://chemoinfor.streamlit.app/",
     thumbnail: chemoinformatics1,
     media: { type: "images", images: [chemoinformatics1] },
