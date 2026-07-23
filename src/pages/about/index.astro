@@ -2,20 +2,22 @@
 import Base from "../../layouts/Base.astro";
 ---
 
-<Base
-  title="About"
-  description="wwwyo — software engineer。Web と LLM の道具を作っています。"
->
-  <p class="intro">wwwyo — software engineer。Web と LLM の道具を作っています。</p>
-  <p>作った道具は <a href="https://tools.wwwyo.dev">tools.wwwyo.dev</a> に置いています。</p>
-  <p>
-    <a href="https://github.com/wwwyo">GitHub</a> /
-    <a href="https://zenn.dev/www_y">Zenn</a>
-  </p>
+<Base title="About" description="wwwyo's blog について">
+  <article>
+    <header class="post-header">
+      <h1>About</h1>
+    </header>
+    <p>x: <a href="https://x.com/www_yto">@www_yto</a></p>
+    <p>GitHub: <a href="https://github.com/wwwyo">@wwwyo</a></p>
+  </article>
 </Base>
 
 <style>
-  .intro {
-    margin: 0 0 var(--spacing-md);
+  .post-header {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .post-header h1 {
+    margin: 0;
   }
 </style>
