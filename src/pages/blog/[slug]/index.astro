@@ -18,7 +18,7 @@ function formatDate(date: Date) {
 }
 ---
 
-<Base title={post.data.title} description={post.data.description}>
+<Base title={post.data.title} description={post.data.description} ogType="article" pubDate={post.data.pubDate}>
   <article>
     <header class="post-header">
       <h1>{post.data.title}</h1>
