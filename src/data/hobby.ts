@@ -131,12 +131,12 @@ export const hobbyProjects: HobbyProject[] = [
   {
     slug: "chemoinformatics",
     title: "ケモインフォマティクス用アプリ",
-    period: "2023/01 -",
+    period: "2023/01 - 2023/03",
     summary:
       "化学構造などの情報を特徴量として機械学習モデルを作成し、回帰分析するための Web アプリ。",
     description:
       "卒業研究の文脈で取り組んだ、化学構造などの情報を特徴量として機械学習モデルを作成し、回帰分析するための Web アプリ。\n技術: Python / Machine Learning / Streamlit。",
-    externalUrl: "https://chemoinfor.streamlit.app/",
+    externalUrl: "https://github.com/wwwyo/chem_app",
     thumbnail: chemoinformatics1,
     media: { type: "images", images: [chemoinformatics1] },
   },
