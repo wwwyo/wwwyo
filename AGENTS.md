@@ -7,7 +7,7 @@
 - **interactive 記事だけを置く**: 静的テキストで済む記事は zenn / qiita / note に書く。ここには MDX + island でしか成立しない記事を置く（差別化）
 - **tools の埋め込みは iframe**: [wwwyo/tools](https://github.com/wwwyo/tools) のコードを import しない。`tools.wwwyo.dev` の deploy 済み URL を iframe で埋め込む（tools 側の「ツール間共有 FORBIDDEN」原則を repo をまたいでも守る）
 - **デフォルト zero-JS**: 記事本文は静的 HTML。ブラウザで動かすコンポーネントだけ `client:visible` を付ける
-- **works は data-driven**: portfolio 一覧は `src/content/works.yaml` を SSOT にし、ページはそれを描画するだけ
+- **works 一覧は置かない**: 成果物は [tools.wwwyo.dev](https://tools.wwwyo.dev) へのリンクで済ませ、wwwyo.dev 側で portfolio データを持たない
 
 ## ディレクトリ構造
 
@@ -15,8 +15,7 @@
 wwwyo.dev/
 ├── src/
 │   ├── content/
-│   │   ├── blog/        # 記事（MDX）
-│   │   └── works.yaml   # portfolio データ
+│   │   └── blog/        # 記事（MDX）
 │   ├── components/
 │   │   └── embeds/      # 記事に埋め込む island（必要になってから作る）
 │   └── pages/
@@ -26,7 +25,6 @@ wwwyo.dev/
 
 ## 情報設計
 
-- **works.yaml スキーマ**: `id`（kebab-case、Astro file loader の要求）/ `title` / `summary`（一言）/ `url?` / `repo?` / `date`（YYYY-MM）/ `tags?`。works はプロダクトのみ。zenn / qiita の記事は含めない（記事は各プラットフォームが SSOT）
 - **blog URL**: `/blog/[slug]/`。slug はファイル名で日付は入れない（interactive 記事は寿命が長く、URL は短く保つ）。一覧は `/blog/`。タグ・ページネーションは記事が増えるまで作らない
 - **blog frontmatter**: `title` / `description` / `pubDate`（+ 必要になったら `updatedDate`）
 - **RSS**: 1記事目の公開時に `@astrojs/rss` で `/rss.xml` を追加する（それまで依存を増やさない）
