@@ -1,0 +1,53 @@
+---
+title: "HDR が明るく見える仕組み"
+description: "SDR→HDR 変換ツール「シロビカリ」を作る過程で調べた、CSS と WebGPU から見た HDR の輝度の扱いをまとめる"
+pubDate: 2026-07-23
+---
+
+import DrlDemo from "../../components/embeds/DrlDemo";
+import WebGpuGradientDemo from "../../components/embeds/WebGpuGradientDemo";
+import WebGpuSolidDemo from "../../components/embeds/WebGpuSolidDemo";
+
+[シロビカリ](https://tools.wwwyo.dev/shirobikari/)という SDR→HDR 変換ツールを作る過程で調べた、HDR がなぜ明るく見えるのかのまとめです。ツール内に置いていた解説を独立した記事にしました。
+
+## 1. CSS の dynamic-range-limit で切り替える
+
+`dynamic-range-limit` は、画像の明るさの上限を CSS 側で制限するプロパティです。左の画像はホバー・Tab フォーカスすると `standard`（上限あり）から `no-limit`（上限なし）に切り替わります。右は常に `no-limit` で、最大どこまで明るくなるかの比較用です。中間の明るさは `dynamic-range-limit-mix(standard 70%, no-limit 30%)` のように指定できます。
+
+このプロパティは上限を外すだけで、明るさを作り出すわけではありません。元画像が HDR の輝度情報を持っていない普通の sRGB 画像なら、`no-limit` にしても見た目は変わりません。ここで使っているのは UltraHDR 形式の JPEG で、通常の JPEG に加えて「どこをどれだけ持ち上げるか」を記録したゲインマップを内包しています。
+
+この項目のデモとサンプル画像は[MDN Web Docs: dynamic-range-limit](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/dynamic-range-limit)の例をもとにしています。画像は[mdn/shared-assets の ultra-hdr.jpg](https://mdn.github.io/shared-assets/images/examples/ultra-hdr.jpg)です。
+
+<DrlDemo client:visible />
+
+## 2. HDR 画像をそのまま埋め込む
+
+CSS で何も指定せず、HDR の PNG をそのまま `<img>` に埋め込んでいます。中身は白一色ですが、ICC プロファイルが Rec.2020 色域 + PQ 転送関数なので、同じ `#ffffff` でも SDR の白よりずっと高い輝度として解釈されます。明るさは画素値ではなく、どの転送関数で解釈するかで決まる、という例です。
+
+<img
+  src="/hdr/hdr.png"
+  alt="輝度情報を持つHDR形式のPNG画像"
+  style="max-width: 24rem; width: 100%; border: 1px solid var(--border); border-radius: var(--rounded-code);"
+/>
+
+## 3. WebGPU で SDR と HDR を並べて描く
+
+左は `format: navigator.gpu.getPreferredCanvasFormat()`（8bit）の canvas です。8bit フォーマットは 1.0 を超える値を物理的に保持できないため、レンダーターゲットへの書き込み時点でクランプが確定します。`toneMapping` の実装差にもコンポジタの挙動にも依存しない、本物の SDR パイプラインです。右は `format: "rgba16float"` + `toneMapping: { mode: "extended" }` で、1.0 を超えるコード値をそのまま出力できます。
+
+比べるべきは「明るさ」ではなく、上半分のランプがどこまで伸びるかです。左は 100 cd/m²（SDR の白）に到達すると、そこから右がずっと平坦になります。右は端まで明るくなり続けます。「どこで階調が止まったか」が差になります。HDR 非対応のディスプレイ・ブラウザでは両方同じ見た目になるのが正しい挙動です。
+
+スライダーはディスプレイが実際に出す明るさの単位である cd/m² で指定しますが、canvas に渡す値は輝度そのものではなく extended sRGB のコード値なので、内部で換算しています。SDR の白は 100 cd/m²（コード値 1.0）が基準です。指定した輝度が実際に出るかはディスプレイのヘッドルーム次第で、XDR でもピーク輝度は 1600 cd/m² 程度なので、上限付近では頭打ちになります。
+
+<WebGpuGradientDemo client:visible />
+
+## 4. 単色で輝度だけを比較する
+
+形や模様を取り除き、同じ色を輝度だけ変えて並べます。左は 100 cd/m²（SDR の白）に固定、右はスライダーで選んだ輝度（cd/m²）です。HDR ディスプレイでは右側がより明るく光って見えます。
+
+ここも指定は cd/m² ですが、canvas に渡すのは extended sRGB のコード値なので内部で換算しています。SDR の白は 100 cd/m²（コード値 1.0）基準で、XDR でもピーク輝度は 1600 cd/m² 程度なので、上限付近では指定どおりの明るさにならず頭打ちになります。
+
+<WebGpuSolidDemo client:visible />
+
+---
+
+変換ツール本体は[シロビカリ](https://tools.wwwyo.dev/shirobikari/)から使えます。

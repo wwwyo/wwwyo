@@ -1,0 +1,171 @@
+/*
+ * HDR デモ（DrlDemo / WebGpuGradientDemo / WebGpuSolidDemo）共通のスタイル。
+ * ブログの CSS 変数（src/styles/global.css）に合わせ、tools 側の Tailwind クラスは持ち込まない。
+ */
+
+.hdr-demo-unsupported {
+  border: 1px dashed var(--border);
+  border-radius: var(--rounded-code);
+  padding: var(--spacing-md);
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+}
+
+.hdr-demo-support-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  list-style: none;
+  margin: var(--spacing-sm) 0;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.hdr-demo-support-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-xs);
+}
+
+.hdr-demo-support-label {
+  color: var(--foreground);
+}
+
+.hdr-demo-support-detail {
+  display: block;
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+}
+
+/* --- section 1: dynamic-range-limit --- */
+
+.drl-hover {
+  dynamic-range-limit: standard;
+  transition: dynamic-range-limit 0.6s;
+}
+
+.drl-hover:hover,
+.drl-hover:focus-visible {
+  dynamic-range-limit: no-limit;
+  /* mix() 対応ブラウザではこちらが上書きして勝つ */
+  dynamic-range-limit: dynamic-range-limit-mix(standard 70%, no-limit 30%);
+}
+
+.drl-no-limit {
+  dynamic-range-limit: no-limit;
+}
+
+.hdr-demo-figures {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 640px) {
+  .hdr-demo-figures {
+    flex-direction: row;
+  }
+}
+
+.hdr-demo-figure {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin: 0;
+}
+
+.hdr-demo-figure img {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--rounded-code);
+}
+
+.hdr-demo-figure figcaption {
+  color: var(--muted-foreground);
+  font-size: 0.8125rem;
+}
+
+/* --- section 3 / 4: WebGPU canvases --- */
+
+.hdr-demo-canvases {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+@media (min-width: 640px) {
+  .hdr-demo-canvases {
+    flex-direction: row;
+  }
+}
+
+.hdr-demo-canvas-block {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.hdr-demo-canvas-block h4 {
+  margin: 0;
+  color: var(--muted-foreground);
+  font-size: 0.875rem;
+  font-weight: 700;
+}
+
+.hdr-demo-canvas-block canvas {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--rounded-code);
+  background-color: #000;
+}
+
+.hdr-demo-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  font-size: 0.875rem;
+}
+
+@media (min-width: 640px) {
+  .hdr-demo-controls {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--spacing-md);
+  }
+}
+
+.hdr-demo-controls .hdr-demo-control-label {
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+
+.hdr-demo-controls input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+}
+
+@media (min-width: 640px) {
+  .hdr-demo-controls input[type="range"] {
+    max-width: 16rem;
+  }
+}
+
+.hdr-demo-controls select {
+  border: 1px solid var(--border);
+  border-radius: var(--rounded-code);
+  background-color: var(--background);
+  color: var(--foreground);
+  padding: 2px var(--spacing-xs);
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.hdr-demo-value {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--foreground);
+}
