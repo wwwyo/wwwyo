@@ -12,15 +12,16 @@ export default defineConfig({
       directives: [
         "default-src 'self'",
         "img-src 'self' data: blob:",
-        "frame-src https://tools.wwwyo.dev",
+        "frame-src https://tools.wwwyo.dev https://www.youtube-nocookie.com",
         "object-src 'none'",
         "base-uri 'none'",
       ],
       scriptDirective: {
         resources: ["'self'", "https://static.cloudflareinsights.com"],
       },
+      // style 属性は使わない方針（hash があると unsafe-inline は無視されるため入れない）
       styleDirective: {
-        resources: ["'self'", "'unsafe-inline'"],
+        resources: ["'self'"],
       },
     },
   },
