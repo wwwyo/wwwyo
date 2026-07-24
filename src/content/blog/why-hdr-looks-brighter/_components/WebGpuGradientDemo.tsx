@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import "./hdr/hdr-demo.css";
-import { GradientHDRRenderer } from "./hdr/renderers";
-import { cdToCodeValue, detectHdrDisplay, type SupportItem } from "./hdr/support";
-import { SupportList } from "./hdr/SupportList";
+import "./hdr-demo.css";
+import { GradientHDRRenderer } from "./renderers";
+import { cdToCodeValue, detectHdrDisplay, type SupportItem } from "./support";
+import { SupportList } from "./SupportList";
 
 /**
  * SDR（8bit・クランプ確定） vs HDR（rgba16float・extended）のグラデーション比較。

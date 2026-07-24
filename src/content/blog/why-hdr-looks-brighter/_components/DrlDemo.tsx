@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import "./hdr/hdr-demo.css";
-import { supportsDrl } from "./hdr/support";
+import "./hdr-demo.css";
+import { supportsDrl } from "./support";
 
 /**
  * CSS dynamic-range-limit のホバー/フォーカス切り替えデモ。

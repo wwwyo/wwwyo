@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import "./hdr/hdr-demo.css";
-import { SolidColorRenderer } from "./hdr/renderers";
-import { cdToCodeValue, colors, type SupportItem } from "./hdr/support";
-import { SupportList } from "./hdr/SupportList";
+import "./hdr-demo.css";
+import { SolidColorRenderer } from "./renderers";
+import { cdToCodeValue, colors, type SupportItem } from "./support";
+import { SupportList } from "./SupportList";
 
 const colorOptions: { value: string; label: string }[] = [
   { value: "white", label: "白" },

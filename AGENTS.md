@@ -15,13 +15,20 @@
 wwwyo.dev/
 ├── src/
 │   ├── content/
-│   │   └── blog/        # 記事（MDX）
-│   ├── components/
-│   │   └── embeds/      # 記事に埋め込む island（必要になってから作る）
+│   │   └── blog/
+│   │       ├── hello-world.mdx              # island を持たない記事は単体ファイル
+│   │       └── why-hdr-looks-brighter/      # island を持つ記事はフォルダ
+│   │           ├── index.mdx
+│   │           └── _components/             # この記事専用の island（collocation）
+│   ├── components/      # 複数ページで共有するコンポーネント
 │   └── pages/
 ├── mise.toml
 └── wrangler.jsonc       # Cloudflare Workers static assets
 ```
+
+- **記事専用の island は記事と同じ場所に置く（collocation）**: 1記事でしか使わない island は `src/content/blog/<slug>/_components/` に置き、MDX から `./_components/Foo` で相対 import する。記事の追加・削除がフォルダ単位で完結する。複数記事で共有するものだけ `src/components/` に置く
+- **island を持つ記事は `<slug>/index.mdx`**: glob loader は `<slug>/index.mdx` の id を `<slug>` に畳むため、URL は `/blog/<slug>/` のまま保たれる。`<slug>/<slug>.mdx` にすると id が `<slug>/<slug>` になり URL が変わるので使わない
+- **`_components/` の `_` prefix は「コンテンツではない」印**: content collection の loader は `**/*.mdx` しか拾わないので `.tsx` が entry に混ざることはないが、Astro の慣習に合わせて underscore を付けている
 
 ## 情報設計
 
