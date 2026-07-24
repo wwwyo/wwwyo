@@ -5,6 +5,11 @@ import react from "@astrojs/react";
 export default defineConfig({
   site: "https://wwwyo.dev",
   integrations: [mdx(), react()],
+  build: {
+    // island が import する CSS を inline <style> 化すると security.csp の
+    // hash 生成から漏れてブロックされるため、常に外部ファイルで配信する
+    inlineStylesheets: "never",
+  },
   security: {
     // inline script (island hydration 等) の hash 入り meta CSP をページごとに生成する。
     // frame-ancestors は meta で指定できないため public/_headers に残している
