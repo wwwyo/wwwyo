@@ -1,5 +1,8 @@
+# CSP の script-src / style-src 等は astro.config.mjs の security.csp が生成する
+# meta タグ側で管理している。ここに directive を足すと meta との積集合で評価され
+# inline script の hash 許可が壊れるため、meta 非対応の frame-ancestors のみ置く
 /*
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; frame-src https://tools.wwwyo.dev; object-src 'none'; base-uri 'none'; frame-ancestors 'none'
+  Content-Security-Policy: frame-ancestors 'none'
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
