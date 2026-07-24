@@ -1,10 +1,11 @@
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
+import sitemap from "@astrojs/sitemap";
 
 export default defineConfig({
   site: "https://wwwyo.dev",
-  integrations: [mdx(), react()],
+  integrations: [mdx(), react(), sitemap()],
   build: {
     // island が import する CSS を inline <style> 化すると security.csp の
     // hash 生成から漏れてブロックされるため、常に外部ファイルで配信する
