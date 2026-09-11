@@ -7,6 +7,11 @@ updates:
     cooldown:
       default-days: 7
     groups:
+      astro:
+        applies-to: version-updates
+        patterns:
+          - "astro"
+          - "@astrojs/*"
       minor-and-patch:
         applies-to: version-updates
         update-types:
