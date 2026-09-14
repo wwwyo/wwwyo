@@ -22,6 +22,6 @@
     "@types/react-dom": "19.2.7",
     "@webgpu/types": "0.1.72",
     "typescript": "7.0.2",
-    "wrangler": "4.128.0"
+    "wrangler": "4.129.0"
   }
 }
