@@ -1,0 +1,22 @@
+---
+title: "AI日本語音声を聴き比べたい！！"
+description: "日本語のテキスト読み上げ（TTS）を選ぶために、同じ台本を実際に生成して聞き比べた"
+pubDate: 2026-10-03
+---
+
+import SampleGrid from "./_components/SampleGrid";
+
+日本語のテキスト読み上げ（TTS）を選ぶために、同じ台本を実際に生成して聞き比べた。音声はこのページでそのまま再生できます。声質や話者がモデルごとに異なるため、このサンプルだけでモデル全体の優劣は決まらない点に注意してほしい。
+
+<div class="tts-script">
+  <p class="tts-script-label">読み上げ台本</p>
+  <p>ASD-STE100は、技術文書を読みやすくするための英語の規格です。使える単語と文の書き方を制限します。例えば、作業を始める前に電源を切ってください。この一文なら、何をするのか、いつするのかが明確です。</p>
+</div>
+
+## 個人的な感想
+
+あくまでこの台本と話者の組み合わせでの好みだが、ElevenLabs、Gemini 3.8 Flash TTS、Fish Audio の順で良かった。AivisSpeech もかなり良く、アニメ声で良ければこれを使いたいと思えた。
+
+## Playground
+
+<SampleGrid client:visible />
