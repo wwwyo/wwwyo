@@ -20,7 +20,7 @@ import SampleGrid from "./_components/SampleGrid";
 
 料金は 2026 年 10 月 3 日に各社の公式ページで確認した。月額・credits・文字数・bytes・tokens は単位が違うため、金額だけで順位は付けていない。ローカル実行の「¥0」はソフトウェア利用料で、PC や電力の費用は含まない。
 
-カードの秒数と容量は、実際にこのページで配信しているファイルの実測値。WAV で受け取った音声は容量を抑えるため AAC 96 kbps（m4a）に変換してあり、元ファイルより小さい。音量や速度は変えていない。
+カードの秒数と容量は、実際にこのページで配信しているファイルの実測値。WAV で受け取った音声は容量を抑えるため AAC（m4a）に変換してあり、元ファイルより小さい。音量や速度は変えていない。
 
 <SampleGrid client:visible />
 
@@ -29,4 +29,4 @@ import SampleGrid from "./_components/SampleGrid";
 - Gemini 2 件の「今回の実課金」は OpenRouter の生成記録の total_cost。合計 $0.009495。残高への入金手数料は含まない。
 - 速度の参考値として、API 呼出開始から音声取得までの時間は Fish Audio が 9.66 秒、Flash が 8.23 秒、Lite が 6.78 秒だった。AivisSpeech の 8.48 秒（推論ログ）と Qwen3-TTS の 27.347 秒（バックエンド報告）は測り方が違うため、同じ尺度の比較にはしていない。
 - ElevenLabs の無料プランは非商用利用に限られる（Terms of Service 1(c)）。この記事は個人ブログでの非商用利用として公開し、クレジットを付記している。
-- Cartesia（Sonic 3.6）はサインアップ時の人間確認で止まり、音声を取得できなかった。料金は Free $0/月 20,000 credits、Pro $5/月 100,000 credits（https://www.cartesia.ai/pricing）。
+- Cartesia（Sonic 3.6）はサインアップ時の人間確認で止まり、音声を取得できなかった。料金は Free $0/月 20,000 credits、Pro $5/月 100,000 credits（[公式](https://www.cartesia.ai/pricing)）。
