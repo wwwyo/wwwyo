@@ -23,6 +23,7 @@ export const samples: Sample[] = [
     pricing: [
       "Free: $0 / 月、10,000 credits（非商用のみ）",
       "Starter: $6 / 月、30,000 credits。Creator: $22 / 月、121,000 credits（税別・月払い）",
+      "TTS は 1 credit / 文字。この台本のペースで約 287 credits / 分",
     ],
     note: "Web UI で生成した Take 1。API では無料プランがライブラリ音声を使えず（402 paid_plan_required）、今回の音声は Web 版のもの。",
     sourceUrl: "https://elevenlabs.io/pricing",
@@ -39,6 +40,7 @@ export const samples: Sample[] = [
     pricing: [
       "OpenRouter: 入力 $0.50 / 100万 tokens、音声出力 $9 / 100万 tokens",
       "Google 直販も 2026 年末まで同じ標準単価（2027 年から 2 倍予定）",
+      "今回の実課金ベースで約 $0.017 / 分",
     ],
     note: "24 kHz・16 bit・モノラルの PCM を WAV で受け取り、配信用に AAC に変換。モデル ID は google/gemini-3.8-flash-tts。",
     sourceUrl: "https://openrouter.ai/google/gemini-3.8-flash-tts",
@@ -53,7 +55,7 @@ export const samples: Sample[] = [
     bytes: 290062,
     pricing: [
       "無料モデル s2.1-pro-free: $0（2026-11-30 までの期間限定、Fair Use・SLA なし）",
-      "通常の S2.1 Pro: $15 / 100万 UTF-8 bytes",
+      "通常の S2.1 Pro: $15 / 100万 UTF-8 bytes。この台本のペースで約 $0.014 / 分",
     ],
     note: "公式 API で無料モデルを明示指定して生成。Fish が権利を確保した（licensed=true の）日本語話者。入力は 286 UTF-8 bytes。",
     sourceUrl:
@@ -69,7 +71,7 @@ export const samples: Sample[] = [
     bytes: 226301,
     pricing: [
       "ソフトウェア・話者モデルの利用料は ¥0（PC・電力などの計算資源は別）",
-      "参考: Aivis Cloud API は 440 円 / 1万文字（税込）、今回は未使用",
+      "参考: Aivis Cloud API は 440 円 / 1万文字（税込、今回は未使用）。この台本のペースで約 12.6 円 / 分",
     ],
     note: "この Mac の CPU でローカル生成（推論ログ 8.48 秒。インストール・モデルダウンロードの時間は含まない）。話者モデルは ACML 1.0 で、クレジットは任意。",
     sourceUrl: "https://aivis-project.com/AivisSpeech",
@@ -86,6 +88,7 @@ export const samples: Sample[] = [
     pricing: [
       "OpenRouter: 入力 $0.50 / 100万 tokens、音声出力 $6 / 100万 tokens",
       "Google 直販も 2026 年末まで同じ標準単価（2027 年から 2 倍予定）",
+      "今回の実課金ベースで約 $0.012 / 分",
     ],
     note: "Flash と同じ話者・台本。モデル ID は google/gemini-3.8-flash-lite-tts。PCM を配信用に AAC に変換。",
     sourceUrl: "https://openrouter.ai/google/gemini-3.8-flash-lite-tts",
