@@ -36,7 +36,13 @@ export function SampleGrid() {
           <p className="tts-model">
             {s.model} / {s.voice}
           </p>
-          <audio controls preload="none" src={s.src} />
+          <audio
+            controls
+            preload="none"
+            src={s.src}
+            aria-label={`${s.provider} ${s.model} ${s.voice} の試聴音声`}
+            type={s.src.endsWith(".mp3") ? "audio/mpeg" : "audio/mp4"}
+          />
           <p className="tts-meta">
             {formatSeconds(s.seconds)} · {formatBytes(s.bytes)} ·{" "}
             <a href={s.src} download>
@@ -45,6 +51,7 @@ export function SampleGrid() {
           </p>
           <div className="tts-cost">
             <strong>{s.cost}</strong>
+            <span className="tts-checked">料金は 2026-10-03 に公式ページで確認</span>
             <ul>
               {s.pricing.map((p) => (
                 <li key={p}>{p}</li>

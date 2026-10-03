@@ -65,3 +65,9 @@
   display: block;
   margin-top: var(--spacing-xs);
 }
+
+.tts-checked {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted-foreground);
+}

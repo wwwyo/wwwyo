@@ -140,7 +140,7 @@ export const samples: Sample[] = [
       "ソフトウェア利用料 ¥0（計算資源は別）",
       "各話者の利用規約に従い、クレジット表記が必要",
     ],
-    note: "非公式 Web デモ（speed 1 / pitch 0 / intonation 1）で生成。デモ側が入力のハイフンを除去するため、この音声では「ASDSTE100」と読んでいる。WAV を配信用に AAC に変換。",
+    note: "非公式 Web デモ https://voicevox.su-shiki.com/simple/ で生成（speed 1 / pitch 0 / intonation 1）。デモ側が入力のハイフンを除去するため、この音声では「ASDSTE100」と読んでいる。リンク先の公式サイトとは別物。WAV を配信用に AAC に変換。",
     sourceUrl: "https://voicevox.hiroshiba.jp/",
     credit: "VOICEVOX:四国めたん",
   },
