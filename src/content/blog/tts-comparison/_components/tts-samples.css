@@ -2,12 +2,11 @@
    この CSS は tts-comparison のページにだけ読み込まれる） */
 .page:has(.tts-grid) {
   max-width: 80rem;
-  padding: 0 var(--spacing-lg);
 }
 
 .tts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
   gap: var(--spacing-lg);
   margin: var(--spacing-md) 0;
 }
