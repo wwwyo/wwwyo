@@ -56,6 +56,7 @@ export function SampleGrid() {
               ))}
             </ul>
           </div>
+          {s.credit && <p className="tts-meta tts-credit">{s.credit}</p>}
         </article>
       ))}
     </div>
