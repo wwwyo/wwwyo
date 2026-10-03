@@ -1,6 +1,12 @@
+/* この記事だけコンテンツ幅を広げる（カードを複数列で見せるため。
+   この CSS は tts-comparison のページにだけ読み込まれる） */
+.page:has(.tts-grid) {
+  max-width: 64rem;
+}
+
 .tts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: var(--spacing-md);
   margin: var(--spacing-md) 0;
 }
