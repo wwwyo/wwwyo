@@ -29,10 +29,7 @@ export function SampleGrid() {
     <div className="tts-grid" onPlayCapture={pauseOthers}>
       {samples.map((s) => (
         <article className="tts-card" key={s.src}>
-          <h3>
-            {s.provider}
-            {s.favorite && <span className="tts-fav">筆者のお気に入り</span>}
-          </h3>
+          <h3>{s.provider}</h3>
           <p className="tts-model">
             {s.model} / {s.voice}
           </p>

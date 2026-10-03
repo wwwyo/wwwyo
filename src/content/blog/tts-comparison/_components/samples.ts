@@ -7,7 +7,6 @@ type Sample = {
   bytes: number;
   pricing: string[];
   credit?: string;
-  favorite?: boolean;
 };
 
 export const samples: Sample[] = [
@@ -24,10 +23,9 @@ export const samples: Sample[] = [
       "TTS は 1 credit / 文字。この台本のペースで約 287 credits / 分",
     ],
     credit: "Generated with ElevenLabs",
-    favorite: true,
   },
   {
-    provider: "Google（OpenRouter 経由）",
+    provider: "Google",
     model: "Gemini 3.8 Flash TTS",
     voice: "Kore",
     src: "/audio/tts-comparison/gemini-kore.m4a",
@@ -38,7 +36,6 @@ export const samples: Sample[] = [
       "Google 直販も 2026 年末まで同じ標準単価（2027 年から 2 倍予定）",
       "今回の実課金ベースで約 $0.017 / 分",
     ],
-    favorite: true,
   },
   {
     provider: "Fish Audio",
@@ -51,7 +48,6 @@ export const samples: Sample[] = [
       "無料モデル s2.1-pro-free: $0（2026-11-30 までの期間限定、Fair Use・SLA なし）",
       "通常の S2.1 Pro: $15 / 100万 UTF-8 bytes。この台本のペースで約 $0.014 / 分",
     ],
-    favorite: true,
   },
   {
     provider: "Aivis Project",
@@ -65,10 +61,9 @@ export const samples: Sample[] = [
       "参考: Aivis Cloud API は 440 円 / 1万文字（税込、今回は未使用）。この台本のペースで約 12.6 円 / 分",
     ],
     credit: "AivisSpeech: まお",
-    favorite: true,
   },
   {
-    provider: "Google（OpenRouter 経由）",
+    provider: "Google",
     model: "Gemini 3.8 Flash Lite TTS",
     voice: "Kore",
     src: "/audio/tts-comparison/gemini-lite-kore.m4a",
