@@ -58,7 +58,7 @@ export const samples: Sample[] = [
     bytes: 226301,
     pricing: [
       "ソフトウェア・話者モデルの利用料は ¥0（PC・電力などの計算資源は別）",
-      "参考: Aivis Cloud API は 440 円 / 1万文字（税込、今回は未使用）。この台本のペースで約 12.6 円 / 分",
+      "参考: Aivis Cloud API は 440 円 / 1万文字（税込、今回は未使用）。この台本のペースで約 14.6 円 / 分",
     ],
     credit: "AivisSpeech: まお",
   },
