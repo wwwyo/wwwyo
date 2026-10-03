@@ -81,3 +81,13 @@
   color: var(--primary);
   margin-bottom: var(--spacing-xs);
 }
+
+@media (max-width: 480px) {
+  .tts-grid {
+    gap: var(--spacing-md);
+  }
+
+  .tts-card {
+    padding: var(--spacing-md);
+  }
+}
