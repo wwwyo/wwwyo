@@ -22,7 +22,6 @@ export const samples: Sample[] = [
       "Starter: $6 / 月、30,000 credits。Creator: $22 / 月、121,000 credits（税別・月払い）",
       "TTS は 1 credit / 文字。この台本のペースで約 287 credits / 分",
     ],
-    credit: "Generated with ElevenLabs",
   },
   {
     provider: "Google",
