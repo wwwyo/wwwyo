@@ -5,7 +5,6 @@ type Sample = {
   src: string;
   seconds: number;
   bytes: number;
-  cost: string;
   pricing: string[];
   note: string;
   sourceUrl: string;
@@ -21,7 +20,6 @@ export const samples: Sample[] = [
     src: "/audio/tts-comparison/elevenlabs-otani.mp3",
     seconds: 21.315875,
     bytes: 357992,
-    cost: "今回の生成: Web 版 Free クレジット枠",
     pricing: [
       "Free: $0 / 月、10,000 credits（非商用のみ）",
       "Starter: $6 / 月、30,000 credits。Creator: $22 / 月、121,000 credits（税別・月払い）",
@@ -38,7 +36,6 @@ export const samples: Sample[] = [
     src: "/audio/tts-comparison/gemini-kore.m4a",
     seconds: 19.712,
     bytes: 161341,
-    cost: "今回の実課金: $0.0056985（OpenRouter 記録）",
     pricing: [
       "OpenRouter: 入力 $0.50 / 100万 tokens、音声出力 $9 / 100万 tokens",
       "Google 直販も 2026 年末まで同じ標準単価（2027 年から 2 倍予定）",
@@ -54,7 +51,6 @@ export const samples: Sample[] = [
     src: "/audio/tts-comparison/fish-s2.1-pro-satoru.mp3",
     seconds: 18.128875,
     bytes: 290062,
-    cost: "今回の実課金: $0",
     pricing: [
       "無料モデル s2.1-pro-free: $0（2026-11-30 までの期間限定、Fair Use・SLA なし）",
       "通常の S2.1 Pro: $15 / 100万 UTF-8 bytes",
@@ -71,7 +67,6 @@ export const samples: Sample[] = [
     src: "/audio/tts-comparison/aivisspeech-mao.m4a",
     seconds: 18.46,
     bytes: 226301,
-    cost: "今回の生成: ソフトウェア利用料 ¥0（ローカル CPU）",
     pricing: [
       "ソフトウェア・話者モデルの利用料は ¥0（PC・電力などの計算資源は別）",
       "参考: Aivis Cloud API は 440 円 / 1万文字（税込）、今回は未使用",
@@ -88,7 +83,6 @@ export const samples: Sample[] = [
     src: "/audio/tts-comparison/gemini-lite-kore.m4a",
     seconds: 19.627,
     bytes: 160650,
-    cost: "今回の実課金: $0.0037965（OpenRouter 記録）",
     pricing: [
       "OpenRouter: 入力 $0.50 / 100万 tokens、音声出力 $6 / 100万 tokens",
       "Google 直販も 2026 年末まで同じ標準単価（2027 年から 2 倍予定）",
@@ -103,7 +97,6 @@ export const samples: Sample[] = [
     src: "/audio/tts-comparison/qwen3-tts-ono-anna.m4a",
     seconds: 18.518,
     bytes: 151672,
-    cost: "今回の生成: 公式デモで ¥0",
     pricing: [
       "公開モデルのローカル実行: 利用料 ¥0（計算資源の費用は別）",
       "公式 Hugging Face デモは無料だが待ち時間・GPU 制限あり",
@@ -118,7 +111,6 @@ export const samples: Sample[] = [
     src: "/audio/tts-comparison/style-bert-vits2-amitaro.m4a",
     seconds: 16.671995,
     bytes: 204538,
-    cost: "今回の生成: 作者の公式デモで ¥0",
     pricing: [
       "公開ソフトウェアのローカル実行: 利用料 ¥0（計算資源・話者モデルの条件は別）",
       "公開デモは 1 行 50 文字までの制限あり",
@@ -135,7 +127,6 @@ export const samples: Sample[] = [
     src: "/audio/tts-comparison/voicevox-metan.m4a",
     seconds: 16.982,
     bytes: 139240,
-    cost: "今回の生成: ¥0（非公式 Web デモ）",
     pricing: [
       "ソフトウェア利用料 ¥0（計算資源は別）",
       "各話者の利用規約に従い、クレジット表記が必要",

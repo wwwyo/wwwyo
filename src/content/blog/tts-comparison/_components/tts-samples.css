@@ -66,12 +66,6 @@
   margin-top: var(--spacing-xs);
 }
 
-.tts-checked {
-  display: block;
-  margin-top: 2px;
-  color: var(--muted-foreground);
-}
-
 .tts-script {
   border: 1px solid var(--primary);
   border-radius: var(--rounded-code);

@@ -53,8 +53,6 @@ export function SampleGrid() {
             </a>
           </p>
           <div className="tts-cost">
-            <strong>{s.cost}</strong>
-            <span className="tts-checked">料金は 2026-10-03 に公式ページで確認</span>
             <ul>
               {s.pricing.map((p) => (
                 <li key={p}>{p}</li>
