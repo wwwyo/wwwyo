@@ -59,11 +59,7 @@ export function SampleGrid() {
               ))}
             </ul>
           </div>
-          <p className="tts-meta">{s.note}</p>
-          <p className="tts-meta">
-            <a href={s.sourceUrl}>公式の料金・利用条件</a>
-            {s.credit && <span className="tts-credit">{s.credit}</span>}
-          </p>
+          {s.credit && <p className="tts-meta tts-credit">{s.credit}</p>}
         </article>
       ))}
     </div>

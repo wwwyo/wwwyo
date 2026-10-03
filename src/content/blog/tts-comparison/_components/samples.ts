@@ -6,8 +6,6 @@ type Sample = {
   seconds: number;
   bytes: number;
   pricing: string[];
-  note: string;
-  sourceUrl: string;
   credit?: string;
   favorite?: boolean;
 };
@@ -25,8 +23,6 @@ export const samples: Sample[] = [
       "Starter: $6 / 月、30,000 credits。Creator: $22 / 月、121,000 credits（税別・月払い）",
       "TTS は 1 credit / 文字。この台本のペースで約 287 credits / 分",
     ],
-    note: "Web UI で生成した Take 1。API では無料プランがライブラリ音声を使えず（402 paid_plan_required）、今回の音声は Web 版のもの。",
-    sourceUrl: "https://elevenlabs.io/pricing",
     credit: "Generated with ElevenLabs",
     favorite: true,
   },
@@ -42,8 +38,6 @@ export const samples: Sample[] = [
       "Google 直販も 2026 年末まで同じ標準単価（2027 年から 2 倍予定）",
       "今回の実課金ベースで約 $0.017 / 分",
     ],
-    note: "24 kHz・16 bit・モノラルの PCM を WAV で受け取り、配信用に AAC に変換。モデル ID は google/gemini-3.8-flash-tts。",
-    sourceUrl: "https://openrouter.ai/google/gemini-3.8-flash-tts",
     favorite: true,
   },
   {
@@ -57,9 +51,6 @@ export const samples: Sample[] = [
       "無料モデル s2.1-pro-free: $0（2026-11-30 までの期間限定、Fair Use・SLA なし）",
       "通常の S2.1 Pro: $15 / 100万 UTF-8 bytes。この台本のペースで約 $0.014 / 分",
     ],
-    note: "公式 API で無料モデルを明示指定して生成。Fish が権利を確保した（licensed=true の）日本語話者。入力は 286 UTF-8 bytes。",
-    sourceUrl:
-      "https://docs.fish.audio/developer-guide/models-pricing/pricing-and-rate-limits",
     favorite: true,
   },
   {
@@ -73,8 +64,6 @@ export const samples: Sample[] = [
       "ソフトウェア・話者モデルの利用料は ¥0（PC・電力などの計算資源は別）",
       "参考: Aivis Cloud API は 440 円 / 1万文字（税込、今回は未使用）。この台本のペースで約 12.6 円 / 分",
     ],
-    note: "この Mac の CPU でローカル生成（推論ログ 8.48 秒。インストール・モデルダウンロードの時間は含まない）。話者モデルは ACML 1.0 で、クレジットは任意。",
-    sourceUrl: "https://aivis-project.com/AivisSpeech",
     credit: "AivisSpeech: まお",
     favorite: true,
   },
@@ -90,8 +79,6 @@ export const samples: Sample[] = [
       "Google 直販も 2026 年末まで同じ標準単価（2027 年から 2 倍予定）",
       "今回の実課金ベースで約 $0.012 / 分",
     ],
-    note: "Flash と同じ話者・台本。モデル ID は google/gemini-3.8-flash-lite-tts。PCM を配信用に AAC に変換。",
-    sourceUrl: "https://openrouter.ai/google/gemini-3.8-flash-lite-tts",
   },
   {
     provider: "Alibaba",
@@ -104,8 +91,6 @@ export const samples: Sample[] = [
       "公開モデルのローカル実行: 利用料 ¥0（計算資源の費用は別）",
       "公式 Hugging Face デモは無料だが待ち時間・GPU 制限あり",
     ],
-    note: "公式 Hugging Face デモで生成（バックエンド報告 27.347 秒。表示までの待ち時間とは別）。WAV を配信用に AAC に変換。",
-    sourceUrl: "https://github.com/QwenLM/Qwen3-TTS",
   },
   {
     provider: "litagin",
@@ -118,8 +103,6 @@ export const samples: Sample[] = [
       "公開ソフトウェアのローカル実行: 利用料 ¥0（計算資源・話者モデルの条件は別）",
       "公開デモは 1 行 50 文字までの制限あり",
     ],
-    note: "作者の公開デモで生成。文字数制限のため台本を 3 行に分け、行間に 0.5 秒の無音が入る。WAV を配信用に AAC に変換。",
-    sourceUrl: "https://github.com/litagin02/Style-Bert-VITS2",
     credit:
       "Style-BertVITS2モデル: あみたろ、あみたろの声素材工房 (https://amitaro.net/)",
   },
@@ -134,8 +117,6 @@ export const samples: Sample[] = [
       "ソフトウェア利用料 ¥0（計算資源は別）",
       "各話者の利用規約に従い、クレジット表記が必要",
     ],
-    note: "非公式 Web デモ https://voicevox.su-shiki.com/simple/ で生成（speed 1 / pitch 0 / intonation 1）。デモ側が入力のハイフンを除去するため、この音声では「ASDSTE100」と読んでいる。リンク先の公式サイトとは別物。WAV を配信用に AAC に変換。",
-    sourceUrl: "https://voicevox.hiroshiba.jp/",
     credit: "VOICEVOX:四国めたん",
   },
 ];
