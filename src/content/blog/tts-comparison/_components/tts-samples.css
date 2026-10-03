@@ -71,3 +71,22 @@
   margin-top: 2px;
   color: var(--muted-foreground);
 }
+
+.tts-script {
+  border: 1px solid var(--primary);
+  border-radius: var(--rounded-code);
+  background: color-mix(in srgb, var(--primary) 7%, var(--background));
+  padding: var(--spacing-md);
+  margin: var(--spacing-md) 0;
+}
+
+.tts-script p {
+  margin: 0;
+}
+
+.tts-script-label {
+  font-size: var(--font-size-mono);
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: var(--spacing-xs);
+}
