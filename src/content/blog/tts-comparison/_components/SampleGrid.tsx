@@ -1,4 +1,3 @@
-import { useEffect, useRef } from "react";
 import "./tts-samples.css";
 import { samples } from "./samples";
 
@@ -15,24 +14,19 @@ function formatSeconds(seconds: number): string {
  * hydration 後は play イベントを捕捉し、同時に鳴る音声を 1 本に絞る。
  */
 export function SampleGrid() {
-  const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const root = ref.current;
-    if (!root) return;
-    const onPlay = (event: Event) => {
-      const current = event.target;
-      if (!(current instanceof HTMLAudioElement)) return;
-      for (const audio of root.querySelectorAll("audio")) {
-        if (audio !== current) audio.pause();
-      }
-    };
-    root.addEventListener("play", onPlay, true);
-    return () => root.removeEventListener("play", onPlay, true);
-  }, []);
+  // play はバブルしないイベントなので、React はリスナーを各 audio 要素に直接張る。
+  // event.currentTarget は div ではなく audio を指すため、グリッドは closest で引く
+  const pauseOthers = (event: React.SyntheticEvent<HTMLDivElement>) => {
+    const current = event.target;
+    if (!(current instanceof HTMLAudioElement)) return;
+    for (const audio of current.closest(".tts-grid")?.querySelectorAll("audio") ??
+      []) {
+      if (audio !== current) audio.pause();
+    }
+  };
 
   return (
-    <div className="tts-grid" ref={ref}>
+    <div className="tts-grid" onPlayCapture={pauseOthers}>
       {samples.map((s) => (
         <article className="tts-card" key={s.src}>
           <h3>

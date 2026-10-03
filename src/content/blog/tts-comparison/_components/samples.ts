@@ -1,4 +1,4 @@
-export type Sample = {
+type Sample = {
   provider: string;
   model: string;
   voice: string;
