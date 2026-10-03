@@ -39,10 +39,13 @@ export function SampleGrid() {
           <audio
             controls
             preload="none"
-            src={s.src}
             aria-label={`${s.provider} ${s.model} ${s.voice} の試聴音声`}
-            type={s.src.endsWith(".mp3") ? "audio/mpeg" : "audio/mp4"}
-          />
+          >
+            <source
+              src={s.src}
+              type={s.src.endsWith(".mp3") ? "audio/mpeg" : "audio/mp4"}
+            />
+          </audio>
           <p className="tts-meta">
             {formatSeconds(s.seconds)} · {formatBytes(s.bytes)} ·{" "}
             <a href={s.src} download>
