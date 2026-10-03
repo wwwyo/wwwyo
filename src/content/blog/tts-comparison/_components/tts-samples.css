@@ -2,6 +2,7 @@
    この CSS は tts-comparison のページにだけ読み込まれる） */
 .page:has(.tts-grid) {
   max-width: 80rem;
+  padding: 0 var(--spacing-lg);
 }
 
 .tts-grid {
