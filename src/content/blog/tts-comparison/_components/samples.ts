@@ -99,7 +99,7 @@ export const samples: Sample[] = [
   },
   {
     provider: "VOICEVOX Project",
-    model: "VOICEVOX（engine version 未確認）",
+    model: "VOICEVOX",
     voice: "四国めたん ノーマル",
     src: "/audio/tts-comparison/voicevox-metan.m4a",
     seconds: 16.982,
