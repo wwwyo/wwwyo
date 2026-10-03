@@ -1,20 +1,20 @@
 /* この記事だけコンテンツ幅を広げる（カードを複数列で見せるため。
    この CSS は tts-comparison のページにだけ読み込まれる） */
 .page:has(.tts-grid) {
-  max-width: 64rem;
+  max-width: 80rem;
 }
 
 .tts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: var(--spacing-md);
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--spacing-lg);
   margin: var(--spacing-md) 0;
 }
 
 .tts-card {
   border: 1px solid var(--border);
   border-radius: var(--rounded-code);
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg);
 }
 
 .tts-card h3 {
