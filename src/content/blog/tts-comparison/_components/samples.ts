@@ -6,7 +6,6 @@ type Sample = {
   seconds: number;
   bytes: number;
   pricing: string[];
-  credit?: string;
 };
 
 export const samples: Sample[] = [
@@ -59,7 +58,6 @@ export const samples: Sample[] = [
       "ソフトウェア・話者モデルの利用料は ¥0（PC・電力などの計算資源は別）",
       "参考: Aivis Cloud API は 440 円 / 1万文字（税込、今回は未使用）。この台本のペースで約 14.6 円 / 分",
     ],
-    credit: "AivisSpeech: まお",
   },
   {
     provider: "Google",
@@ -97,8 +95,7 @@ export const samples: Sample[] = [
       "公開ソフトウェアのローカル実行: 利用料 ¥0（計算資源・話者モデルの条件は別）",
       "公開デモは 1 行 50 文字までの制限あり",
     ],
-    credit:
-      "Style-BertVITS2モデル: あみたろ、あみたろの声素材工房 (https://amitaro.net/)",
+
   },
   {
     provider: "VOICEVOX Project",
@@ -111,6 +108,5 @@ export const samples: Sample[] = [
       "ソフトウェア利用料 ¥0（計算資源は別）",
       "各話者の利用規約に従い、クレジット表記が必要",
     ],
-    credit: "VOICEVOX:四国めたん",
   },
 ];

@@ -58,11 +58,6 @@
   padding-left: 1.25em;
 }
 
-.tts-credit {
-  display: block;
-  margin-top: var(--spacing-xs);
-}
-
 .tts-script {
   border: 1px solid var(--primary);
   border-radius: var(--rounded-code);
