@@ -50,10 +50,13 @@ bun run dev    # 開発サーバー
 bun run deploy # ビルド + Cloudflare Workers へ deploy
 ```
 
+- **main への merge = 即 deploy**: `.github/workflows/deploy.yml` が main push で `bun run deploy` を実行する。merge はそのまま本番公開なので、merge 前の確認（規約・クレジット表記などの公開条件）が実質の公開ゲート
+
 ## 技術スタック
 
 - Bun
 - Astro + MDX + React（`@astrojs/react`。island は `client:visible` を基本にする）
+- **island の描画確認は agent-browser**: Orca 内蔵ブラウザでは IntersectionObserver 依存の `client:visible` island の hydration が観測できない（scroll しても screenshot が空白のまま）。island の見た目の検証は Orca 優先の例外として agent-browser に fallback する
 - Tailwind CSS v4
 - Cloudflare Workers static assets（Wrangler で deploy、custom domain: wwwyo.dev）
 
