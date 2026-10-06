@@ -12,7 +12,7 @@ const skillPackageCommand = "mkdir -p .agents/skills\nskillctrl add wwwyo/skillc
 const installMethods = [
   { name: "mise", note: "Run in your target Git repository.", command: "mise use --path ./mise.toml github:wwwyo/skillctrl@latest\nmise exec -- skillctrl --help" },
   { name: "Homebrew", note: "Install from the wwwyo tap.", command: "brew tap wwwyo/tap\nbrew install wwwyo/tap/skillctrl\nskillctrl --help" },
-  { name: "Go", note: "Install with your existing Go toolchain. Keep the installation directory on PATH for later commands.", command: "go install github.com/wwwyo/skillctrl@latest\nskillctrl_bin=$(go env GOBIN)\n\"${skillctrl_bin:-$(go env GOPATH)/bin}/skillctrl\" --help" },
+  { name: "Go", note: "Install with your existing Go toolchain. Keep the installation directory on PATH for later commands.", command: "go install github.com/wwwyo/skillctrl@latest\nskillctrl_bin=$(go env GOBIN)\nskillctrl_gopath=$(go env GOPATH)\n\"${skillctrl_bin:-${skillctrl_gopath%%:*}/bin}/skillctrl\" --help" },
 ];
 ---
 
