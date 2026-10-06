@@ -9,6 +9,10 @@ const description = "Install and customize agent skills for your project. Keep y
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const setupPrompt = "Read https://raw.githubusercontent.com/wwwyo/skillctrl/main/docs/start.md and install the skillctrl CLI and skill in this repository.";
 const skillPackageCommand = "mkdir -p .agents/skills\nskillctrl add wwwyo/skillctrl:skillctrl";
+const adaptationExamples = [
+  { title: "Make it fit", source: "Upstream skill", sourceLast: "Suggest fixes.", resultLast: "Suggested fixes.", updated: false, benefit: "Shorter instructions. Your own checks." },
+  { title: "Keep it yours", source: "New upstream version", sourceLast: "Check security risks.", resultLast: "Security checks.", updated: true, benefit: "New improvements. The same project rules." },
+];
 const installMethods = [
   { name: "mise", note: "Install the CLI globally.", command: "mise use --global github:wwwyo/skillctrl@latest\nmise exec -- skillctrl --help" },
   { name: "Homebrew", note: "Install from the wwwyo tap.", command: "brew tap wwwyo/tap\nbrew install wwwyo/tap/skillctrl\nskillctrl --help" },
@@ -85,18 +89,48 @@ const installMethods = [
           <li>Your editor. Your agent.</li>
         </ul>
 
-        <section class="sc-features sc-section" aria-labelledby="features-title">
-          <div class="sc-section-copy">
-            <h2 id="features-title">Made for<br />your project.</h2>
-            <p>Keep upstream originals and the intent behind your edits. Your existing agent uses both to adapt updates to your rules.</p>
+        <section class="sc-explainer" aria-labelledby="features-title">
+          <div class="sc-explainer-heading">
+            <h2 id="features-title">Your rules.<br />New originals.</h2>
+            <p>Your agent adapts skills using the upstream original and your saved intent.</p>
           </div>
-          <ul class="sc-feature-list">
-            <li><h3>Your rules</h3><p>Use your project’s conventions and checks.</p></li>
-            <li><h3>Customizations that last</h3><p>Get upstream improvements while keeping your requirements.</p></li>
-            <li><h3>One entrypoint</h3><p>Combine several skills into a single workflow.</p></li>
-            <li><h3>Visible changes</h3><p>See what changed since you last accepted a customized skill.</p></li>
-            <li><h3>Automated upkeep</h3><p>Use <a class="sc-text-link" href={`${repo}/blob/main/.agents/skills/skillctrl/references/ci.md`}>CI and scheduled workflows <span aria-hidden="true">↗</span></a> with your agent.</p></li>
-          </ul>
+          <p id="sc-example-note" class="sc-example-label">Example: a review skill</p>
+          <div class="sc-adaptations">
+            {adaptationExamples.map((example) => (
+              <figure class="sc-adaptation" aria-describedby="sc-example-note">
+                <figcaption><h3>{example.title}</h3></figcaption>
+                <div class="sc-adaptation-inputs">
+                  <div class="sc-document">
+                    <p class="sc-document-label">{example.source}</p>
+                    <ul><li>Review code.</li><li>Explain every finding.</li><li class:list={{ "sc-new": example.updated }}>{example.sourceLast}{example.updated && <small>new</small>}</li></ul>
+                  </div>
+                  <div class="sc-document sc-intent-document">
+                    <p class="sc-document-label">Saved intent{example.updated && <small>unchanged</small>}</p>
+                    <ul><li>Keep reviews concise.</li><li>Require tests.</li></ul>
+                  </div>
+                </div>
+                <div class="sc-branches" aria-hidden="true"><span></span><span></span></div>
+                <div class="sc-agent-connector"><span>Your agent adapts</span><span aria-hidden="true">↓</span></div>
+                <div class="sc-document sc-result-document">
+                  <p class="sc-document-label">Your skill</p>
+                  <ul><li class="sc-kept">Concise reviews.</li><li class="sc-kept">Required tests.</li><li class:list={{ "sc-new": example.updated }}>{example.resultLast}{example.updated && <small>new</small>}</li></ul>
+                </div>
+                <p class="sc-visual-benefit">{example.benefit}</p>
+              </figure>
+            ))}
+          </div>
+          <div class="sc-maintenance">
+            <figure>
+              <figcaption><h3>Visible changes</h3></figcaption>
+              <div class="sc-mini-flow"><span>Local edit</span><span aria-hidden="true">→</span><code>check</code><span aria-hidden="true">→</span><strong>Drift reported</strong></div>
+              <p>See changes since you last accepted a customized skill.</p>
+            </figure>
+            <figure>
+              <figcaption><h3>Automated upkeep</h3></figcaption>
+              <div class="sc-mini-flow"><code>update</code><span aria-hidden="true">→</span><span>Your agent</span><span aria-hidden="true">→</span><strong>Draft PR</strong></div>
+              <a class="sc-text-link" href={`${repo}/blob/main/.agents/skills/skillctrl/references/ci.md`}>Schedule your workflow <span aria-hidden="true">↗</span></a>
+            </figure>
+          </div>
         </section>
 
         <section id="install" class="sc-install sc-section" aria-labelledby="install-title">

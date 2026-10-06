@@ -25,7 +25,7 @@
     },
     {
       "path": "src/styles/skillctrl.css",
-      "sha256": "5854b6ba87058d19826a7f84eacc60aa7710bbc922c4a0e650d42821ad34ebe4"
+      "sha256": "056a55a853617ceecc42b7b162569a3a329a924469f5963aa41e1c353dbb1218"
     },
     {
       "path": "tokens.css",
@@ -33,7 +33,7 @@
     },
     {
       "path": "src/pages/hobby/skillctrl/index.astro",
-      "sha256": "a74f0b51464d015446ac32306dd9b4ac0c18ab4e8caaa2c27dfe9f7eea3f49bd"
+      "sha256": "b7585bfeb18f00e4f5af9fc108d92be484515e42ee520ecf98f2179735d72fad"
     }
   ],
   "framework": "Astro",
