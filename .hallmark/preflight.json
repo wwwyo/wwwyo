@@ -1,0 +1,32 @@
+{
+  "date": "2026-10-06",
+  "scope": "skillctrl product homepage",
+  "override": "Independent design requested by user; site-wide system retained elsewhere.",
+  "sources": [
+    {
+      "path": "DESIGN.md",
+      "sha256": "d7b284978b2c149f62d9ef05f86597f73cd536743014335817b2ca11cbd4948d"
+    },
+    {
+      "path": "package.json",
+      "sha256": "25578996cb24bf8e27c8c141be8c4e924b6fd9e94af3c2942b2f438e81b8590e"
+    },
+    {
+      "path": "src/styles/global.css",
+      "sha256": "3ae5b3682c6fa7040c98961584829f3f058e9a08bcd802419da57b8d57aae4c8"
+    },
+    {
+      "path": "src/styles/uaplus.css",
+      "sha256": "82ead802d0b7586bd709dbc5093bfab7d4fe017c1814ac2dc69a8dedcdf005ee"
+    },
+    {
+      "path": "src/layouts/Base.astro",
+      "sha256": "404e6123cd5f754e1f24d830593924c54c94ecc7f083cbd74088b111965440ff"
+    }
+  ],
+  "framework": "Astro",
+  "motion": "none installed",
+  "existingFonts": "native sans + mono",
+  "existingPalette": "link blue on white / charcoal",
+  "spacing": "4pt"
+}

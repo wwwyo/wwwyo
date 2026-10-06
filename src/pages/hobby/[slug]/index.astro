@@ -4,7 +4,8 @@ import Base from "../../../layouts/Base.astro";
 import { hobbyProjects } from "../../../data/hobby";
 
 export function getStaticPaths() {
-  return hobbyProjects.map((project) => ({
+  // The product homepage owns the static skillctrl route.
+  return hobbyProjects.filter((project) => project.slug !== "skillctrl").map((project) => ({
     params: { slug: project.slug },
     props: { project },
   }));

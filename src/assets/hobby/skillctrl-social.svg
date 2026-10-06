@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630"><rect width="1200" height="630" fill="#f4fafb"/><g transform="translate(80 48) scale(.8)">  <g fill="none" stroke="#24292f" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M38 35 C33 31 18 30 16 39 C13 49 37 47 38 57 C39 68 22 71 15 64" />
+    <path d="M52 20 V68 M75 34 L52 51 L75 68" transform="translate(-2 0)" />
+    <path d="M89 35 H97 V68 M88 68 H106" transform="translate(-3 0)" />
+    <path d="M126 20 H133 V59 Q133 68 143 68" stroke="#087f8c" transform="translate(-14 0)" />
+    <path d="M162 20 H169 V59 Q169 68 179 68" stroke="#087f8c" transform="translate(-24 0)" />
+    <path d="M129 68 V72 Q129 78 135 78 H149 Q155 78 155 72 V68" stroke-width="3" stroke="#087f8c" />
+    <path d="M218 37 C204 25 191 35 191 51 C191 67 205 75 218 63" transform="translate(-27 0)" />
+    <path d="M233 35 H256 M243 23 V58 Q243 70 256 66" transform="translate(-31 0)" />
+    <path d="M270 68 V35 M270 47 Q277 31 291 35" transform="translate(-31 0)" />
+    <path d="M306 20 H313 V59 Q313 68 323 68" transform="translate(-36 0)" />
+    <path d="M97 21 V22" stroke-width="7.5" transform="translate(-3 0)" />
+  </g>
+</g><g font-family="Arial, sans-serif" font-size="98" font-weight="600" letter-spacing="-5"><text x="84" y="295" fill="#163237">Your skills.</text><text x="84" y="405" fill="#087f8c">Your intent.</text></g><text x="88" y="525" font-family="Arial, sans-serif" font-size="28" fill="#486166">Manage agent skills while preserving local intent.</text><path d="M925 182V317Q925 354 962 354M1050 182V317Q1050 354 1087 354" fill="none" stroke="#087f8c" stroke-width="20" stroke-linecap="round"/><path d="M945 354V379Q945 410 976 410H1055Q1086 410 1086 379V354" fill="none" stroke="#087f8c" stroke-width="6"/><text x="88" y="584" font-family="Arial, sans-serif" font-size="20" fill="#486166">wwwyo.dev/hobby/skillctrl</text></svg>
