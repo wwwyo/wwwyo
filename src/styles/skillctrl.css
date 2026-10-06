@@ -77,10 +77,9 @@ pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.
 .sc-intent-example blockquote { font-family: var(--sc-font-display); font-size: clamp(1.5rem, 2.4vw, 2rem); letter-spacing: -0.03em; line-height: 1.5; margin-block: var(--sc-space-lg); }
 .sc-intent-example > p { font-size: var(--sc-text-sm); color: var(--sc-muted); }
 .sc-workflow { border-top: var(--sc-rule-width) solid var(--sc-rule); }
-.sc-steps { list-style: none; margin: 0; padding: 0; counter-reset: steps; }
-.sc-steps li { position: relative; counter-increment: steps; padding-left: var(--sc-space-2xl); padding-block: var(--sc-space-lg); border-top: var(--sc-rule-width) solid var(--sc-rule); }
+.sc-steps { list-style: none; margin: 0; padding: 0; }
+.sc-steps li { padding-block: var(--sc-space-lg); border-top: var(--sc-rule-width) solid var(--sc-rule); }
 .sc-steps li:first-child { padding-top: 0; border-top: 0; }
-.sc-steps li::before { content: "0" counter(steps); position: absolute; left: 0; font-family: var(--sc-font-mono); color: var(--sc-muted); font-size: var(--sc-text-sm); }
 .sc-steps h3, .sc-boundaries h3, .sc-package h3, .sc-agent-setup h3 { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.03em; line-height: 1.4; }
 .sc-steps p { font-size: var(--sc-text-sm); color: var(--sc-muted); margin-top: var(--sc-space-sm); }
 .sc-steps pre { margin-top: var(--sc-space-md); color: var(--sc-accent); }
@@ -157,5 +156,4 @@ pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.
   .sc-sources small { font-size: 0.75rem; }
   .sc-output-name { font-size: 1.25rem; }
   .sc-output-note { font-size: 0.8125rem; }
-  .sc-steps li { padding-left: var(--sc-space-xl); }
 }

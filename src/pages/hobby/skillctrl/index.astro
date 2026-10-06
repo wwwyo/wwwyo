@@ -169,6 +169,7 @@ skillctrl check reviewer</code></pre></li>
             clearTimeout(timer);
             button.disabled = true;
             button.textContent = "Copying…";
+            if (status) status.textContent = "";
             try {
               await navigator.clipboard.writeText(button.dataset.copy!);
               button.textContent = "Copied ✓";
