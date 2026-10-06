@@ -5,12 +5,12 @@ import { hobbyProjects } from "../../../data/hobby";
 const project = hobbyProjects.find((project) => project.slug === "skillctrl")!;
 const repo = project.externalUrl!;
 const docs = `${repo}/blob/main/README.md`;
-const description = "Manage agent skills while preserving local intent. Import, combine, and update upstream skills with a Git-native Go CLI.";
+const description = "Install and customize agent skills for your project. Keep your rules through upstream updates.";
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const setupPrompt = "Read https://raw.githubusercontent.com/wwwyo/skillctrl/main/docs/start.md and install the skillctrl CLI and skill in this repository.";
 const skillPackageCommand = "mkdir -p .agents/skills\nskillctrl add wwwyo/skillctrl:skillctrl";
 const installMethods = [
-  { name: "mise", note: "Run in your target Git repository.", command: "mise use --path ./mise.toml github:wwwyo/skillctrl@latest\nmise exec -- skillctrl --help" },
+  { name: "mise", note: "Install the CLI globally.", command: "mise use --global github:wwwyo/skillctrl@latest\nmise exec -- skillctrl --help" },
   { name: "Homebrew", note: "Install from the wwwyo tap.", command: "brew tap wwwyo/tap\nbrew install wwwyo/tap/skillctrl\nskillctrl --help" },
   { name: "Go", note: "Install with your existing Go toolchain. Keep the installation directory on PATH for later commands.", command: "go install github.com/wwwyo/skillctrl@latest\nskillctrl_bin=$(go env GOBIN)\nskillctrl_gopath=$(go env GOPATH)\n\"${skillctrl_bin:-${skillctrl_gopath%%:*}/bin}/skillctrl\" --help" },
 ];
@@ -53,9 +53,9 @@ const installMethods = [
       <main id="main">
         <section class="sc-hero" aria-labelledby="hero-title">
           <div class="sc-hero-copy">
-            <p class="sc-product-type">A Git-native CLI for agent skills</p>
+            <p class="sc-product-type">Install and customize agent skills</p>
             <h1 id="hero-title">Your skills.<br /><span>Your intent.</span></h1>
-            <p class="sc-lead">Bring in upstream skills. Make them your own.<br class="sc-desktop-break" /> Keep the intent behind every change.</p>
+            <p class="sc-lead">Shorten instructions. Add your checks.<br class="sc-desktop-break" /> Combine skills into one workflow.</p>
             <div class="sc-actions">
               <a class="sc-button" href="#install">Get started <span aria-hidden="true">↓</span></a>
               <a class="sc-text-link" href={repo}>Explore the source <span aria-hidden="true">↗</span></a>
@@ -85,48 +85,29 @@ const installMethods = [
           <li>Your editor. Your agent.</li>
         </ul>
 
-        <section class="sc-intent sc-section" aria-labelledby="intent-title">
+        <section class="sc-features sc-section" aria-labelledby="features-title">
           <div class="sc-section-copy">
-            <h2 id="intent-title">Keep the reason.<br />Rework the instructions.</h2>
-            <p>An upstream update can make yesterday’s patch obsolete. Save what you want the skill to do, so you and your agent can adapt the new original with that intent in mind.</p>
-            <p>skillctrl tracks the originals and the content you’ve checked. You decide how the skill should change.</p>
+            <h2 id="features-title">Made for<br />your project.</h2>
+            <p>Keep upstream originals and the intent behind your edits. Your existing agent uses both to adapt updates to your rules.</p>
           </div>
-          <figure class="sc-intent-example">
-            <figcaption><code>.agents/skillctrl/intents/reviewer.md</code><span>An example of saved intent</span></figcaption>
-            <blockquote>“Keep review instructions concise. Require tests before completing code changes. Explain the tradeoffs behind a recommendation.”</blockquote>
-            <p>Intent is a requirement you can read and edit.<br />It stays alongside the skill, in Git.</p>
-          </figure>
-        </section>
-
-        <section class="sc-workflow sc-section" aria-labelledby="workflow-title">
-          <div class="sc-section-copy">
-            <h2 id="workflow-title">Every update.<br />A deliberate decision.</h2>
-            <p>Import an original, adapt it, check the result. When the source changes, review the new content against the same intent.</p>
-            <p class="sc-example-note">The commands below use a placeholder source. Choose an upstream skill you’ve inspected.</p>
-            <a class="sc-text-link" href={`${repo}/blob/main/docs/usage.md`}>Read the command guide <span aria-hidden="true">↗</span></a>
-          </div>
-          <ol class="sc-steps">
-            <li><div><h3>Bring in an original</h3><p>Import and register the upstream source.</p></div><pre><code>skillctrl add owner/repo:reviewer</code></pre></li>
-            <li><div><h3>Make it fit your project</h3><p>Save your intent. Edit and verify the skill with your editor or agent.</p></div><p class="sc-step-note">Your judgment belongs here.</p></li>
-            <li><div><h3>Record what you’ve checked</h3><p>Accept the complete skill directory explicitly. <code>check</code> reports hash drift; you review whether the skill meets its intent.</p></div><pre><code>skillctrl record reviewer
-skillctrl check reviewer</code></pre></li>
-            <li><div><h3>Bring in the next update</h3><p>If the original changes, adapt and verify it again before recording the result.</p></div><pre><code>skillctrl update reviewer</code></pre></li>
-          </ol>
-        </section>
-
-        <section class="sc-boundaries" aria-label="How skillctrl works">
-          <div><h3>Works in your repository</h3><p>Skills, intent, and source history live in Git. Commands work in the current repository and preserve unrelated edits.</p></div>
-          <div><h3>Works with your agent</h3><p>The included skill guides discovery, authoring, and maintenance. The CLI handles tracking; your existing agent handles the edits.</p></div>
+          <ul class="sc-feature-list">
+            <li><h3>Your rules</h3><p>Use your project’s conventions and checks.</p></li>
+            <li><h3>Customizations that last</h3><p>Get upstream improvements while keeping your requirements.</p></li>
+            <li><h3>One entrypoint</h3><p>Combine several skills into a single workflow.</p></li>
+            <li><h3>Visible changes</h3><p>See what changed since you last accepted a customized skill.</p></li>
+            <li><h3>Automated upkeep</h3><p>Use your agent in <a href={`${repo}/blob/main/.agents/skills/skillctrl/references/ci.md`}>CI review and scheduled updates</a>.</p></li>
+          </ul>
         </section>
 
         <section id="install" class="sc-install sc-section" aria-labelledby="install-title">
           <div class="sc-section-copy">
-            <h2 id="install-title">Put your skills<br />under your control.</h2>
-            <p>Install the CLI in your target Git repository, then add the skill package.</p>
-            <p class="sc-install-note">The default acquisition path uses a compatible <code>skills</code> CLI or pinned npx. Node.js and npm are needed for npx; GitHub CLI and Git adapters are also available.</p>
+            <h2 id="install-title">Get started.</h2>
+            <p>Give your agent this prompt in the target Git repository.</p>
+            <div class="sc-code-wrap sc-prompt"><pre><code>{setupPrompt}</code></pre><button class="sc-copy" type="button" data-copy={setupPrompt} aria-label="Copy agent setup prompt" hidden>Copy prompt</button></div>
             <a class="sc-text-link" href={`${repo}/blob/main/docs/start.md`}>Full setup guide <span aria-hidden="true">↗</span></a>
           </div>
           <div class="sc-install-content">
+            <h3 class="sc-manual-title">Or install manually</h3>
             <div class="sc-install-methods">
               {installMethods.map((method, index) => (
                 <details open={index === 0}>
@@ -140,16 +121,13 @@ skillctrl check reviewer</code></pre></li>
             </div>
             <div class="sc-package">
               <h3>Then add the skill</h3>
+              <p>From your Git repository, with a compatible <code>skills</code> CLI or Node.js/npm available:</p>
               <div class="sc-code-wrap"><pre><code>{skillPackageCommand}</code></pre><button class="sc-copy" type="button" data-copy={skillPackageCommand} aria-label="Copy skill package commands" hidden>Copy</button></div>
               <p>Using mise? Run the commands through <code>mise exec --</code>.</p>
             </div>
           </div>
         </section>
 
-        <section class="sc-agent-setup" aria-labelledby="agent-title">
-          <div><h3 id="agent-title">Or let your agent set it up.</h3><p>Give your agent this prompt in the repository where you want to manage skills.</p></div>
-          <div class="sc-code-wrap sc-prompt"><pre><code>{setupPrompt}</code></pre><button class="sc-copy" type="button" data-copy={setupPrompt} aria-label="Copy agent setup prompt" hidden>Copy prompt</button></div>
-        </section>
         <p class="sc-copy-status" role="status" aria-live="polite"></p>
       </main>
 
