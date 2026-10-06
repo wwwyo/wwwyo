@@ -8,6 +8,7 @@ const docs = `${repo}/blob/main/README.md`;
 const description = "Manage agent skills while preserving local intent. Import, combine, and update upstream skills with a Git-native Go CLI.";
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const setupPrompt = "Read https://raw.githubusercontent.com/wwwyo/skillctrl/main/docs/start.md and install the skillctrl CLI and skill in this repository.";
+const skillPackageCommand = "mkdir -p .agents/skills\nskillctrl add wwwyo/skillctrl:skillctrl";
 const installMethods = [
   { name: "mise", note: "Run in your target Git repository.", command: "mise use --path ./mise.toml github:wwwyo/skillctrl@latest\nmise exec -- skillctrl --help" },
   { name: "Homebrew", note: "Install from the wwwyo tap.", command: "brew tap wwwyo/tap\nbrew install wwwyo/tap/skillctrl\nskillctrl --help" },
@@ -139,8 +140,7 @@ skillctrl check reviewer</code></pre></li>
             </div>
             <div class="sc-package">
               <h3>Then add the skill</h3>
-              <div class="sc-code-wrap"><pre><code>mkdir -p .agents/skills
-skillctrl add wwwyo/skillctrl:skillctrl</code></pre><button class="sc-copy" type="button" data-copy={"mkdir -p .agents/skills\nskillctrl add wwwyo/skillctrl:skillctrl"} aria-label="Copy skill package commands" hidden>Copy</button></div>
+              <div class="sc-code-wrap"><pre><code>{skillPackageCommand}</code></pre><button class="sc-copy" type="button" data-copy={skillPackageCommand} aria-label="Copy skill package commands" hidden>Copy</button></div>
               <p>Using mise? Run the commands through <code>mise exec --</code>.</p>
             </div>
           </div>

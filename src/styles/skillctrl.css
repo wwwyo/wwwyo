@@ -153,7 +153,7 @@ pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.
 }
 @media (max-width: 374px) {
   .sc-header nav { gap: var(--sc-space-sm); }
-  .sc-hero h1 { font-size: 3.5rem; }
+  .sc-hero h1 { font-size: 3rem; }
   .sc-sources small { font-size: 0.75rem; }
   .sc-output-name { font-size: 1.25rem; }
   .sc-output-note { font-size: 0.8125rem; }
