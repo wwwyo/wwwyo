@@ -33,7 +33,7 @@
     },
     {
       "path": "src/pages/hobby/skillctrl/index.astro",
-      "sha256": "21a54f9ffcf5b65e6bf92c25ff82d37df45bdc896b7d24f658680b0cb6bfac16"
+      "sha256": "a74f0b51464d015446ac32306dd9b4ac0c18ab4e8caaa2c27dfe9f7eea3f49bd"
     }
   ],
   "framework": "Astro",
