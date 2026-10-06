@@ -1,0 +1,37 @@
+/* skillctrl product page tokens; imported only by its dedicated stylesheet. */
+:root {
+  --sc-paper: oklch(98% 0.006 205);
+  --sc-surface: oklch(95% 0.013 205);
+  --sc-ink: oklch(23% 0.026 205);
+  --sc-muted: oklch(45% 0.026 205);
+  --sc-rule: oklch(84% 0.018 205);
+  --sc-accent: oklch(48% 0.079 205);
+  --sc-accent-ink: oklch(99% 0.006 205);
+  --sc-focus: oklch(51% 0.12 285);
+  --sc-transparent: oklch(98% 0.006 205 / 0);
+  --sc-font-display: "Space Grotesk", "Arial", sans-serif;
+  --sc-font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", sans-serif;
+  --sc-font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --sc-text-sm: 0.875rem;
+  --sc-text-body: 1rem;
+  --sc-text-lead: clamp(1.0625rem, 1.25vw, 1.25rem);
+  --sc-text-display: clamp(3.5rem, 7.8vw, 6.75rem);
+  --sc-text-title: clamp(2rem, 3.8vw, 3.5rem);
+  --sc-space-xs: 0.25rem;
+  --sc-space-sm: 0.5rem;
+  --sc-space-md: 1rem;
+  --sc-space-lg: 1.5rem;
+  --sc-space-xl: 2rem;
+  --sc-space-2xl: 3rem;
+  --sc-space-3xl: 4rem;
+  --sc-space-4xl: 6rem;
+  --sc-width: 76rem;
+  --sc-gutter: clamp(1.25rem, 5vw, 4rem);
+  --sc-radius: 0.375rem;
+  --sc-rule-width: 1px;
+  --sc-control-height: 2.75rem;
+  --sc-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --sc-ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --sc-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --sc-duration: 150ms;
+}

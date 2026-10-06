@@ -1,4 +1,5 @@
 import type { ImageMetadata } from "astro";
+import skillctrlThumb from "../assets/hobby/skillctrl.svg";
 
 import arGamePoster from "../assets/hobby/ar-game-poster.png";
 import atcoder1 from "../assets/hobby/atcoder-1.png";
@@ -41,6 +42,15 @@ export interface HobbyProject {
 }
 
 export const hobbyProjects: HobbyProject[] = [
+  {
+    slug: "skillctrl",
+    title: "skillctrl",
+    period: "2026/10 -",
+    summary: "agent skill を導入し、プロジェクトのルールに合わせてカスタマイズする CLI。",
+    description: "指示の短縮、独自のチェック追加、複数 skill の統合に対応。原本と編集の意図を保存し、更新後もプロジェクトのルールを引き継げる。",
+    externalUrl: "https://github.com/wwwyo/skillctrl",
+    thumbnail: skillctrlThumb,
+  },
   {
     slug: "tools",
     title: "tools",
