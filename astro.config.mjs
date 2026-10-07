@@ -1,11 +1,40 @@
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
 
+// blog 記事の sitemap エントリに frontmatter の日付を lastmod として載せる。
+// Google は不正確な lastmod を無視するため、日付を持つ記事ページだけに付ける
+const blogLastmod = new Map(
+  readdirSync("src/content/blog", { withFileTypes: true }).flatMap((entry) => {
+    if (!entry.isDirectory() && !entry.name.endsWith(".mdx")) return [];
+    const file = entry.isDirectory()
+      ? `src/content/blog/${entry.name}/index.mdx`
+      : `src/content/blog/${entry.name}`;
+    if (!existsSync(file)) return [];
+    const frontmatter =
+      readFileSync(file, "utf8").match(/^---\n([\s\S]*?)\n---/)?.[1] ?? "";
+    const lastmod = (
+      frontmatter.match(/^updatedDate:\s*(.+)$/m)?.[1] ??
+      frontmatter.match(/^pubDate:\s*(.+)$/m)?.[1]
+    )?.trim();
+    return lastmod ? [[`/blog/${entry.name.replace(/\.mdx$/, "")}/`, lastmod]] : [];
+  }),
+);
+
 export default defineConfig({
   site: "https://wwwyo.dev",
-  integrations: [mdx(), react(), sitemap()],
+  integrations: [
+    mdx(),
+    react(),
+    sitemap({
+      serialize: (item) => {
+        const lastmod = blogLastmod.get(new URL(item.url).pathname);
+        return lastmod ? { ...item, lastmod } : item;
+      },
+    }),
+  ],
   build: {
     // island が import する CSS を inline <style> 化すると security.csp の
     // hash 生成から漏れてブロックされるため、常に外部ファイルで配信する
