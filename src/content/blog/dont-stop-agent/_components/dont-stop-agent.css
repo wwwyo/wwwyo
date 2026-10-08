@@ -2,11 +2,11 @@
    Hallmark · macrostructure: Scroll Poster · theme: supplied film poster
    Editorial poster · yellow paper, ink type, red accents · article-only variant. */
 html:has(.agent-story) {
-  --background: #ffc51b;
+  --background: #e5ce88;
   --foreground: #171610;
   --primary: #930d14;
-  --primary-foreground: #ffc51b;
-  --muted: #ffda63;
+  --primary-foreground: #e5ce88;
+  --muted: #eddfb7;
   --muted-foreground: #4b3815;
   --border: #171610;
   --poster-accent: #b4111b;
