@@ -1,0 +1,138 @@
+/* Hallmark · pre-emit critique: P4 H4 E4 S5 R4 V4
+   Hallmark · macrostructure: Scroll Poster · theme: supplied film poster
+   Editorial poster · yellow paper, ink type, red accents · article-only variant. */
+html:has(.agent-story) {
+  --background: #ffc51b;
+  --foreground: #171610;
+  --primary: #930d14;
+  --primary-foreground: #ffc51b;
+  --muted: #ffda63;
+  --muted-foreground: #4b3815;
+  --border: #171610;
+  --poster-accent: #b4111b;
+  --poster-display: "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+  overflow-x: clip;
+}
+
+body:has(.agent-story) {
+  overflow-x: clip;
+}
+
+html:has(.agent-story) .page {
+  max-width: 52rem;
+  padding-inline: clamp(24px, 6vw, 64px);
+}
+
+html:has(.agent-story) .site-header {
+  border-bottom: 2px solid var(--foreground);
+}
+
+html:has(.agent-story) .site-nav a {
+  color: var(--foreground);
+  white-space: nowrap;
+}
+
+html:has(.agent-story) .post-header {
+  position: relative;
+  padding: 28px 0 24px;
+  border-bottom: 8px solid var(--poster-accent);
+}
+
+html:has(.agent-story) .post-header::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  width: 48px;
+  height: 48px;
+  background: var(--poster-accent);
+  border-radius: 38% 52% 42% 49%;
+  box-shadow: 22px -13px 0 -17px var(--poster-accent),
+    -24px 10px 0 -19px var(--poster-accent),
+    30px 28px 0 -20px var(--poster-accent);
+}
+
+html:has(.agent-story) .post-header h1 {
+  position: relative;
+  min-width: 0;
+  max-width: 6.4em;
+  margin-bottom: 24px;
+  font-family: var(--poster-display);
+  font-size: clamp(36px, 8vw, 80px);
+  font-weight: 900;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: -0.06em;
+  overflow-wrap: anywhere;
+}
+
+html:has(.agent-story) .post-date {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.agent-story {
+  font-weight: 500;
+}
+
+.agent-story > p:first-child {
+  margin-top: 32px;
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.agent-story pre {
+  border: 2px solid var(--foreground);
+  border-radius: 0;
+  letter-spacing: 0;
+}
+
+.agent-story pre,
+.agent-story pre code {
+  font-size: clamp(12px, 3.5vw, 14px);
+}
+
+.agent-film {
+  margin: 32px 0;
+  padding: 16px 10px 0;
+  background: var(--foreground);
+  border-top: 10px dashed var(--background);
+  border-bottom: 10px dashed var(--background);
+}
+
+.agent-film img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.agent-film figcaption {
+  padding: 10px 0 12px;
+  color: var(--background);
+  font-size: 0.8rem;
+}
+
+.agent-source {
+  display: inline-block;
+  margin: 8px 0 16px;
+  padding: 10px 16px;
+  background: var(--foreground);
+  color: var(--background);
+  font-weight: 800;
+  text-decoration-color: var(--background);
+  white-space: nowrap;
+}
+
+.agent-source:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 4px;
+}
+
+@media (max-width: 380px) {
+  html:has(.agent-story) .post-header::before {
+    top: 0;
+    width: 24px;
+    height: 24px;
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,34 @@
+---
+title: "エージェントを止めるな！"
+description: "朝起きたら agent の task が止まっていたので、Mac のスリープ設定を1分ごとに確認するメニューバーツールを作った。"
+pubDate: 2026-10-08
+---
+
+import "./_components/dont-stop-agent.css";
+
+<div class="agent-story">
+
+朝起きると、昨晩 agent に頼んでおいた task が途中で止まっていた。絶望の朝。
+
+原因は、Mac のフタを閉じたときにスリープしていたこと。普段は [Amphetamine](https://apps.apple.com/us/app/amphetamine/id937984704) を使っているため、基本スリープしないはずなんだが、今回はなぜか止まっていた。
+
+これが定期的にあってストレスなので、スリープしない設定が有効かを1分ごとにチェックし、メニューバーに表示することにした。作ったのが [Sleep Status](https://github.com/wwwyo/sleep-status)。
+
+意外なことに、macOS 側でスリープが無効化されているかは、`SleepDisabled` というたった一つのプロパティで確認できた。
+
+```bash
+pmset -g | grep SleepDisabled
+```
+
+`SleepDisabled = 1` なら、本体のスリープが無効。`0` なら、この設定によるスリープ防止は OFF（他のアプリなどがスリープを防いでいる場合はある）。
+
+<figure class="agent-film">
+  <img src="/images/sleep-status/menu-preview.png" alt="Sleep Status のメニューを開いた表示例" width="1120" height="680" loading="lazy" />
+  <figcaption>メニューの表示例（再現）。</figcaption>
+</figure>
+
+Sleep Status は設定を変えず、状態を確認して表示するだけ。agent に長い task を頼む前に、メニューバーの「🟢 スリープ無効」を確認できるようになった。
+
+<a class="agent-source" href="https://github.com/wwwyo/sleep-status">Sleep Status を使う →</a>
+
+</div>
