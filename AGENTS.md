@@ -52,6 +52,11 @@ bun run deploy # ビルド + Cloudflare Workers へ deploy
 
 - **main への merge = 即 deploy**: `.github/workflows/deploy.yml` が main push で `bun run deploy` を実行する。merge はそのまま本番公開なので、merge 前の確認（規約・クレジット表記などの公開条件）が実質の公開ゲート
 
+## 運用
+
+- **本番への write は明示承認を得てから実行する**: Cloudflare zone 設定（`cf` CLI の write 操作）など repo の外に効く本番変更は、提案と実行を分ける。「指示があれば実行します」と保留した変更を、承認の無いまま次の turn で適用しない
+- **SEO・インデックス調査**: `.agents/skills/seo/` を参照（session-consolidate が維持）
+
 ## 技術スタック
 
 - Bun
