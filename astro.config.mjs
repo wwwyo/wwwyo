@@ -15,10 +15,15 @@ const blogLastmod = new Map(
     if (!existsSync(file)) return [];
     const frontmatter =
       readFileSync(file, "utf8").match(/^---\n([\s\S]*?)\n---/)?.[1] ?? "";
-    const lastmod = (
+    const raw = (
       frontmatter.match(/^updatedDate:\s*(.+)$/m)?.[1] ??
       frontmatter.match(/^pubDate:\s*(.+)$/m)?.[1]
     )?.trim();
+    // YAML スカラーの引用符・行末コメントを剥がしてから lastmod に載せる
+    const lastmod = raw
+      ?.split("#")[0]
+      .trim()
+      .replace(/^(['"])(.*)\1$/, "$2");
     return lastmod ? [[`/blog/${entry.name.replace(/\.mdx$/, "")}/`, lastmod]] : [];
   }),
 );
