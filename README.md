@@ -25,6 +25,6 @@ bun run build
 bun run test:e2e
 ```
 
-E2E はローカルサーバーを起動してブラウザで確認する。`OPENCODE_API_KEY`・`OPENCODE_E2E_MODEL` は mise の環境変数から渡す。
+E2E はローカルサーバーを起動してブラウザで確認する。OpenCode Go の API key と model ID が必要で、mise+age から渡す手順は [AGENTS.md](AGENTS.md#pullfrog) を参照する。
 
 main への merge は自動デプロイを伴う。構成・執筆ルール・運用の入口は [AGENTS.md](AGENTS.md)、設計判断は [docs/adr/](docs/adr/) を参照する。
