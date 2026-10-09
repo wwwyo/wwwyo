@@ -74,3 +74,9 @@ bun run deploy # ビルド + Cloudflare Workers へ deploy
 
 - exact ピン留め（`bunfig.toml` の `exact = true`）
 - mise の tool 追加は `mise use --pin --before 7d <tool>@latest`（supply-chain cooldown 7day）
+
+## Pullfrog
+
+設定の正本は [`.github/pullfrog.config.sh`](.github/pullfrog.config.sh)。初回レビューと追加コミットの再レビューは自動で行う。手動レビューも `@pullfrog` で依頼できる。
+
+ブラウザの E2E は `test:e2e` で実行する。`e2e.config.ts` がローカルサーバーを起動し、OpenCode Go の認証は mise の環境変数から読む。
