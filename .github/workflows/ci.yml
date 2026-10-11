@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       # README は置かない（AGENTS.md 設計原則）。home に本文が表示されるのを防ぐ。
-      - name: Guard against README.md
+      - name: Guard against README
         run: |
-          if [ -e README.md ]; then
-            echo "::error::README.md は置かない（repo home はファイル一覧のままにする。入口文書は AGENTS.md）"
+          if [ -n "$(find . -maxdepth 1 -iname 'readme*' -print -quit)" ]; then
+            echo "::error::README を置かない（repo home はファイル一覧のままにする。入口文書は AGENTS.md）"
             exit 1
           fi
       - uses: jdx/mise-action@7a4e45a543138629540c9a1616d08632b893e492 # v5.0.1

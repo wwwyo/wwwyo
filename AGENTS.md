@@ -8,7 +8,7 @@
 - **tools の埋め込みは iframe**: [wwwyo/tools](https://github.com/wwwyo/tools) のコードを import しない
 - **デフォルト zero-JS**: 記事本文は静的 HTML。ブラウザで動かすコンポーネントだけ `client:visible` を付ける
 - **現行 works 一覧は置かない**: 成果物は [tools.wwwyo.dev](https://tools.wwwyo.dev) へのリンクで済ませ、wwwyo.dev 側で portfolio データを持たない。ただし過去の個人プロジェクトのアーカイブは `/hobby` に静的な一覧 + 詳細ページとして置く
-- **README は置かない**: GitHub の repo home はファイル一覧のままにし、README 本文を表示させない。入口・セットアップ手順の正本は `AGENTS.md`。`.github/workflows/ci.yml` が `README.md` の存在を検出して fail する
+- **README は置かない**: GitHub の repo home はファイル一覧のままにし、README 本文を表示させない。入口・セットアップ手順の正本は `AGENTS.md`。`.github/workflows/ci.yml` が root の `README*`（大文字小文字を問わない）を検出して fail する
 
 ## ディレクトリ構造
 
