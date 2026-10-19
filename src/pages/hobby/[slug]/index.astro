@@ -13,7 +13,11 @@ export function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const paragraphs = project.description.split("\n");
+// 説明文中の URL をリンクにする。split に capture group を渡すと、奇数番目が URL になる。
+// 日本語の括弧・句読点は URL に含めない
+const paragraphs = project.description
+  .split("\n")
+  .map((paragraph) => paragraph.split(/(https?:\/\/[^\s（）()「」、。]+)/));
 const ogp = project.externalUrl ? await fetchOgp(project.externalUrl) : null;
 ---
 
@@ -107,7 +111,21 @@ const ogp = project.externalUrl ? await fetchOgp(project.externalUrl) : null;
     )}
 
     <div class="project-description">
-      {paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+      {
+        paragraphs.map((parts) => (
+          <p>
+            {parts.map((part, i) =>
+              i % 2 === 1 ? (
+                <a href={part} target="_blank" rel="noopener noreferrer">
+                  {part}
+                </a>
+              ) : (
+                part
+              ),
+            )}
+          </p>
+        ))
+      }
     </div>
 
     {
