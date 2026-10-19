@@ -38,6 +38,8 @@ wwwyo.dev/
 - **RSS**: `/rss.xml` を `@astrojs/rss` で配信している
 - **OGP**: 当面はサイト共通の静的画像1枚。記事別 OGP は wwwyo/tools の satori + `@resvg/resvg-js` ビルド時静的生成の知見を流用して、記事が増えてから導入
 - **hobby**: `/hobby` に過去の個人プロジェクトを期間の新しい順で一覧表示し、各プロジェクトは `/hobby/[slug]/` の詳細ページ（画像・動画・外部リンク）へリンクする。データは `src/data/hobby.ts` に集約し、配列の順序がそのまま一覧の表示順になる。サムネイル・画像は `src/assets/hobby/` に置いて import する
+- **外部リンクの OGP カードはスナップショットから作る**: `externalUrl` のカードは `src/data/ogp.json` + `src/assets/ogp/` を読む。`externalUrl` を追加・変更したら `bun run ogp:update` を回す（CI の `bun tools/update-ogp.mjs --check` が同期を検証する）。build 時に外部サイトを fetch しない — 取得元の rate limit で画像が黙って欠けるため（理由と却下案は [docs/adr/](docs/adr/)）
+- **リンクは人間が読めるページにする**: 読者に出す URL はブラウザで開いて意味のある応答が返るものに限る。API エンドポイント（POST 専用で GET すると 405 JSON を返す等）は docs のページ URL に差し替える
 - **リンクはページ冒頭に置く**: 詳細ページの外部リンク・受賞などの重要情報はヘッダー直下（メディア・本文より上）に書く。読者は最後まで読まない前提でレイアウトする
 
 ## セットアップ
