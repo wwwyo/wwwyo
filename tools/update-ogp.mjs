@@ -9,6 +9,13 @@ import { parse } from "node-html-parser";
 //   bun run ogp:update
 //
 // snapshot に無い externalUrl があると build が失敗する（src/lib/ogp.ts）。
+// このスクリプトは引数を取らない（CI から誤って --check 等を渡されたときは、フル更新が走る前に止める）
+
+const args = process.argv.slice(2);
+if (args.length > 0) {
+  console.error(`[ogp] 不明な引数: ${args.join(" ")}。このスクリプトにオプションは無い`);
+  process.exit(1);
+}
 
 const root = new URL("../", import.meta.url);
 const hobbyFile = new URL("src/data/hobby.ts", root);

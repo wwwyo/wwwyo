@@ -21,8 +21,4 @@ jobs:
           fi
       - uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - run: bun install --frozen-lockfile
-      # OGP カードの snapshot は外部サイトの取得を build から切り離している。
-      # hobby に externalUrl を足して snapshot を作り忘れると、画像なしのカードが黙って出る
-      - name: Check OGP snapshot
-        run: bun tools/update-ogp.mjs --check
       - run: bun run build
