@@ -59,6 +59,10 @@ export const hobbyProjects: HobbyProject[] = [
     summary: "町の家計簿。日本の自治体の歳出の予算・決算を事業の単位まで集め、AI から問い合わせられるデータとして配る。",
     description: "自治体が公開した予算書・決算書（PDF・CSV）を、款・項・目とその下の事業まで表にする。団体をまたいで比べられるよう政府支出の国際分類（COFOG）を割り当て、明細ごとに原典の頁と印字の位置を持つ。MCP の URL（https://api.fudoki.dev/mcp）を AI クライアントに登録すれば使える。",
     externalUrl: "https://fudoki.dev/",
+    achievement: {
+      label: "都知事杯オープンデータ・ハッカソン 2026 データ活用賞受賞",
+      url: "https://www.youtube.com/watch?v=ABHPUTt3NCA&t=965s",
+    },
     thumbnail: fudokiThumb,
     media: { type: "youtube", videoId: "ABHPUTt3NCA", start: 965 },
   },
