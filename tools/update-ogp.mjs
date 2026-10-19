@@ -6,15 +6,15 @@ import { parse } from "node-html-parser";
 // ビルドごとに外部サイトを叩くと、取得元の rate limit（例: opengraph.githubassets.com の 429）で
 // 画像が黙って欠けるため、取得と build を分離する（docs/adr/）。
 //
-//   bun run ogp:update   snapshot を更新する（ネットワークを使う）
-//   bun tools/update-ogp.mjs --check  snapshot が hobby.ts と同期しているか検証する（ネットワーク不要）
+//   bun run ogp:update
+//
+// snapshot に無い externalUrl があると build が失敗する（src/lib/ogp.ts）。
 
 const root = new URL("../", import.meta.url);
 const hobbyFile = new URL("src/data/hobby.ts", root);
 const assetsDir = new URL("src/assets/", root);
 const imageDir = new URL("ogp/", assetsDir);
 const snapshotFile = new URL("src/data/ogp.json", root);
-const checkOnly = process.argv.includes("--check");
 const MAX_ATTEMPTS = 4;
 const MAX_WAIT_SECONDS = 15 * 60;
 
@@ -26,14 +26,24 @@ const extensions = {
   "image/svg+xml": "svg",
 };
 
-/** hobby.ts の entry から slug と externalUrl を拾う。画像を import する .ts は直接読み込めないため */
+/**
+ * hobby.ts の entry から slug と externalUrl を拾う。画像を import する .ts は直接読み込めないため、
+ * 「entry は slug を externalUrl より先に書く」という前提で本文を走査する。
+ * ここで取りこぼすと該当 URL が snapshot から消え、build が失敗する（黙って欠けはしない）
+ */
 async function readProjects() {
   const source = await readFile(hobbyFile, "utf8");
-  const projects = [];
-  for (const block of source.slice(source.indexOf("export const hobbyProjects")).split(/\n  \{\n/).slice(1)) {
-    const slug = block.match(/slug:\s*"([^"]+)"/)?.[1];
-    const url = block.match(/externalUrl:\s*"([^"]+)"/)?.[1];
-    if (slug && url) projects.push({ slug, url });
+  const body = source.slice(source.indexOf("export const hobbyProjects"));
+  const slugs = [...body.matchAll(/slug:\s*"([^"]+)"/g)];
+  const projects = [...body.matchAll(/externalUrl:\s*"([^"]+)"/g)].map((url) => ({
+    slug: slugs.filter((slug) => slug.index < url.index).at(-1)?.[1],
+    url: url[1],
+  }));
+
+  const missing = projects.filter((project) => !project.slug);
+  if (missing.length > 0) throw new Error(`slug を特定できない externalUrl: ${missing.map((p) => p.url).join(", ")}`);
+  if (new Set(projects.map((project) => project.slug)).size !== projects.length) {
+    throw new Error("同じ slug に複数の externalUrl が対応している。hobby.ts の書式を確認する");
   }
   if (projects.length === 0) throw new Error("hobby.ts から externalUrl を1件も読めなかった");
   return projects;
@@ -99,36 +109,7 @@ async function fetchOgp(url, slug) {
   return { ...entry, image: { file, source } };
 }
 
-async function readSnapshot() {
-  try {
-    return JSON.parse(await readFile(snapshotFile, "utf8"));
-  } catch {
-    return {};
-  }
-}
-
 const projects = await readProjects();
-const snapshot = await readSnapshot();
-
-if (checkOnly) {
-  // build を通すのと同じ条件だけを検証する（取得元の内容が変わったかは見ない）
-  const problems = [];
-  for (const { slug, url } of projects) {
-    const entry = snapshot[url];
-    if (!entry) {
-      problems.push(`${slug}: ${url} の snapshot が無い`);
-    } else if (entry.image && !existsSync(new URL(entry.image.file, assetsDir))) {
-      problems.push(`${slug}: ${entry.image.file} が無い`);
-    }
-  }
-  if (problems.length > 0) {
-    console.error(`OGP snapshot が hobby.ts と同期していない:\n  ${problems.join("\n  ")}`);
-    console.error("bun run ogp:update で更新する");
-    process.exit(1);
-  }
-  console.log(`[ogp] snapshot は同期している (${projects.length} 件)`);
-  process.exit(0);
-}
 
 await mkdir(imageDir, { recursive: true });
 

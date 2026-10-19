@@ -30,7 +30,7 @@ const ogp = project.externalUrl ? await getOgp(project.externalUrl) : null;
         {project.stopped && <span class="project-stopped">（停止中）</span>}
       </p>
       {
-        ogp ? (
+        ogp && (
           <a class="ogp-card" href={ogp.url} target="_blank" rel="noopener noreferrer">
             <span class="ogp-body">
               <span class="ogp-title">{ogp.title}</span>
@@ -49,12 +49,6 @@ const ogp = project.externalUrl ? await getOgp(project.externalUrl) : null;
               />
             )}
           </a>
-        ) : project.externalUrl && (
-          <p class="project-link">
-            <a href={project.externalUrl} target="_blank" rel="noopener noreferrer">
-              {project.externalUrl}
-            </a>
-          </p>
         )
       }
       {
@@ -203,10 +197,6 @@ const ogp = project.externalUrl ? await getOgp(project.externalUrl) : null;
   }
 
   .project-achievement {
-    margin: var(--spacing-sm) 0 0;
-  }
-
-  .project-link {
     margin: var(--spacing-sm) 0 0;
   }
 
