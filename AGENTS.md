@@ -37,7 +37,7 @@ wwwyo.dev/
 - **blog frontmatter**: `title` / `description` / `pubDate`（+ 必要になったら `updatedDate`）
 - **RSS**: `/rss.xml` を `@astrojs/rss` で配信している
 - **OGP**: 当面はサイト共通の静的画像1枚。記事別 OGP は wwwyo/tools の satori + `@resvg/resvg-js` ビルド時静的生成の知見を流用して、記事が増えてから導入
-- **hobby**: `/hobby` に過去の個人プロジェクトを年の降順で一覧表示し、各プロジェクトは `/hobby/[slug]/` の詳細ページ（画像・動画・外部リンク）へリンクする。データは `src/data/hobby.ts` に集約する
+- **hobby**: `/hobby` に過去の個人プロジェクトを期間の新しい順で一覧表示し、各プロジェクトは `/hobby/[slug]/` の詳細ページ（画像・動画・外部リンク）へリンクする。データは `src/data/hobby.ts` に集約し、配列の順序がそのまま一覧の表示順になる。サムネイル・画像は `src/assets/hobby/` に置いて import する
 - **リンクはページ冒頭に置く**: 詳細ページの外部リンク・受賞などの重要情報はヘッダー直下（メディア・本文より上）に書く。読者は最後まで読まない前提でレイアウトする
 
 ## セットアップ
@@ -63,7 +63,7 @@ bun run deploy # ビルド + Cloudflare Workers へ deploy
 - Bun
 - Astro + MDX + React（`@astrojs/react`。island は `client:visible` を基本にする）
 - **island の描画確認は agent-browser**: Orca 内蔵ブラウザでは IntersectionObserver 依存の `client:visible` island の hydration が観測できない（scroll しても screenshot が空白のまま）。island の見た目の検証は Orca 優先の例外として agent-browser に fallback する
-- Tailwind CSS v4
+- リセットは uaplus.css をベンダリングして使う（Tailwind は 2026-07 に外した。詳細は `docs/adr/`）
 - Cloudflare Workers static assets（Wrangler で deploy、custom domain: wwwyo.dev）
 
 ## CSP（Content Security Policy）
