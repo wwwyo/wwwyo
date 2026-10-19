@@ -51,13 +51,15 @@ async function fetchOgpUncached(url: string): Promise<Ogp | null> {
     title,
     description: meta("og:description") ?? meta("description"),
     siteName: meta("og:site_name") ?? new URL(url).hostname,
-    image: imageUrl ? await optimizeImage(new URL(imageUrl, res.url).href) : undefined,
+    image: imageUrl ? await optimizeImage(imageUrl, res.url) : undefined,
   };
 }
 
 /** 外部画像を直リンクせず、ビルド時に取り込んで自ドメインから配る。失敗したら画像なしのカードにする */
-async function optimizeImage(src: string): Promise<Ogp["image"]> {
+async function optimizeImage(imageUrl: string, pageUrl: string): Promise<Ogp["image"]> {
   try {
+    // og:image は相対 URL や不正な値もありうるため、解決も try の中で行う
+    const src = new URL(imageUrl, pageUrl).href;
     const image = await getImage({ src, inferSize: true, width: 480, format: "webp" });
     return {
       src: image.src,
@@ -65,7 +67,7 @@ async function optimizeImage(src: string): Promise<Ogp["image"]> {
       height: Number(image.attributes.height),
     };
   } catch (error) {
-    console.warn(`[ogp] 画像 ${src} の取り込みに失敗: ${error}`);
+    console.warn(`[ogp] 画像 ${imageUrl} の取り込みに失敗: ${error}`);
     return undefined;
   }
 }
