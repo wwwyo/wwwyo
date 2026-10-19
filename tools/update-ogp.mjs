@@ -30,7 +30,7 @@ const extensions = {
   "image/jpeg": "jpg",
   "image/webp": "webp",
   "image/gif": "gif",
-  "image/svg+xml": "svg",
+  // SVG は受け付けない。Astro は dangerouslyProcessSVG 無しで SVG を webp に変換できない（docs/adr/）
 };
 
 /**
@@ -58,12 +58,21 @@ async function readProjects() {
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+/** Retry-After は秒数と HTTP-date の2形式を取る（RFC 9110）。解釈できなければ 0 */
+function retryAfterSeconds(value) {
+  if (!value) return 0;
+  const seconds = Number(value);
+  if (Number.isFinite(seconds)) return Math.max(0, seconds);
+  const at = Date.parse(value);
+  return Number.isNaN(at) ? 0 : Math.max(0, Math.ceil((at - Date.now()) / 1000));
+}
+
 /** rate limit (429) と一時的な 5xx は Retry-After / x-ratelimit-reset を尊重して待って再試行する */
 async function request(url, label, init) {
   for (let attempt = 1; ; attempt += 1) {
     const res = await fetch(url, { ...init, signal: AbortSignal.timeout(20_000) });
     if (res.ok) return res;
-    const retryAfter = Number(res.headers.get("retry-after")) || 0;
+    const retryAfter = retryAfterSeconds(res.headers.get("retry-after"));
     const resetAt = Number(res.headers.get("x-ratelimit-reset")) || 0;
     const resetIn = resetAt ? Math.max(0, resetAt - Math.floor(Date.now() / 1000)) : 0;
     const wait = Math.min(Math.max(retryAfter, resetIn, 5 * 2 ** (attempt - 1)), MAX_WAIT_SECONDS);
@@ -81,7 +90,7 @@ async function writeIfChanged(file, bytes) {
   await writeFile(file, bytes);
 }
 
-async function fetchOgp(url, slug) {
+async function fetchOgp(url, slug, pendingImages) {
   const res = await request(url, slug, {
     headers: { accept: "text/html", "user-agent": "wwwyo.dev-ogp/1.0" },
   });
@@ -112,7 +121,8 @@ async function fetchOgp(url, slug) {
   if (!extension) throw new Error(`${slug}: og:image の content-type が不明 (${contentType || "なし"})`);
 
   const file = `ogp/${slug}.${extension}`;
-  await writeIfChanged(new URL(file, assetsDir), Buffer.from(await image.arrayBuffer()));
+  // 全件の取得が終わるまで書かない。途中で失敗したときに古い metadata と新しい画像が混ざらないよう
+  pendingImages.set(file, Buffer.from(await image.arrayBuffer()));
   return { ...entry, image: { file, source } };
 }
 
@@ -122,11 +132,17 @@ await mkdir(imageDir, { recursive: true });
 
 const next = {};
 const used = new Set();
+const pendingImages = new Map();
 for (const { slug, url } of projects) {
-  const entry = await fetchOgp(url, slug);
+  const entry = await fetchOgp(url, slug, pendingImages);
   next[url] = entry;
   if (entry.image) used.add(entry.image.file.replace("ogp/", ""));
   console.log(`[ogp] ${slug}: ${entry.title.slice(0, 40)}${entry.image ? "" : " (画像なし)"}`);
+}
+
+// 全部の取得が成功してから、画像 → snapshot の順で書き込む
+for (const [file, bytes] of pendingImages) {
+  await writeIfChanged(new URL(file, assetsDir), bytes);
 }
 
 // 使われなくなった画像を消す（hobby から外れた・slug が変わった等）
