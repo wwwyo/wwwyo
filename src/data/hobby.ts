@@ -60,6 +60,7 @@ export const hobbyProjects: HobbyProject[] = [
     description: "自治体が公開した予算書・決算書（PDF・CSV）を、款・項・目とその下の事業まで表にする。団体をまたいで比べられるよう政府支出の国際分類（COFOG）を割り当て、明細ごとに原典の頁と印字の位置を持つ。MCP の URL（https://api.fudoki.dev/mcp）を AI クライアントに登録すれば使える。",
     externalUrl: "https://fudoki.dev/",
     thumbnail: fudokiThumb,
+    media: { type: "youtube", videoId: "ABHPUTt3NCA", start: 965 },
   },
   {
     slug: "tools",
