@@ -6,7 +6,7 @@ import atcoder1 from "../assets/hobby/atcoder-1.png";
 import carehub1 from "../assets/hobby/carehub-1.png";
 import chemoinformatics1 from "../assets/hobby/chemoinformatics-1.png";
 import emoemoji1 from "../assets/hobby/emoemoji-1.png";
-import fudokiThumb from "../assets/hobby/fudoki.png";
+import fudokiThumb from "../assets/hobby/fudoki-slide-1.jpg";
 import nekojima1 from "../assets/hobby/nekojima-1.png";
 import proscons1 from "../assets/hobby/proscons-1.png";
 import proscons2 from "../assets/hobby/proscons-2.png";
