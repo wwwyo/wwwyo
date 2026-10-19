@@ -40,6 +40,11 @@ export default defineConfig({
       },
     }),
   ],
+  image: {
+    // hobby 詳細ページの OGP カード画像をビルド時に取り込んで自ドメインから配るため。
+    // リンク先は任意のサイトなので https 全般を許可する（取り込みはビルド時のみ）
+    remotePatterns: [{ protocol: "https" }],
+  },
   build: {
     // island が import する CSS を inline <style> 化すると security.csp の
     // hash 生成から漏れてブロックされるため、常に外部ファイルで配信する
