@@ -2,7 +2,7 @@
 import { Image } from "astro:assets";
 import Base from "../../../layouts/Base.astro";
 import { hobbyProjects } from "../../../data/hobby";
-import { fetchOgp } from "../../../lib/ogp";
+import { getOgp } from "../../../lib/ogp";
 
 export function getStaticPaths() {
   // The product homepage owns the static skillctrl route.
@@ -18,7 +18,7 @@ const { project } = Astro.props;
 const paragraphs = project.description
   .split("\n")
   .map((paragraph) => paragraph.split(/(https?:\/\/[^\s（）()「」、。]+)/));
-const ogp = project.externalUrl ? await fetchOgp(project.externalUrl) : null;
+const ogp = project.externalUrl ? await getOgp(project.externalUrl) : null;
 ---
 
 <Base title={project.title} description={project.summary}>

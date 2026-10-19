@@ -6,6 +6,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "build:skillctrl-social": "bun tools/render-skillctrl-social.mjs",
+    "ogp:update": "bun tools/update-ogp.mjs",
     "preview": "astro preview",
     "deploy": "astro build && wrangler deploy"
   },
@@ -15,7 +16,6 @@
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.4",
     "astro": "7.3.7",
-    "node-html-parser": "9.0.4",
     "react": "19.3.0",
     "react-dom": "19.3.0"
   },
@@ -23,6 +23,7 @@
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@webgpu/types": "0.1.74",
+    "node-html-parser": "9.0.4",
     "typescript": "7.0.2",
     "wrangler": "4.148.0"
   }
