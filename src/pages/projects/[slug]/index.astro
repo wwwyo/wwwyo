@@ -1,12 +1,12 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../../../layouts/Base.astro";
-import { hobbyProjects } from "../../../data/hobby";
+import { projects } from "../../../data/projects";
 import { fetchOgp } from "../../../lib/ogp";
 
 export function getStaticPaths() {
   // The product homepage owns the static skillctrl route.
-  return hobbyProjects.filter((project) => project.slug !== "skillctrl").map((project) => ({
+  return projects.filter((project) => project.slug !== "skillctrl").map((project) => ({
     params: { slug: project.slug },
     props: { project },
   }));

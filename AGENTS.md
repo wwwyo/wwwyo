@@ -7,7 +7,7 @@
 - **interactive 記事だけを置く**: 静的テキストで済む記事は zenn / qiita / note に書く。ここには MDX + island でしか成立しない記事を置く（差別化）
 - **tools の埋め込みは iframe**: [wwwyo/tools](https://github.com/wwwyo/tools) のコードを import しない
 - **デフォルト zero-JS**: 記事本文は静的 HTML。ブラウザで動かすコンポーネントだけ `client:visible` を付ける
-- **現行 works 一覧は置かない**: 成果物は [tools.wwwyo.dev](https://tools.wwwyo.dev) へのリンクで済ませ、wwwyo.dev 側で portfolio データを持たない。ただし過去の個人プロジェクトのアーカイブは `/hobby` に静的な一覧 + 詳細ページとして置く
+- **個人プロジェクトは `/projects` に置く**: 進行中・停止済み・ハッカソン作品を問わず、個人プロジェクトを静的な一覧 + 詳細ページとして置く。旧 path `/hobby` は「趣味」と読めて実態（進行中のプロダクト・受賞作）より軽く見えるため 2026-10 に改名し、`public/_redirects` で 301 している
 - **README は置かない**: GitHub の repo home はファイル一覧のままにし、README 本文を表示させない。入口・セットアップ手順の正本は `AGENTS.md`。`.github/workflows/ci.yml` が root の `README*`（大文字小文字を問わない）を検出して fail する
 
 ## ディレクトリ構造
@@ -37,7 +37,7 @@ wwwyo.dev/
 - **blog frontmatter**: `title` / `description` / `pubDate`（+ 必要になったら `updatedDate`）
 - **RSS**: `/rss.xml` を `@astrojs/rss` で配信している
 - **OGP**: 当面はサイト共通の静的画像1枚。記事別 OGP は wwwyo/tools の satori + `@resvg/resvg-js` ビルド時静的生成の知見を流用して、記事が増えてから導入
-- **hobby**: `/hobby` に過去の個人プロジェクトを期間の新しい順で一覧表示し、各プロジェクトは `/hobby/[slug]/` の詳細ページ（画像・動画・外部リンク）へリンクする。データは `src/data/hobby.ts` に集約し、配列の順序がそのまま一覧の表示順になる。サムネイル・画像は `src/assets/hobby/` に置いて import する
+- **projects**: `/projects` に個人プロジェクトを期間の新しい順で一覧表示し、各プロジェクトは `/projects/[slug]/` の詳細ページ（画像・動画・外部リンク）へリンクする。データは `src/data/projects.ts` に集約し、配列の順序がそのまま一覧の表示順になる。サムネイル・画像は `src/assets/projects/` に置いて import する
 - **リンクはページ冒頭に置く**: 詳細ページの外部リンク・受賞などの重要情報はヘッダー直下（メディア・本文より上）に書く。読者は最後まで読まない前提でレイアウトする
 
 ## セットアップ

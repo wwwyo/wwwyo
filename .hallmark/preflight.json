@@ -32,7 +32,7 @@
       "sha256": "77fc2904eb3210330534560502a2adfe51e324d733823f3c0c5a7f4dbcc3acdd"
     },
     {
-      "path": "src/pages/hobby/skillctrl/index.astro",
+      "path": "src/pages/projects/skillctrl/index.astro",
       "sha256": "b7585bfeb18f00e4f5af9fc108d92be484515e42ee520ecf98f2179735d72fad"
     }
   ],

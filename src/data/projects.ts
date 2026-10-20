@@ -1,30 +1,30 @@
 import type { ImageMetadata } from "astro";
-import skillctrlThumb from "../assets/hobby/skillctrl.svg";
+import skillctrlThumb from "../assets/projects/skillctrl.svg";
 
-import arGamePoster from "../assets/hobby/ar-game-poster.png";
-import atcoder1 from "../assets/hobby/atcoder-1.png";
-import carehub1 from "../assets/hobby/carehub-1.png";
-import chemoinformatics1 from "../assets/hobby/chemoinformatics-1.png";
-import emoemoji1 from "../assets/hobby/emoemoji-1.png";
-import fudokiThumb from "../assets/hobby/fudoki-slide-1.jpg";
-import nekojima1 from "../assets/hobby/nekojima-1.png";
-import proscons1 from "../assets/hobby/proscons-1.png";
-import proscons2 from "../assets/hobby/proscons-2.png";
-import remission1 from "../assets/hobby/remission-1.png";
-import remission2 from "../assets/hobby/remission-2.png";
-import themis1 from "../assets/hobby/themis-1.png";
-import tools1 from "../assets/hobby/tools-1.png";
-import typeQuestThumb from "../assets/hobby/type-quest-thumb.jpg";
-import warashibe1 from "../assets/hobby/warashibe-1.png";
-import webSpeedHackathon1 from "../assets/hobby/web-speed-hackathon-1.png";
-import withdom1 from "../assets/hobby/withdom-1.png";
+import arGamePoster from "../assets/projects/ar-game-poster.png";
+import atcoder1 from "../assets/projects/atcoder-1.png";
+import carehub1 from "../assets/projects/carehub-1.png";
+import chemoinformatics1 from "../assets/projects/chemoinformatics-1.png";
+import emoemoji1 from "../assets/projects/emoemoji-1.png";
+import fudokiThumb from "../assets/projects/fudoki-slide-1.jpg";
+import nekojima1 from "../assets/projects/nekojima-1.png";
+import proscons1 from "../assets/projects/proscons-1.png";
+import proscons2 from "../assets/projects/proscons-2.png";
+import remission1 from "../assets/projects/remission-1.png";
+import remission2 from "../assets/projects/remission-2.png";
+import themis1 from "../assets/projects/themis-1.png";
+import tools1 from "../assets/projects/tools-1.png";
+import typeQuestThumb from "../assets/projects/type-quest-thumb.jpg";
+import warashibe1 from "../assets/projects/warashibe-1.png";
+import webSpeedHackathon1 from "../assets/projects/web-speed-hackathon-1.png";
+import withdom1 from "../assets/projects/withdom-1.png";
 
-export type HobbyMedia =
+export type ProjectMedia =
   | { type: "images"; images: ImageMetadata[] }
   | { type: "video"; src: string; poster: ImageMetadata }
   | { type: "youtube"; videoId: string; start?: number; thumbnail?: ImageMetadata };
 
-export interface HobbyProject {
+export interface Project {
   slug: string;
   title: string;
   period: string;
@@ -39,10 +39,10 @@ export interface HobbyProject {
   demoVideo?: { src: string };
   stopped?: boolean;
   thumbnail?: ImageMetadata;
-  media?: HobbyMedia;
+  media?: ProjectMedia;
 }
 
-export const hobbyProjects: HobbyProject[] = [
+export const projects: Project[] = [
   {
     slug: "skillctrl",
     title: "skillctrl",
@@ -106,7 +106,7 @@ export const hobbyProjects: HobbyProject[] = [
     stopped: true,
     thumbnail: carehub1,
     media: { type: "youtube", videoId: "7OS-RqhEQtA", start: 7850 },
-    demoVideo: { src: "/videos/hobby-carehub-demo.mp4" },
+    demoVideo: { src: "/videos/projects-carehub-demo.mp4" },
   },
   {
     slug: "themis",
@@ -196,7 +196,7 @@ export const hobbyProjects: HobbyProject[] = [
       "AR にハマって作った Unity / Blender 製ゲーム。作ったものの中で一番好み。",
     externalUrl: "https://github.com/wwwyo/MoleHitting",
     thumbnail: arGamePoster,
-    media: { type: "video", src: "/videos/hobby-ar-game.mp4", poster: arGamePoster },
+    media: { type: "video", src: "/videos/projects-ar-game.mp4", poster: arGamePoster },
   },
   {
     slug: "atcoder",

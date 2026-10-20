@@ -41,7 +41,7 @@ export default defineConfig({
     }),
   ],
   image: {
-    // hobby 詳細ページの OGP カード画像をビルド時に取り込んで自ドメインから配るため。
+    // projects 詳細ページの OGP カード画像をビルド時に取り込んで自ドメインから配るため。
     // リンク先は任意のサイトなので https 全般を許可する（取り込みはビルド時のみ）
     remotePatterns: [{ protocol: "https" }],
   },
