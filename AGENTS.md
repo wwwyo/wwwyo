@@ -67,6 +67,7 @@ bun run deploy # ビルド + Cloudflare Workers へ deploy
 - **island の描画確認は agent-browser**: Orca 内蔵ブラウザでは IntersectionObserver 依存の `client:visible` island の hydration が観測できない（scroll しても screenshot が空白のまま）。island の見た目の検証は Orca 優先の例外として agent-browser に fallback する
 - リセットは uaplus.css をベンダリングして使う（Tailwind は 2026-07 に外した。詳細は `docs/adr/`）
 - Cloudflare Workers static assets（Wrangler で deploy、custom domain: wwwyo.dev）
+  - **build・dev・deploy は wrangler のまま、`cf` は API 操作だけに使う**: `cf` は Astro を検出すると build を `astro build` に任せ、その後 `.cloudflare/output/v0/` を読む。これを書くのは Cloudflare Vite plugin 2.0 beta だが、`@astrojs/cloudflare` は 1.x に依存しており、公式 docs も「Astro 6 以降は beta の間 cf で build できない」としている（2026-10 に `cf migrate` を試して `cf deploy --dry-run` が失敗）。`cf dev`・`cf build`・`cf deploy`・`cf init` は実行しない（wrangler 設定を無視して構成を書き換えようとする）。adapter が plugin 2.x に上がったら `cf migrate` で移行する（手順は `.agents/skills/cf-cli`）
 
 ## CSP（Content Security Policy）
 
