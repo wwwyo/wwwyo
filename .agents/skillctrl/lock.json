@@ -1,0 +1,22 @@
+{
+  "acceptedHashes": {},
+  "upstreams": {
+    "cf-cli": {
+      "computedHash": "91da778590a135b120129c96f8f673e8005e8329d436cfb8787e70101d5a0dba",
+      "installedAt": "2026-10-20T08:21:02.182Z",
+      "native": {
+        "computedHash": "91da778590a135b120129c96f8f673e8005e8329d436cfb8787e70101d5a0dba",
+        "skillPath": "skills/cf-cli/SKILL.md",
+        "source": "cloudflare/skills",
+        "sourceType": "github"
+      },
+      "skillFolderHash": "1ca024bb576e6b43e7c10b3fb5b71a6fb39de7af",
+      "skillPath": "skills/cf-cli/SKILL.md",
+      "source": "cloudflare/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/cloudflare/skills.git",
+      "updatedAt": "2026-10-20T08:21:02.182Z"
+    }
+  },
+  "version": 1
+}
