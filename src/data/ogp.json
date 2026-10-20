@@ -1,0 +1,96 @@
+{
+  "https://github.com/wwwyo/skillctrl": {
+    "title": "GitHub - wwwyo/skillctrl: Install and customize agent skills for your project.",
+    "description": "Install and customize agent skills for your project. - wwwyo/skillctrl",
+    "siteName": "GitHub",
+    "image": {
+      "file": "ogp/skillctrl.png",
+      "source": "https://opengraph.githubassets.com/a8b51f3343e531ef08c655d0f40fdcb167c08c97b54899ebdefe48c1fc5e6d05/wwwyo/skillctrl"
+    }
+  },
+  "https://fudoki.dev/": {
+    "title": "風土記（fudoki）— 町の家計簿",
+    "description": "日本の自治体の歳出の予算・決算を事業の単位まで集め、AI から問い合わせられるデータとして配る。",
+    "siteName": "風土記（fudoki）",
+    "image": {
+      "file": "ogp/fudoki.png",
+      "source": "https://fudoki.dev/og.png"
+    }
+  },
+  "https://tools.wwwyo.dev": {
+    "title": "tools",
+    "description": "ペラいち Tools",
+    "siteName": "tools.wwwyo.dev",
+    "image": {
+      "file": "ogp/tools.png",
+      "source": "https://tools.wwwyo.dev/og/index.png"
+    }
+  },
+  "https://github.com/wwwyo/web-speed-hackathon-2026": {
+    "title": "GitHub - wwwyo/web-speed-hackathon-2026: https://cyberagent.connpass.com/event/371488/",
+    "description": "https://cyberagent.connpass.com/event/371488/. Contribute to wwwyo/web-speed-hackathon-2026 development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "image": {
+      "file": "ogp/web-speed-hackathon.png",
+      "source": "https://opengraph.githubassets.com/1d24fbc517708874f913b8b5e797f23b852a26daedc69b944715ff54c2d18d35/wwwyo/web-speed-hackathon-2026"
+    }
+  },
+  "https://ai.google.dev/competition/projects/themis?hl=ja": {
+    "title": "テミス  |  Gemini API Developer Competition  |  Google AI for Developers",
+    "description": "Themis: AI を活用した法的戦いで紛争解決に革命を起こす",
+    "siteName": "Google AI for Developers",
+    "image": {
+      "file": "ogp/themis.png",
+      "source": "https://ai.google.dev/static/site-assets/images/share.png?hl=ja"
+    }
+  },
+  "https://github.com/wwwyo/type-quest": {
+    "title": "GitHub - wwwyo/type-quest: qiita hackathon",
+    "description": "qiita hackathon. Contribute to wwwyo/type-quest development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "image": {
+      "file": "ogp/type-quest.png",
+      "source": "https://opengraph.githubassets.com/9b37f597655ae036f7fba52692adcdc0be52e081501a660d5d07b9b9ba8052b8/wwwyo/type-quest"
+    }
+  },
+  "https://github.com/wwwyo/chem_app": {
+    "title": "GitHub - wwwyo/chem_app: Cheminformatics app",
+    "description": "Cheminformatics app. Contribute to wwwyo/chem_app development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "image": {
+      "file": "ogp/chemoinformatics.png",
+      "source": "https://opengraph.githubassets.com/ea03d77807f407cd788166f6469816b00baab4e3d857d0db444ddbdbe692b7c1/wwwyo/chem_app"
+    }
+  },
+  "https://wwwyo.github.io/emoemoji/": {
+    "title": "エモえもじ",
+    "siteName": "wwwyo.github.io"
+  },
+  "https://github.com/wwwyo/MoleHitting": {
+    "title": "GitHub - wwwyo/MoleHitting: Pokemon Go-like!!! Hit Digda!",
+    "description": "Pokemon Go-like!!! Hit Digda! Contribute to wwwyo/MoleHitting development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "image": {
+      "file": "ogp/ar-game.png",
+      "source": "https://opengraph.githubassets.com/2f64f7fcf80acd6729d45af9a2f1ded618f97700669a48588b40616cf585797e/wwwyo/MoleHitting"
+    }
+  },
+  "https://atcoder.jp/users/www_y": {
+    "title": "www_y - AtCoder",
+    "description": "AtCoder is a programming contest site for anyone from beginners to experts. We hold weekly programming contests online.",
+    "siteName": "AtCoder",
+    "image": {
+      "file": "ogp/atcoder.png",
+      "source": "https://img.atcoder.jp/assets/atcoder.png"
+    }
+  },
+  "https://github.com/wwwyo/proscons": {
+    "title": "GitHub - wwwyo/proscons: Ruby, Ruby on Railsポートフォリオ。投票型コミュニケーションアプリ",
+    "description": "Ruby, Ruby on Railsポートフォリオ。投票型コミュニケーションアプリ. Contribute to wwwyo/proscons development by creating an account on GitHub.",
+    "siteName": "GitHub",
+    "image": {
+      "file": "ogp/proscons.png",
+      "source": "https://opengraph.githubassets.com/9045c1e6724b003d9344286e54ba302e702b1ab3d028dda5107319bf65728f79/wwwyo/proscons"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { getImage } from "astro:assets";
-import { parse } from "node-html-parser";
+import type { ImageMetadata } from "astro";
+import snapshot from "../data/ogp.json";
 
 export interface Ogp {
   url: string;
@@ -10,64 +11,46 @@ export interface Ogp {
   image?: { src: string; width: number; height: number };
 }
 
-const cache = new Map<string, Promise<Ogp | null>>();
-
-/**
- * ビルド時にリンク先の OGP を取得する。dev ではページを開くたびに呼ばれるため URL ごとに1回だけ取得する。
- * 失敗したら null を返し、呼び出し側はテキストリンクに戻す
- */
-export function fetchOgp(url: string): Promise<Ogp | null> {
-  let ogp = cache.get(url);
-  if (!ogp) {
-    ogp = fetchOgpUncached(url).catch((error) => {
-      console.warn(`[ogp] ${url} の取得に失敗: ${error}`);
-      return null;
-    });
-    cache.set(url, ogp);
-  }
-  return ogp;
+interface Snapshot {
+  title: string;
+  description?: string;
+  siteName: string;
+  /** 取得元の og:image（出典の記録用）。file は src/assets からの相対パス */
+  image?: { file: string; source: string };
 }
 
-async function fetchOgpUncached(url: string): Promise<Ogp | null> {
-  const res = await fetch(url, {
-    headers: { accept: "text/html", "user-agent": "wwwyo.dev-ogp/1.0" },
-    signal: AbortSignal.timeout(10_000),
-  });
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+// build 時に外部サイトを叩かず、tools/update-ogp.mjs が作った snapshot を読む（docs/adr/）。
+// snapshot に無い URL はビルドを失敗させる。黙って画像なし・テキストリンクに戻すと、
+// externalUrl の追加時に ogp:update を忘れたまま deploy される
+const images = import.meta.glob<{ default: ImageMetadata }>("../assets/ogp/*", { eager: true });
 
-  const doc = parse(await res.text());
-  const meta = (key: string) =>
-    doc
-      .querySelector(`meta[property="${key}"], meta[name="${key}"]`)
-      ?.getAttribute("content")
-      ?.trim() || undefined;
-
-  const title = meta("og:title") ?? doc.querySelector("title")?.text.trim();
-  if (!title) return null;
-
-  const imageUrl = meta("og:image");
+/**
+ * 外部リンクの OGP カード。snapshot（src/data/ogp.json）に無ければ例外を投げる
+ */
+export async function getOgp(url: string): Promise<Ogp> {
+  const entry = (snapshot as Record<string, Snapshot>)[url];
+  if (!entry) {
+    throw new Error(`[ogp] ${url} の snapshot が無い。bun run ogp:update で更新する`);
+  }
   return {
     url,
-    title,
-    description: meta("og:description") ?? meta("description"),
-    siteName: meta("og:site_name") ?? new URL(url).hostname,
-    image: imageUrl ? await optimizeImage(imageUrl, res.url) : undefined,
+    title: entry.title,
+    description: entry.description,
+    siteName: entry.siteName,
+    image: entry.image ? await optimizeImage(entry.image.file) : undefined,
   };
 }
 
-/** 外部画像を直リンクせず、ビルド時に取り込んで自ドメインから配る。失敗したら画像なしのカードにする */
-async function optimizeImage(imageUrl: string, pageUrl: string): Promise<Ogp["image"]> {
-  try {
-    // og:image は相対 URL や不正な値もありうるため、解決も try の中で行う
-    const src = new URL(imageUrl, pageUrl).href;
-    const image = await getImage({ src, inferSize: true, width: 480, format: "webp" });
-    return {
-      src: image.src,
-      width: Number(image.attributes.width),
-      height: Number(image.attributes.height),
-    };
-  } catch (error) {
-    console.warn(`[ogp] 画像 ${imageUrl} の取り込みに失敗: ${error}`);
-    return undefined;
+/** スナップショットの画像をビルド時に取り込む。画像が欠けていればビルドを失敗させる */
+async function optimizeImage(file: string): Promise<Ogp["image"]> {
+  const image = images[`../assets/${file}`];
+  if (!image) {
+    throw new Error(`[ogp] ${file} を読み込めない。bun run ogp:update で更新する`);
   }
+  const optimized = await getImage({ src: image.default, width: 480, format: "webp" });
+  return {
+    src: optimized.src,
+    width: Number(optimized.attributes.width),
+    height: Number(optimized.attributes.height),
+  };
 }
