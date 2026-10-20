@@ -1,20 +1,20 @@
 ---
 import { Image } from "astro:assets";
 import Base from "../../layouts/Base.astro";
-import { hobbyProjects } from "../../data/hobby";
+import { projects } from "../../data/projects";
 ---
 
-<Base title="Hobby" description="個人プロジェクトの一覧">
+<Base title="Projects" description="個人プロジェクトの一覧">
   <article>
     <header class="post-header">
-      <h1>Hobby</h1>
-      <p class="page-description">趣味で作ったものを紹介。</p>
+      <h1>Projects</h1>
+      <p class="page-description">個人プロジェクトを紹介。</p>
     </header>
     <ul class="project-list">
       {
-        hobbyProjects.map((project) => (
+        projects.map((project) => (
           <li>
-            <a class="project-link" href={`/hobby/${project.slug}/`}>
+            <a class="project-link" href={`/projects/${project.slug}/`}>
               {project.thumbnail ? (
                 <Image
                   class="project-thumb"

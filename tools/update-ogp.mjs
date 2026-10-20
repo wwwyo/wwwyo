@@ -2,7 +2,7 @@ import { existsSync } from "node:fs";
 import { mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
 import { parse } from "node-html-parser";
 
-// hobby 詳細ページの OGP カードは build 時にリンク先を取得せず、この snapshot を読む。
+// projects 詳細ページの OGP カードは build 時にリンク先を取得せず、この snapshot を読む。
 // ビルドごとに外部サイトを叩くと、取得元の rate limit（例: opengraph.githubassets.com の 429）で
 // 画像が黙って欠けるため、取得と build を分離する（docs/adr/）。
 //
@@ -18,7 +18,7 @@ if (args.length > 0) {
 }
 
 const root = new URL("../", import.meta.url);
-const hobbyFile = new URL("src/data/hobby.ts", root);
+const projectsFile = new URL("src/data/projects.ts", root);
 const assetsDir = new URL("src/assets/", root);
 const imageDir = new URL("ogp/", assetsDir);
 const snapshotFile = new URL("src/data/ogp.json", root);
@@ -34,13 +34,13 @@ const extensions = {
 };
 
 /**
- * hobby.ts の entry から slug と externalUrl を拾う。画像を import する .ts は直接読み込めないため、
+ * projects.ts の entry から slug と externalUrl を拾う。画像を import する .ts は直接読み込めないため、
  * 「entry は slug を externalUrl より先に書く」という前提で本文を走査する。
  * ここで取りこぼすと該当 URL が snapshot から消え、build が失敗する（黙って欠けはしない）
  */
 async function readProjects() {
-  const source = await readFile(hobbyFile, "utf8");
-  const body = source.slice(source.indexOf("export const hobbyProjects"));
+  const source = await readFile(projectsFile, "utf8");
+  const body = source.slice(source.indexOf("export const projects"));
   const slugs = [...body.matchAll(/slug:\s*"([^"]+)"/g)];
   const projects = [...body.matchAll(/externalUrl:\s*"([^"]+)"/g)].map((url) => ({
     slug: slugs.filter((slug) => slug.index < url.index).at(-1)?.[1],
@@ -50,9 +50,9 @@ async function readProjects() {
   const missing = projects.filter((project) => !project.slug);
   if (missing.length > 0) throw new Error(`slug を特定できない externalUrl: ${missing.map((p) => p.url).join(", ")}`);
   if (new Set(projects.map((project) => project.slug)).size !== projects.length) {
-    throw new Error("同じ slug に複数の externalUrl が対応している。hobby.ts の書式を確認する");
+    throw new Error("同じ slug に複数の externalUrl が対応している。projects.ts の書式を確認する");
   }
-  if (projects.length === 0) throw new Error("hobby.ts から externalUrl を1件も読めなかった");
+  if (projects.length === 0) throw new Error("projects.ts から externalUrl を1件も読めなかった");
   return projects;
 }
 
@@ -145,7 +145,7 @@ for (const [file, bytes] of pendingImages) {
   await writeIfChanged(new URL(file, assetsDir), bytes);
 }
 
-// 使われなくなった画像を消す（hobby から外れた・slug が変わった等）
+// 使われなくなった画像を消す（projects から外れた・slug が変わった等）
 for (const name of await readdir(imageDir)) {
   if (!used.has(name)) {
     await rm(new URL(name, imageDir));
