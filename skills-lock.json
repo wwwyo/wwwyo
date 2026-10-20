@@ -1,11 +1,17 @@
 {
-  "version": 1,
   "skills": {
     "astro": {
-      "source": "astrolicious/agent-skills",
-      "sourceType": "github",
+      "computedHash": "ebefe26b231d32379c14e41a46c2de7b4b0184543bedab7febdabe4fb21fba4e",
       "skillPath": "skills/astro/SKILL.md",
-      "computedHash": "ebefe26b231d32379c14e41a46c2de7b4b0184543bedab7febdabe4fb21fba4e"
+      "source": "astrolicious/agent-skills",
+      "sourceType": "github"
+    },
+    "cf-cli": {
+      "computedHash": "91da778590a135b120129c96f8f673e8005e8329d436cfb8787e70101d5a0dba",
+      "skillPath": "skills/cf-cli/SKILL.md",
+      "source": "cloudflare/skills",
+      "sourceType": "github"
     }
-  }
+  },
+  "version": 1
 }
