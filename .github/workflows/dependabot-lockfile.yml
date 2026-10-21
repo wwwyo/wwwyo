@@ -19,18 +19,15 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.ref }}
       - run: bun install --lockfile-only --ignore-scripts
-      # package.json の pin を上げると .hallmark/preflight.json の sha256 も変わる。
-      # ここで追従させないと CI の preflight:check が dependabot PR で落ちる。
-      - run: bun run preflight:update
-      - name: Commit a changed lockfile and preflight cache
+      - name: Commit a changed lockfile
         env:
           PR_HEAD_REF: ${{ github.event.pull_request.head.ref }}
         run: |
-          if git diff --quiet -- bun.lock .hallmark/preflight.json; then
+          if git diff --quiet -- bun.lock; then
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add bun.lock .hallmark/preflight.json
-          git commit -m 'build(deps): regenerate lockfile and preflight cache'
+          git add bun.lock
+          git commit -m 'build(deps): regenerate lockfile'
           git push origin "HEAD:${PR_HEAD_REF}"

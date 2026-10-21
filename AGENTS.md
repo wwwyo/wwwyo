@@ -59,6 +59,7 @@ bun run deploy # ビルド + Cloudflare Workers へ deploy
 
 - **本番への write は明示承認を得てから実行する**: Cloudflare zone 設定（`cf` CLI の write 操作）など repo の外に効く本番変更は、提案と実行を分ける。「指示があれば実行します」と保留した変更を、承認の無いまま次の turn で適用しない
 - **SEO・インデックス調査**: `.agents/skills/seo/` を参照（session-consolidate が維持）
+- **`.hallmark/preflight.json` の `sources` に載っているファイルを変えたら `bun run preflight:update`**: CI が `bun run preflight:check` で hash の drift を落とす。対象は設計ソースだけで、`package.json` は含めない（理由は [docs/adr/](docs/adr/)）
 
 ## 技術スタック
 
