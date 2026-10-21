@@ -8,6 +8,11 @@ import { readFile, writeFile } from "node:fs/promises";
 //
 //   bun run preflight:check    # drift があれば非 0 で落ちる（CI で実行）
 //   bun run preflight:update   # sha256 を実測値に書き換える（drift を直すとき）
+//
+// package.json は sources に入れない。依存を上げるたびに hash が変わり、dependabot の PR が
+// すべてこの check で落ちるため（2026-10 のレビュー指摘）。hash の対象は設計ソースだけにする。
+// date は hallmark の設計記録日なので --update では動かさず、hash を書き換えた日を
+// hashUpdatedAt に入れる。
 
 const args = process.argv.slice(2);
 const unknown = args.filter((arg) => arg !== "--update");
@@ -19,8 +24,7 @@ const update = args.includes("--update");
 
 const root = new URL("../", import.meta.url);
 const preflightFile = new URL(".hallmark/preflight.json", root);
-const raw = await readFile(preflightFile, "utf8");
-const preflight = JSON.parse(raw);
+const preflight = JSON.parse(await readFile(preflightFile, "utf8"));
 
 const drift = [];
 for (const source of preflight.sources) {
@@ -45,6 +49,7 @@ const missing = drift.filter((d) => d.reason);
 
 if (update) {
   // JSON.stringify で書き直すとキー順とインデントが保たれる（元のファイルも 2 スペース + 末尾改行）
+  preflight.hashUpdatedAt = new Date().toISOString().slice(0, 10);
   await writeFile(preflightFile, `${JSON.stringify(preflight, null, 2)}\n`);
   console.log(`[preflight] ${drift.length} 件の sha256 を更新した`);
   console.log(lines.join("\n"));

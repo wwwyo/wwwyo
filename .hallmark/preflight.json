@@ -8,10 +8,6 @@
       "sha256": "d7b284978b2c149f62d9ef05f86597f73cd536743014335817b2ca11cbd4948d"
     },
     {
-      "path": "package.json",
-      "sha256": "d2820abddda82cdb072e1943df5441bc0aeed2dbfd3a4e22df0e9ae829a3f49d"
-    },
-    {
       "path": "src/styles/global.css",
       "sha256": "3ae5b3682c6fa7040c98961584829f3f058e9a08bcd802419da57b8d57aae4c8"
     },
