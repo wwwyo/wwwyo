@@ -9,8 +9,10 @@ import { readFile, writeFile } from "node:fs/promises";
 //   bun run preflight:check    # drift があれば非 0 で落ちる（CI で実行）
 //   bun run preflight:update   # sha256 を実測値に書き換える（drift を直すとき）
 //
-// package.json は sources に入れない。依存を上げるたびに hash が変わり、dependabot の PR が
-// すべてこの check で落ちるため（2026-10 のレビュー指摘）。hash の対象は設計ソースだけにする。
+// package.json は font stack・motion 依存・framework の signal 源なので sources に含める
+// （`~/.claude/skills/hallmark/references/design-flow.md`）。pin の更新で必ず変わるため、
+// dependabot の PR では `.github/workflows/dependabot-lockfile.yml` が --update を回して
+// 同じ commit に含める。人手で依存を変えたときは CI の指示どおり --update を 1 回回す。
 // date は hallmark の設計記録日なので --update では動かさず、hash を書き換えた日を
 // hashUpdatedAt に入れる。
 
