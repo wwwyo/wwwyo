@@ -8,10 +8,6 @@
       "sha256": "d7b284978b2c149f62d9ef05f86597f73cd536743014335817b2ca11cbd4948d"
     },
     {
-      "path": "package.json",
-      "sha256": "9bb34c062943e2b7e8ccad0381cdbc336f08c801757f3ae501a064ea84c428b5"
-    },
-    {
       "path": "src/styles/global.css",
       "sha256": "3ae5b3682c6fa7040c98961584829f3f058e9a08bcd802419da57b8d57aae4c8"
     },
@@ -42,5 +38,6 @@
   "existingPalette": "link blue on white / charcoal",
   "spacing": "4pt",
   "pageFonts": "Space Grotesk + native sans + mono",
-  "pagePalette": "Dedicated teal on cool paper, using --sc-* tokens"
+  "pagePalette": "Dedicated teal on cool paper, using --sc-* tokens",
+  "hashUpdatedAt": "2026-10-21"
 }

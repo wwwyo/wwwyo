@@ -21,4 +21,7 @@ jobs:
           fi
       - uses: jdx/mise-action@2d8d4cafcbd33be2ea37d2b6f5ad595363d1f1ca # v5.1.1
       - run: bun install --frozen-lockfile
+      # .hallmark/preflight.json の sha256 が黙って drift すると、レビューで毎回指摘されて
+      # その場で計算し直すことになる。設計ソースを変えたら preflight:update を回させる。
+      - run: bun run preflight:check
       - run: bun run build

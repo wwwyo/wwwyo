@@ -59,6 +59,7 @@ bun run deploy # ビルド + Cloudflare Workers へ deploy
 
 - **本番への write は明示承認を得てから実行する**: Cloudflare zone 設定（`cf` CLI の write 操作）など repo の外に効く本番変更は、提案と実行を分ける。「指示があれば実行します」と保留した変更を、承認の無いまま次の turn で適用しない
 - **SEO・インデックス調査**: `.agents/skills/seo/` を参照（session-consolidate が維持）
+- **`.hallmark/preflight.json` の `sources` に載っているファイルを変えたら `bun run preflight:update`**: CI が `bun run preflight:check` で hash の drift を落とす。対象は設計ソースだけで、`package.json` は含めない（理由は [docs/adr/](docs/adr/)）
 
 ## 技術スタック
 
@@ -67,7 +68,7 @@ bun run deploy # ビルド + Cloudflare Workers へ deploy
 - **island の描画確認は agent-browser**: Orca 内蔵ブラウザでは IntersectionObserver 依存の `client:visible` island の hydration が観測できない（scroll しても screenshot が空白のまま）。island の見た目の検証は Orca 優先の例外として agent-browser に fallback する
 - リセットは uaplus.css をベンダリングして使う（Tailwind は 2026-07 に外した。詳細は `docs/adr/`）
 - Cloudflare Workers static assets（Wrangler で deploy、custom domain: wwwyo.dev）
-  - **dev・build は Astro（`bun run dev` / `bun run build`）、deploy は `bun run deploy`（`astro build && wrangler deploy`）のまま、`cf` は API 操作だけに使う**: `cf` は Astro を検出すると build を `astro build` に任せ、その後 `.cloudflare/output/v0/`（cf 形式の Build Output）を読む。この repo は adapter なしの静的 build なので、`astro build` はそれを生成せず `cf deploy` が失敗する（2026-10 に `cf migrate` 後の `cf deploy --dry-run` で確認）。cf 形式を書くには adapter の導入が要り、それ自体が deploy 方式の変更になるうえ、公式 docs も「Astro 6 以降は beta の間 cf で build できない」としている。`cf dev`・`cf build`・`cf deploy`・`cf init` は実行しない（wrangler 設定を無視して構成を書き換えようとする）。cf が Astro 6 以降の build に対応したら `cf migrate` で移行を検討する（手順は `.agents/skills/cf-cli`）
+  - **dev・build は Astro（`bun run dev` / `bun run build`）、deploy は `bun run deploy`（`astro build && wrangler deploy`）のまま、`cf` は API 操作だけに使う**: `cf` は Astro を検出すると build を `astro build` に委譲し、その後 `.cloudflare/output/v0/` を読むが、adapter 無しの静的 build はそれを生成しない。`cf dev`・`cf build`・`cf deploy`・`cf init` は実行しない（wrangler 設定を無視して構成を書き換えようとする）。`public/_redirects` のローカル確認は `wrangler dev` でしかできない（`cf dev` は `astro dev` に委譲するので `_redirects` を解釈しない）。cf が Astro 6 以降の build に対応したら `cf migrate` で移行を検討する（手順は `.agents/skills/cf-cli`、却下案と根拠は [docs/adr/](docs/adr/)）
 
 ## CSP（Content Security Policy）
 
