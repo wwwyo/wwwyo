@@ -11,4 +11,4 @@
     <path d="M306 20 H313 V59 Q313 68 323 68" transform="translate(-36 0)" />
     <path d="M97 21 V22" stroke-width="7.5" transform="translate(-3 0)" />
   </g>
-</g><text x="320" y="278" text-anchor="middle" font-family="monospace" font-size="18" fill="#3c6062">Your skills. Your intent.</text></svg>
+</g><text x="320" y="278" text-anchor="middle" font-family="ui-monospace, SF Mono, Menlo, Consolas, Liberation Mono, monospace" font-size="18" fill="#3c6062">Your skills. Your intent.</text></svg>

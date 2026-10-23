@@ -25,7 +25,7 @@
     },
     {
       "path": "tokens.css",
-      "sha256": "77fc2904eb3210330534560502a2adfe51e324d733823f3c0c5a7f4dbcc3acdd"
+      "sha256": "c15d7f5779ba4120d83031e8154dbf43a3934f3fff21b9827163a4f31f14e65e"
     },
     {
       "path": "src/pages/projects/skillctrl/index.astro",
@@ -39,5 +39,5 @@
   "spacing": "4pt",
   "pageFonts": "Space Grotesk + native sans + mono",
   "pagePalette": "Dedicated teal on cool paper, using --sc-* tokens",
-  "hashUpdatedAt": "2026-10-21"
+  "hashUpdatedAt": "2026-10-23"
 }
