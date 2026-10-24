@@ -67,6 +67,7 @@ bun run deploy # ビルド + Cloudflare Workers へ deploy
 - Astro + MDX + React（`@astrojs/react`。island は `client:visible` を基本にする）
 - **island の描画確認は agent-browser**: Orca 内蔵ブラウザでは IntersectionObserver 依存の `client:visible` island の hydration が観測できない（scroll しても screenshot が空白のまま）。island の見た目の検証は Orca 優先の例外として agent-browser に fallback する
 - リセットは uaplus.css をベンダリングして使う（Tailwind は 2026-07 に外した。詳細は `docs/adr/`）
+- **等幅フォントを総称 `monospace` 単独で指定しない**: 日本語ロケールの Chromium は総称 `monospace` を Osaka-Mono に解決するが、Osaka の実体が無い macOS ではフォールバックも効かず ASCII まで豆腐になる（2026-10 に skillctrl のサムネイル SVG と詳細ページで発生）。CSS は `var(--font-mono)` / `var(--sc-font-mono)`、SVG の `font-family` は Menlo を含む実フォント列を書く。CI の `bun run check:font-stack` が検出する（理由と却下案は `tools/check-font-stack.mjs`）
 - Cloudflare Workers static assets（Wrangler で deploy、custom domain: wwwyo.dev）
   - **dev・build は Astro（`bun run dev` / `bun run build`）、deploy は `bun run deploy`（`astro build && wrangler deploy`）のまま、`cf` は API 操作だけに使う**: `cf` は Astro を検出すると build を `astro build` に委譲し、その後 `.cloudflare/output/v0/` を読むが、adapter 無しの静的 build はそれを生成しない。`cf dev`・`cf build`・`cf deploy`・`cf init` は実行しない（wrangler 設定を無視して構成を書き換えようとする）。`public/_redirects` のローカル確認は `wrangler dev` でしかできない（`cf dev` は `astro dev` に委譲するので `_redirects` を解釈しない）。cf が Astro 6 以降の build に対応したら `cf migrate` で移行を検討する（手順は `.agents/skills/cf-cli`、却下案と根拠は [docs/adr/](docs/adr/)）
 

@@ -9,6 +9,7 @@
     "ogp:update": "bun tools/update-ogp.mjs",
     "preflight:check": "bun tools/preflight.mjs",
     "preflight:update": "bun tools/preflight.mjs --update",
+    "check:font-stack": "bun tools/check-font-stack.mjs",
     "preview": "astro preview",
     "deploy": "astro build && wrangler deploy"
   },
