@@ -9,9 +9,13 @@ import { fileURLToPath } from "node:url";
 // （`ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace`）に揃えて直した。
 //
 // 注意書きだけでは、project ページやサムネイル SVG を足すたびに同じ指定が復活する。
-// ここで「総称 `monospace` を含む宣言には、同じ宣言の中に Menlo（この Mac で実体がある等幅）が
-// 要る」という形で機械的に落とす。SVG の `font-family` 属性と DESIGN.md の typography token も
-// 同じ規則で見る（`<img>` で読む SVG は CSS 変数を継承できないので、実フォント列を直書きするしかない）。
+// ここで「等幅の宣言の中で総称 `monospace` を書くなら、同じ宣言に Menlo（この Mac で実体がある
+// 等幅）も要る」という形で機械的に落とす。SVG の `font-family` 属性と DESIGN.md の
+// `fontFamily` token も同じ規則で見る（`<img>` で読む SVG は CSS 変数を継承できないので、
+// 実フォント列を直書きするしかない）。
+//
+// 対象は font の宣言だけ。コメント・散文・文字列の中で `monospace` という単語に触れただけで
+// 落ちると、規則を説明する文章すら書けなくなる（この注意書き自身が該当する）。
 //
 // 却下した対処: 等幅 web フォントを読み込む（DESIGN.md の「web フォントを一切読み込まない」に反する）、
 // Chrome の固定幅フォント設定を変える（読者ごとの設定で、サイト側の再発は防げない）。
@@ -20,11 +24,15 @@ import { fileURLToPath } from "node:url";
 //
 //   bun run check:font-stack   # 違反があれば非 0 で落ちる（CI で実行）
 
-const TARGET_EXTENSIONS = new Set([".css", ".svg", ".astro", ".tsx", ".ts", ".md", ".mdx"]);
+const TARGET_EXTENSIONS = new Set([".css", ".svg", ".astro", ".tsx", ".ts", ".js", ".mjs", ".cjs", ".md", ".mdx"]);
 const SKIP_DIRECTORIES = new Set(["node_modules", "dist", ".git", ".wrangler", ".astro", ".cloudflare"]);
 const MONO_GENERIC = /(?<![\w-])monospace(?![\w-])/g;
 const KNOWN_MONO = "Menlo";
 const DECLARATION_BREAKS = [";", "}", "{"];
+// 宣言の見出し。CSS の `font-family:`、SVG の `font-family="..."`、素の CSS 変数
+// （`--font-mono:` / `--sc-font-mono:`）、DESIGN.md と React の `fontFamily:` を拾う。
+// `ui-monospace` は総称ではないので MONO_GENERIC が除く。
+const FONT_DECLARATION_HEAD = /(?:font-family|fontFamily|--[\w-]*font[\w-]*)\s*[:=]/;
 
 const root = new URL("../", import.meta.url);
 
@@ -39,18 +47,47 @@ async function* walk(directory) {
   }
 }
 
+// コメントを空白で塗り潰す。長さを保つので、以降も match.index がそのまま行番号に使える。
+// `//` は直前が `:` のとき（`https://`）はコメントにしない。
+function maskComments(source, extension) {
+  const characters = source.split("");
+  const blank = (start, end) => {
+    for (let index = start; index < end; index += 1) {
+      if (characters[index] !== "\n") characters[index] = " ";
+    }
+  };
+  for (const pattern of [/\/\*[\s\S]*?\*\//g, /<!--[\s\S]*?-->/g]) {
+    for (const match of source.matchAll(pattern)) blank(match.index, match.index + match[0].length);
+  }
+  if ([".ts", ".tsx", ".mts", ".js", ".mjs", ".cjs", ".astro"].includes(extension)) {
+    for (const match of source.matchAll(/(^|[\s;{,()])\/\/[^\n]*/g)) {
+      const start = match.index + match[1].length;
+      blank(start, match.index + match[0].length);
+    }
+  }
+  return characters.join("");
+}
+
+// 宣言の先頭から総称 monospace の直前までを返す。宣言の境界は CSS の `;` `}` `{`。
+function declarationHead(masked, index) {
+  const from = Math.max(0, index - 400);
+  const window = masked.slice(from, index);
+  const start = Math.max(...DECLARATION_BREAKS.map((token) => window.lastIndexOf(token))) + 1;
+  return window.slice(start);
+}
+
 const violations = [];
 let scanned = 0;
 
 for await (const file of walk(root)) {
   const content = await readFile(file, "utf8");
   if (!content.includes("monospace")) continue;
+  const extension = file.pathname.slice(file.pathname.lastIndexOf("."));
 
-  // .md / .mdx は frontmatter（DESIGN.md の typography token）だけを見る。
-  // 本文の「総称 monospace を使わない」という説明文まで違反にすると、規則を書けなくなる。
+  // .md / .mdx は frontmatter（DESIGN.md の typography token）だけを見る。本文は散文なので対象外。
   let text = content;
   let textOffset = 0;
-  if (file.pathname.endsWith(".md") || file.pathname.endsWith(".mdx")) {
+  if (extension === ".md" || extension === ".mdx") {
     const frontmatter = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
     if (!frontmatter) continue;
     text = frontmatter[1];
@@ -58,12 +95,11 @@ for await (const file of walk(root)) {
   }
   scanned += 1;
 
-  for (const match of text.matchAll(MONO_GENERIC)) {
-    // 同じ宣言の中に Menlo があるか。宣言の境界は CSS の `;` `}` と属性の終わり。
-    const window = text.slice(Math.max(0, match.index - 400), match.index);
-    const knownAt = window.lastIndexOf(KNOWN_MONO);
-    const breakAt = Math.max(...DECLARATION_BREAKS.map((token) => window.lastIndexOf(token)));
-    if (knownAt > breakAt) continue;
+  const masked = maskComments(text, extension);
+  for (const match of masked.matchAll(MONO_GENERIC)) {
+    const head = declarationHead(masked, match.index);
+    if (!FONT_DECLARATION_HEAD.test(head)) continue;
+    if (head.includes(KNOWN_MONO)) continue;
 
     const absolute = textOffset + match.index;
     const line = content.slice(0, absolute).split("\n").length;
