@@ -26,13 +26,18 @@ import { fileURLToPath } from "node:url";
 
 const TARGET_EXTENSIONS = new Set([".css", ".svg", ".astro", ".tsx", ".ts", ".js", ".mjs", ".cjs", ".md", ".mdx"]);
 const SKIP_DIRECTORIES = new Set(["node_modules", "dist", ".git", ".wrangler", ".astro", ".cloudflare"]);
-const MONO_GENERIC = /(?<![\w-])monospace(?![\w-])/g;
-const KNOWN_MONO = "Menlo";
-const DECLARATION_BREAKS = [";", "}", "{"];
+const MONO_GENERIC = /(?<![\w-])monospace(?![\w-])/gi;
+const MONO_KEYWORD = /monospace/i;
+const KNOWN_MONO = /menlo/i;
+// 宣言の境界。SVG の属性は `;` で終わらないので `<` `>` でも区切る
+// （`<text font-family="Menlo">A</text><text font-family="monospace">B</text>` の2つ目を、
+// 1つ目の Menlo で見逃さないため）。
+const DECLARATION_BREAKS = [";", "}", "{", "<", ">"];
 // 宣言の見出し。CSS の `font-family:`、SVG の `font-family="..."`、素の CSS 変数
 // （`--font-mono:` / `--sc-font-mono:`）、DESIGN.md と React の `fontFamily:` を拾う。
-// `ui-monospace` は総称ではないので MONO_GENERIC が除く。
-const FONT_DECLARATION_HEAD = /(?:font-family|fontFamily|--[\w-]*font[\w-]*)\s*[:=]/;
+// `ui-monospace` は総称ではないので MONO_GENERIC が除く。CSS のキーワードは大文字小文字を
+// 区別しない（`font-family: MONOSPACE`）ので、判定は全体を case-insensitive にする。
+const FONT_DECLARATION_HEAD = /(?:font-family|fontFamily|--[\w-]*font[\w-]*)\s*[:=]/i;
 
 const root = new URL("../", import.meta.url);
 
@@ -81,7 +86,7 @@ let scanned = 0;
 
 for await (const file of walk(root)) {
   const content = await readFile(file, "utf8");
-  if (!content.includes("monospace")) continue;
+  if (!MONO_KEYWORD.test(content)) continue;
   const extension = file.pathname.slice(file.pathname.lastIndexOf("."));
 
   // .md / .mdx は frontmatter（DESIGN.md の typography token）だけを見る。本文は散文なので対象外。
@@ -99,7 +104,7 @@ for await (const file of walk(root)) {
   for (const match of masked.matchAll(MONO_GENERIC)) {
     const head = declarationHead(masked, match.index);
     if (!FONT_DECLARATION_HEAD.test(head)) continue;
-    if (head.includes(KNOWN_MONO)) continue;
+    if (KNOWN_MONO.test(head)) continue;
 
     const absolute = textOffset + match.index;
     const line = content.slice(0, absolute).split("\n").length;
@@ -117,5 +122,5 @@ console.error("[font-stack] 総称 monospace 単独の指定がある。日本�
 for (const violation of violations) {
   console.error(`- ${violation.path}:${violation.line}: ...${violation.declaration}`);
 }
-console.error(`[font-stack] CSS は var(--font-mono) / var(--sc-font-mono)、SVG は ${KNOWN_MONO} を含む実フォント列を書くこと`);
+console.error(`[font-stack] CSS は var(--font-mono) / var(--sc-font-mono)、SVG は Menlo を含む実フォント列を書くこと`);
 process.exit(1);
