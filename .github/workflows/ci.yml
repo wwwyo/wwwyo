@@ -24,4 +24,7 @@ jobs:
       # .hallmark/preflight.json の sha256 が黙って drift すると、レビューで毎回指摘されて
       # その場で計算し直すことになる。設計ソースを変えたら preflight:update を回させる。
       - run: bun run preflight:check
+      # 総称 monospace 単独の指定は日本語ロケールの Chromium + Osaka 不在の macOS で豆腐になる
+      # （2026-10 に skillctrl のサムネと詳細ページで発生）。理由は tools/check-font-stack.mjs。
+      - run: bun run check:font-stack
       - run: bun run build
