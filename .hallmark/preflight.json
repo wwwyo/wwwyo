@@ -17,7 +17,7 @@
     },
     {
       "path": "src/layouts/Base.astro",
-      "sha256": "20ee4da8b1307a3ee910a0201b7d3b6d87f01d8748acfd3f695e96298207af66"
+      "sha256": "c22aa00353670cab5ab886f53010e1da7c57fda75d3d8c034c9964051f55f4fe"
     },
     {
       "path": "src/styles/skillctrl.css",
@@ -39,5 +39,5 @@
   "spacing": "4pt",
   "pageFonts": "Space Grotesk + native sans + mono",
   "pagePalette": "Dedicated teal on cool paper, using --sc-* tokens",
-  "hashUpdatedAt": "2026-11-01"
+  "hashUpdatedAt": "2026-10-23"
 }

@@ -36,7 +36,7 @@ wwwyo.dev/
 - **blog URL**: `/blog/[slug]/`。slug はファイル名で日付は入れない（interactive 記事は寿命が長く、URL は短く保つ）。一覧はトップページ（`/`）。タグ・ページネーションは記事が増えるまで作らない
 - **blog frontmatter**: `title` / `description` / `pubDate`（+ 必要になったら `updatedDate`）
 - **RSS**: `/rss.xml` を `@astrojs/rss` で配信している
-- **OGP**: 記事の frontmatter に `ogImage`（記事フォルダ内の画像への相対パス、1200×630 推奨）を書くと、その記事だけ `og:image` と `twitter:card: summary_large_image` を出す。書かない記事は og:image を出さない。自動生成の記事別 OGP は wwwyo/tools の satori + `@resvg/resvg-js` ビルド時静的生成の知見を流用して、記事が増えてから導入
+- **OGP**: 当面はサイト共通の静的画像1枚。記事別 OGP は wwwyo/tools の satori + `@resvg/resvg-js` ビルド時静的生成の知見を流用して、記事が増えてから導入
 - **projects**: `/projects` に個人プロジェクトを期間の新しい順で一覧表示し、各プロジェクトは `/projects/[slug]/` の詳細ページ（画像・動画・外部リンク）へリンクする。データは `src/data/projects.ts` に集約し、配列の順序がそのまま一覧の表示順になる。サムネイル・画像は `src/assets/projects/` に置いて import する
 - **外部リンクの OGP カードはスナップショットから作る**: `externalUrl` のカードは `src/data/ogp.json` + `src/assets/ogp/` を読む。`externalUrl` を追加・変更したら `bun run ogp:update` を回す（回し忘れると build が失敗する）。build 時に外部サイトを fetch しない — 取得元の rate limit で画像が黙って欠けるため（理由と却下案は [docs/adr/](docs/adr/)）
 - **リンクは人間が読めるページにする**: 読者に出す URL はブラウザで開いて意味のある応答が返るものに限る。API エンドポイント（POST 専用で GET すると 405 JSON を返す等）は docs のページ URL に差し替える

@@ -1,7 +1,6 @@
 ---
 import Base from "../../../layouts/Base.astro";
 import { getCollection, render } from "astro:content";
-import { getImage } from "astro:assets";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
@@ -13,16 +12,13 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const ogImage = post.data.ogImage
-  ? (await getImage({ src: post.data.ogImage, width: 1200, format: "jpg" })).src
-  : undefined;
 
 function formatDate(date: Date) {
   return date.toISOString().slice(0, 10).replaceAll("-", "/");
 }
 ---
 
-<Base title={post.data.title} description={post.data.description} ogType="article" pubDate={post.data.pubDate} ogImage={ogImage}>
+<Base title={post.data.title} description={post.data.description} ogType="article" pubDate={post.data.pubDate}>
   <article>
     <header class="post-header">
       <h1>{post.data.title}</h1>
