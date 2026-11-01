@@ -1,10 +1,4 @@
 /* 部品解説の開閉リスト。CSP で style 属性が使えないためクラスで装飾する */
-.kit-overview {
-  width: 100%;
-  border: 1px solid var(--border);
-  border-radius: var(--rounded-code);
-}
-
 .kit-part {
   margin: var(--spacing-sm) 0;
   border: 1px solid var(--border);
@@ -43,4 +37,44 @@
 .kit-note {
   color: var(--muted-foreground);
   font-size: 0.875rem;
+}
+
+/* 全体図（BoardMap island）。枠は hover / focus で強調する */
+.kit-board {
+  margin: var(--spacing-md) 0;
+}
+
+.kit-board svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--rounded-code);
+}
+
+.kit-board-box {
+  fill: transparent;
+  stroke: #facc15;
+  stroke-width: 3;
+}
+
+.kit-board-tag {
+  fill: #facc15;
+}
+
+.kit-board-num {
+  fill: #1a1a1a;
+  font-family: var(--font-body);
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.kit-board-part:hover .kit-board-box,
+.kit-board-part:focus-visible .kit-board-box {
+  fill: rgb(250 204 21 / 0.25);
+  stroke-width: 5;
+}
+
+.kit-board-part:focus-visible {
+  outline: none;
 }
