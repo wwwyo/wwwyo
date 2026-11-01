@@ -6,7 +6,6 @@ pubDate: 2026-11-01
 
 import { Image } from "astro:assets";
 import "./_components/clock-kit.css";
-import BoardMap from "./_components/BoardMap";
 import board from "./_images/board.jpg";
 import seg7 from "./_images/seg7.jpg";
 import r2 from "./_images/r2.jpg";
@@ -31,9 +30,9 @@ import bt1 from "./_images/bt1.jpg";
 
 今回 [4桁LED時計キット](https://www.amazon.co.jp/dp/B09YYH73GN) を組み立てるときに、基板の写真を Claude に渡して「それぞれのパーツを切り取って、どういう機能の部品なのか解説して」と頼んだ。写真を部品ごとに切り出して説明してくれたうえ、「プルアップって何？」「GND って 0V じゃないの？」みたいな素朴な疑問にもその場で答えてくれる。Claude によってその障壁がなくなったことが嬉しい。
 
-以下は、Claude が作ってくれた部品解説。全体図の番号の枠をクリックすると、その部品の解説が開く。
+以下は、Claude が作ってくれた部品解説。番号は全体図の枠と対応していて、クリックで開く。
 
-<BoardMap client:visible src={board.src} />
+<Image src={board} alt="時計キット基板の全体写真。部品ごとに色付きの枠と1〜18の番号が付いている" class="kit-overview" />
 
 ## ざっくり全体像
 
