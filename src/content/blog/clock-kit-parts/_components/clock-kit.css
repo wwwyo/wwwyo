@@ -76,5 +76,6 @@
 }
 
 .kit-board-part:focus-visible {
-  outline: none;
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
 }
