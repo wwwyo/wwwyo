@@ -1,0 +1,205 @@
+---
+title: "電子工作のパーツが覚えられない問題が消えた"
+description: "4桁LED時計キットを組み立てながら、基板の部品を1つずつ Claude に解説してもらった"
+pubDate: 2026-11-01
+---
+
+import { Image } from "astro:assets";
+import "./_components/clock-kit.css";
+import board from "./_images/board.jpg";
+import seg7 from "./_images/seg7.jpg";
+import r2 from "./_images/r2.jpg";
+import mcu from "./_images/mcu.jpg";
+import crystal from "./_images/crystal.jpg";
+import c2c3 from "./_images/c2c3.jpg";
+import c1 from "./_images/c1.jpg";
+import ceramic from "./_images/ceramic.jpg";
+import c4 from "./_images/c4.jpg";
+import r5 from "./_images/r5.jpg";
+import r1 from "./_images/r1.jpg";
+import q1 from "./_images/q1.jpg";
+import buzzer from "./_images/buzzer.jpg";
+import r3r4 from "./_images/r3r4.jpg";
+import d1d2 from "./_images/d1d2.jpg";
+import r6 from "./_images/r6.jpg";
+import s1s2 from "./_images/s1s2.jpg";
+import power from "./_images/power.jpg";
+import bt1 from "./_images/bt1.jpg";
+
+電子工作は、今までパーツ名やそれらの役割が覚えられなくてハードルを感じていた。
+
+今回 [4桁LED時計キット](https://www.amazon.co.jp/dp/B09YYH73GN) を組み立てるときに、基板の写真を Claude に渡して「それぞれのパーツを切り取って、どういう機能の部品なのか解説して」と頼んだ。写真を部品ごとに切り出して説明してくれたうえ、「プルアップって何？」「GND って 0V じゃないの？」みたいな素朴な疑問にもその場で答えてくれる。Claude によってその障壁がなくなったことが嬉しい。
+
+以下は、Claude が作ってくれた部品解説。番号は全体図の枠と対応していて、クリックで開く。
+
+<Image src={board} alt="部品番号付きの時計キット基板の全体図" class="kit-overview" />
+
+## ざっくり全体像
+
+マイコン（頭脳）が水晶振動子（正確なリズム）を数えて時間を計り、7セグLED（画面）に表示する。ボタンで時刻を合わせ、ブザーでアラームを鳴らす。残りの抵抗・コンデンサ・ダイオードは、それらが安定して動くための脇役。
+
+## 部品ごとの解説
+
+<details class="kit-part">
+  <summary>1. 4桁 7セグメントLED</summary>
+  <div class="kit-part-body">
+    <Image src={seg7} alt="4桁 7セグメントLED" />
+    <p>時刻を表示する「画面」。数字1桁は a〜g の7本の棒状LED（＋小数点）でできていて、どの棒を光らせるかで 0〜9 を表す。4桁ぶんを一瞬ずつ順番に光らせる「ダイナミック点灯」で、人の目には4桁同時に光っているように見える。</p>
+    <p class="kit-tip">向きあり。小数点（右下の点）が下に来る向きで差し込む。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>2. R2：抵抗アレイ「471」</summary>
+  <div class="kit-part-body">
+    <Image src={r2} alt="R2：抵抗アレイ「471」" />
+    <p>同じ値の抵抗が何本か1つにまとまった部品。「471」は 47 × 10¹ = <b>470Ω</b>。7セグLEDの各セグメントにつながっていて、LEDに流れる電流を制限したり、マイコンの出力をHIGHに引き上げたり（プルアップ）する。</p>
+    <p class="kit-tip">片側の端にある「●」印が共通ピン。基板のシルク印刷の印側に合わせる。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>3. STC12C2052：マイコン（IC）</summary>
+  <div class="kit-part-body">
+    <Image src={mcu} alt="STC12C2052：マイコン（IC）" />
+    <p>この時計の「頭脳」。プログラムが書き込まれていて、時間を数える・7セグLEDを点灯させる・ボタンを読む・アラームでブザーを鳴らす、をすべてこのチップが行う。8051系と呼ばれる定番マイコンの仲間。</p>
+    <p class="kit-tip">本体の片側にある半円の切り欠きを、基板のシルク印刷の切り欠きに合わせる。逆に挿すと壊れることがある。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>4. 水晶振動子 12MHz</summary>
+  <div class="kit-part-body">
+    <Image src={crystal} alt="水晶振動子 12MHz" />
+    <p>電圧をかけると1秒間に1200万回という正確なリズムで振動する部品。マイコンはこのリズムを数えて時間を計る。時計の精度はほぼこの部品で決まる。</p>
+    <p class="kit-tip">向きなし。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>5. C2・C3：セラミックコンデンサ 30pF</summary>
+  <div class="kit-part-body">
+    <Image src={c2c3} alt="C2・C3：セラミックコンデンサ 30pF" />
+    <p>水晶振動子の両足とGNDの間に1個ずつ入る小さなコンデンサ。水晶が安定して発振するための相棒で、水晶とセットで使われる。</p>
+    <p class="kit-tip">向きなし。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>6. C1：電解コンデンサ 10µF（リセット用と推定）</summary>
+  <div class="kit-part-body">
+    <Image src={c1} alt="C1：電解コンデンサ 10µF（リセット用と推定）" />
+    <p>電気を一時的にためる部品。電源を入れた直後にマイコンを一瞬リセット状態にして、正しく最初から動き出させる回路（リセット回路）に使われていると考えられる。</p>
+    <p class="kit-tip"><b>極性あり。</b>足の長いほうが＋、本体の白い帯がある側が−。逆に付けると最悪破裂する。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>7. C5：セラミックコンデンサ「104」（0.1µF）</summary>
+  <div class="kit-part-body">
+    <Image src={ceramic} alt="C5：セラミックコンデンサ「104」（0.1µF）" />
+    <p>「104」は 10 × 10⁴ pF = <b>0.1µF</b>。電源ラインに入れて、電源に乗った細かいノイズを吸収する「パスコン（バイパスコンデンサ）」。マイコンの誤動作を防ぐ。</p>
+    <p class="kit-tip">向きなし。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>8. C4：電解コンデンサ 100µF（電源の平滑用）</summary>
+  <div class="kit-part-body">
+    <Image src={c4} alt="C4：電解コンデンサ 100µF（電源の平滑用）" />
+    <p>電源端子の近くにある大きめのコンデンサ。ブザーが鳴った瞬間などの電圧のふらつきをならして電源を安定させる、小さなバッテリーのような部品。</p>
+    <p class="kit-tip"><b>極性あり。</b>C1と同じく、長い足が＋、白い帯側が−。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>9. R5：抵抗（トランジスタのベース抵抗と推定）</summary>
+  <div class="kit-part-body">
+    <Image src={r5} alt="R5：抵抗（トランジスタのベース抵抗と推定）" />
+    <p>電流の流れにくさを決める部品で、帯の色で抵抗値を表す。トランジスタのすぐ横にあり、マイコンからトランジスタへ流す電流を適量に絞る役目と考えられる。</p>
+    <p class="kit-tip">向きなし。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>10. R1：抵抗（リセット回路用と推定）</summary>
+  <div class="kit-part-body">
+    <Image src={r1} alt="R1：抵抗（リセット回路用と推定）" />
+    <p>マイコンのリセットピン付近にある抵抗で、C1と組み合わせてリセット回路を作っていると考えられる。</p>
+    <p class="kit-tip">向きなし。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>11. Q1：8550 PNPトランジスタ</summary>
+  <div class="kit-part-body">
+    <Image src={q1} alt="Q1：8550 PNPトランジスタ" />
+    <p>小さな電流で大きな電流をON/OFFできる「電子スイッチ」。マイコンのピンだけではブザーを鳴らす電流が足りないので、マイコンが8550に合図を出し、8550が電源からブザーに電流を流す。</p>
+    <p class="kit-tip"><b>向きあり。</b>本体の平らな面を、基板のシルク印刷の平らな側に合わせる。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>12. ブザー</summary>
+  <div class="kit-part-body">
+    <Image src={buzzer} alt="ブザー" />
+    <p>電流を流すと「ピー」と鳴る部品で、アラームや時報に使う。上のシール（REMOVE SEAL AFTER WASHING）は、はんだ付け後に基板を洗浄するとき穴に液が入らないようにするためのもの。洗浄しないなら、組み立て後にはがしてよい。</p>
+    <p class="kit-tip"><b>極性あり。</b>本体の「＋」印側を基板の＋に合わせる。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>13. R3・R4：抵抗（ボタン用のプルアップと推定）</summary>
+  <div class="kit-part-body">
+    <Image src={r3r4} alt="R3・R4：抵抗（ボタン用のプルアップと推定）" />
+    <p>ボタンを押していないときにマイコンの入力をHIGHに保つ「プルアップ抵抗」と考えられる。これがないと入力がふらついて誤動作する。</p>
+    <p class="kit-tip">向きなし。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>14. D1・D2：ダイオード</summary>
+  <div class="kit-part-body">
+    <Image src={d1d2} alt="D1・D2：ダイオード" />
+    <p>電気を一方向にしか流さない部品。メイン電源とバックアップ電池（BT1）の両方からマイコンに電気を送りつつ、お互いに逆流しないように交通整理をしている。</p>
+    <p class="kit-tip"><b>向きあり。</b>本体の灰色（白）の帯が−側（カソード）。基板のシルクの帯の位置と合わせる。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>15. R6：抵抗</summary>
+  <div class="kit-part-body">
+    <Image src={r6} alt="R6：抵抗" />
+    <p>リセット回路か電源まわりの電流調整に使われていると考えられる（写真だけでは用途を断定できない）。</p>
+    <p class="kit-tip">向きなし。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>16. S1・S2：タクトスイッチ</summary>
+  <div class="kit-part-body">
+    <Image src={s1s2} alt="S1・S2：タクトスイッチ" />
+    <p>押している間だけ電気がつながるボタン。S1（左）で設定項目を進め、S2（右）で数字を進める。</p>
+    <p class="kit-tip">4本足。きつい場合は無理に押し込まず向きを90°変えてみる。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>17. 電源端子（DC 5V）</summary>
+  <div class="kit-part-body">
+    <Image src={power} alt="電源端子（DC 5V）" />
+    <p>外部電源をつなぐネジ式の端子。上が GND（−）、下が＋。USBの5Vを使うと便利。</p>
+    <p class="kit-tip">＋−を逆につながない。電線は被覆ではなく金属部分をネジで挟む。</p>
+  </div>
+</details>
+
+<details class="kit-part">
+  <summary>18. BT1：バックアップ電池端子（3.0V）</summary>
+  <div class="kit-part-body">
+    <Image src={bt1} alt="BT1：バックアップ電池端子（3.0V）" />
+    <p>メイン電源が切れても時刻を忘れないようにするための電池（3V）をつなぐ端子。左が＋、右がGND。</p>
+    <p class="kit-tip">極性に注意。</p>
+  </div>
+</details>
+
+<p class="kit-note">部品の役割は基板写真と、この種のキットの一般的な回路構成から推定している。「推定」と書いたものはキット付属の回路図があれば確定できる。</p>
