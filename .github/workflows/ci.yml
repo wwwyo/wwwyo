@@ -27,4 +27,10 @@ jobs:
       # 総称 monospace 単独の指定は日本語ロケールの Chromium + Osaka 不在の macOS で豆腐になる
       # （2026-10 に skillctrl のサムネと詳細ページで発生）。理由は tools/check-font-stack.mjs。
       - run: bun run check:font-stack
-      - run: bun run build
+      # deploy と同じ cf build で Build Output を作り、送信せずに deploy 内容（binding 等）を検証する
+      - run: bunx cf build
+        env:
+          CF_SEND_TELEMETRY: "false"
+      - run: bunx cf deploy --prebuilt --mode production --dry-run
+        env:
+          CF_SEND_TELEMETRY: "false"
