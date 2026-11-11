@@ -2,6 +2,7 @@ node_modules/
 dist/
 .astro/
 .wrangler/
+.cloudflare/
 .DS_Store
 .env
 .env.local

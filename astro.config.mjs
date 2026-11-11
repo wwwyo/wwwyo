@@ -3,6 +3,7 @@ import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import react from "@astrojs/react";
 import sitemap from "@astrojs/sitemap";
+import cloudflare from "@astrojs/cloudflare";
 
 // blog 記事の sitemap エントリに frontmatter の日付を lastmod として載せる。
 // Google は不正確な lastmod を無視するため、日付を持つ記事ページだけに付ける
@@ -30,6 +31,11 @@ const blogLastmod = new Map(
 
 export default defineConfig({
   site: "https://wwwyo.dev",
+  // 全ページ prerender の静的サイトなので、adapter が既定で足す binding を止める。
+  // 画像は従来どおり build 時に sharp で変換し（IMAGES binding 不要）、session は使わない（SESSION KV 不要）。
+  // binding が無ければ deploy token に KV・Images の権限を持たせずに済む
+  adapter: cloudflare({ imageService: "compile" }),
+  session: false,
   integrations: [
     mdx(),
     react(),

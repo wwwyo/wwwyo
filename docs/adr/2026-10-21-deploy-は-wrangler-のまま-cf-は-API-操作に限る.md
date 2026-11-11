@@ -1,6 +1,6 @@
 # deploy は wrangler のまま、cf は API 操作に限る
 
-- Status: Accepted
+- Status: Superseded by [2026-11-11-deploy-を-cf-へ移す](2026-11-11-deploy-を-cf-へ移す.md)
 - Date: 2026-10-21
 
 `cf` へ移行できるかを試したが、この repo（Astro 7.3.7・adapter 無しの静的 build）は `cf` で build・deploy できない。`cf dev` は `cloudflare.config.ts` が無い Wrangler プロジェクトでは自動構成を走らせ、非対話環境では確認なしに `cloudflare.config.ts` / `wrangler.config.ts` を書き、`package.json`（`deploy` script を含む）・lockfile・`.gitignore`・`vite.config.ts` を変更してから `astro dev` に委譲する。`cf` は build も `astro build` に委譲し、その後 `.cloudflare/output/v0/config.json`（Build Output Specification）を読むが、adapter 無しの `astro build` は `dist/` に HTML を書くだけでこの形式を作らないため、`cf deploy --dry-run` は `no root config found at .cloudflare/output/v0/config.json` で失敗する（2026-10 に `cf migrate` 後に確認）。`cf dev` は `public/_redirects` も解釈しない。よって dev・build・deploy は Astro + wrangler（`bun run deploy`）のまま残し、`cf` は zone・DNS など API 操作にだけ使う。`public/_redirects` のローカル確認は `wrangler dev` でしかできない。公式 docs も「Astro 6 以降は beta の間 `cf` で build できない」としている。
