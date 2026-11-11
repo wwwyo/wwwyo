@@ -42,4 +42,4 @@ agent は SC にログインできない。以下はユーザーに確認して�
 1. SC でサイトマップを明示送信 + 主要ページで「インデックス登録をリクエスト」— 無料で打てるクロール・発見の依頼手段。登録は保証されず、反映まで数日〜数週間かかることもある
 2. zenn / qiita / note のプロフィールに wwwyo.dev へのリンクを追加 — 外部発見経路の最短
 3. sitemap の `lastmod` — blog 記事は frontmatter の `pubDate`/`updatedDate` から `astro.config.mjs` の `serialize` で自動付与している。日付を持たないページには付けない（Google は不正確な lastmod を無視する）
-4. Cloudflare zone 設定の衛生 — `always_use_https` 等は **zone レベルの設定で `wrangler.jsonc` には出ない**。on なら `http://wwwyo.dev/` は 301 → https を返す（確認: `curl -sI http://wwwyo.dev/`）。off の場合の挙動はオリジンや別のリダイレクト設定にも依存するため、全ページが http/https 2系統で 200 を返すと断定せず、実際の URL の応答を curl で確認する。http/https 両方で 200 配信されると重複コンテンツになる。変更は `cf` CLI の write 操作 = 本番変更なので AGENTS.md の承認ルールに従う
+4. Cloudflare zone 設定の衛生 — `always_use_https` 等は **zone レベルの設定で `cloudflare.config.ts` には出ない**。on なら `http://wwwyo.dev/` は 301 → https を返す（確認: `curl -sI http://wwwyo.dev/`）。off の場合の挙動はオリジンや別のリダイレクト設定にも依存するため、全ページが http/https 2系統で 200 を返すと断定せず、実際の URL の応答を curl で確認する。http/https 両方で 200 配信されると重複コンテンツになる。変更は `cf` CLI の write 操作 = 本番変更なので AGENTS.md の承認ルールに従う
