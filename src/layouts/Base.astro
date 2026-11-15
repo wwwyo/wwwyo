@@ -58,6 +58,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       </main>
       <footer class="site-footer">
         <a href="/privacy/">Privacy Policy</a>
+        <a href="/terms/">Terms of Service</a>
       </footer>
     </div>
   </body>
@@ -110,6 +111,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
 
   .site-footer {
+    display: flex;
+    gap: var(--spacing-md);
     padding: var(--spacing-xl) 0 var(--spacing-lg);
   }
 
