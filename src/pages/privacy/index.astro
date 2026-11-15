@@ -1,0 +1,52 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+
+<Base title="Privacy Policy" description="wwwyo.dev と wwwyo が運営する個人用ツールのプライバシーポリシー">
+  <article>
+    <header class="post-header">
+      <h1>Privacy Policy</h1>
+      <p class="page-description">Last updated: 2026-11-15</p>
+    </header>
+
+    <h2>日本語</h2>
+    <p>
+      このポリシーは、wwwyo.dev と、wwwyo が自分のために運営するツール（Google API を使うキーワード調査ツールを含む）に適用されます。
+    </p>
+    <ul>
+      <li>Google アカウントで認可した場合、ツールは Google Ads API などから、認可された範囲のデータ（キーワードの検索数や競合の指標など）を読み取ります。</li>
+      <li>取得したデータは運営者本人の調査にだけ使い、販売・第三者への提供・広告目的での利用はしません。</li>
+      <li>認証情報は運営者が管理する環境にだけ保存します。認可は Google アカウントの設定（https://myaccount.google.com/permissions）からいつでも取り消せます。</li>
+      <li>Google API から受け取った情報の利用と移転は、制限付き使用の要件を含む Google API Services User Data Policy に従います。</li>
+    </ul>
+
+    <h2>English</h2>
+    <p>
+      This policy covers wwwyo.dev and the tools wwwyo operates for personal use, including a keyword research tool that uses Google APIs.
+    </p>
+    <ul>
+      <li>When you authorize with a Google account, the tool reads only the data within the granted scope from APIs such as the Google Ads API (for example, keyword search volume and competition metrics).</li>
+      <li>The data is used only for the operator's own research. It is not sold, shared with third parties, or used for advertising.</li>
+      <li>Credentials are stored only in environments the operator controls. You can revoke access at any time from your Google Account settings (https://myaccount.google.com/permissions).</li>
+      <li>Use and transfer of information received from Google APIs adheres to the Google API Services User Data Policy, including the Limited Use requirements.</li>
+    </ul>
+
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:contact@wwwyo.dev">contact@wwwyo.dev</a></p>
+  </article>
+</Base>
+
+<style>
+  .post-header {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .post-header h1 {
+    margin: 0;
+  }
+
+  .page-description {
+    margin: var(--spacing-xs) 0 0;
+    color: var(--muted-foreground);
+  }
+</style>
