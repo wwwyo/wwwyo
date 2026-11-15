@@ -56,6 +56,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       <main>
         <slot />
       </main>
+      <footer class="site-footer">
+        <a href="/privacy/">Privacy Policy</a>
+      </footer>
     </div>
   </body>
 </html>
@@ -103,6 +106,21 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   }
 
   .site-header--hero .site-title:hover {
+    color: var(--primary);
+  }
+
+  .site-footer {
+    padding: var(--spacing-xl) 0 var(--spacing-lg);
+  }
+
+  .site-footer a {
+    font-family: var(--font-mono);
+    font-size: var(--font-size-mono);
+    color: var(--muted-foreground);
+    text-decoration: none;
+  }
+
+  .site-footer a:hover {
     color: var(--primary);
   }
 
