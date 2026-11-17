@@ -1,2 +1,5 @@
 /hobby /projects/ 301
 /hobby/* /projects/:splat 301
+# Google Ads API の OAuth（Composio 経由）の redirect URI。GCP の承認済みドメインを
+# wwwyo.dev だけに保つため、自ドメインで受けて Composio の callback へクエリごと転送する
+/oauth/composio/callback https://backend.composio.dev/api/v3/toolkits/auth/callback 302
