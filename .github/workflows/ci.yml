@@ -19,7 +19,7 @@ jobs:
             echo "::error::README を置かない（repo home はファイル一覧のままにする。入口文書は AGENTS.md）"
             exit 1
           fi
-      - uses: jdx/mise-action@6be3c7ed4c21d4f76b208d351d95aac273ebb76d # v5.2.4
+      - uses: jdx/mise-action@f5be966e4a917d54244728e6a5fdcd1d93a35e6c # v5.2.6
       - run: bun install --frozen-lockfile
       # .hallmark/preflight.json の sha256 が黙って drift すると、レビューで毎回指摘されて
       # その場で計算し直すことになる。設計ソースを変えたら preflight:update を回させる。
