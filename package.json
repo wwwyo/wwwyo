@@ -14,11 +14,11 @@
     "deploy": "cf build && cf deploy --prebuilt --mode production"
   },
   "dependencies": {
-    "@astrojs/mdx": "8.1.2",
-    "@astrojs/react": "7.1.2",
+    "@astrojs/mdx": "8.1.5",
+    "@astrojs/react": "7.1.8",
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.4",
-    "astro": "7.4.5",
+    "astro": "7.4.11",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
@@ -28,7 +28,7 @@
     "@types/react-dom": "19.3.0",
     "@webgpu/types": "0.1.74",
     "cf": "1.0.0-beta.30",
-    "node-html-parser": "9.0.6",
+    "node-html-parser": "9.0.7",
     "typescript": "7.0.2"
   }
 }
