@@ -1,10 +1,10 @@
 # wwwyo.dev
 
-個人の portfolio / blog サイト。成果物の一覧と、interactive なコンポーネント（tools の埋め込み・外部 API を叩くデモ等）を埋め込める記事を置く。
+個人の portfolio / blog サイト。成果物の一覧と、個人の日記を置く。
 
 ## 設計原則
 
-- **interactive 記事だけを置く**: 静的テキストで済む記事は zenn / qiita / note に書く。ここには MDX + island でしか成立しない記事を置く（差別化）
+- **blog は個人の日記**: 人に読ませるための記事ではなく、自分の記録として書く。静的テキストだけの記事でよい。MDX なので interactive なコンポーネント（tools の埋め込み・外部 API を叩くデモ等）も埋め込めるが、それは副産物で、置く条件ではない（2026-11 に「interactive 記事だけを置く」方針を廃止。[docs/adr/](docs/adr/)）
 - **tools の埋め込みは iframe**: [wwwyo/tools](https://github.com/wwwyo/tools) のコードを import しない
 - **デフォルト zero-JS**: 記事本文は静的 HTML。ブラウザで動かすコンポーネントだけ `client:visible` を付ける
 - **個人プロジェクトは `/projects` に置く**: 進行中・停止済み・ハッカソン作品を問わず、個人プロジェクトを静的な一覧 + 詳細ページとして置く。旧 path `/hobby` は「趣味」と読めて実態（進行中のプロダクト・受賞作）より軽く見えるため 2026-10 に改名し、`public/_redirects` で 301 している
@@ -33,7 +33,7 @@ wwwyo.dev/
 
 ## 情報設計
 
-- **blog URL**: `/blog/[slug]/`。slug はファイル名で日付は入れない（interactive 記事は寿命が長く、URL は短く保つ）。一覧はトップページ（`/`）。タグ・ページネーションは記事が増えるまで作らない
+- **blog URL**: `/blog/[slug]/`。slug はファイル名で日付は入れない（URL は短く保つ）。一覧はトップページ（`/`）。タグ・ページネーションは記事が増えるまで作らない
 - **blog frontmatter**: `title` / `description` / `pubDate`（+ 必要になったら `updatedDate`）
 - **RSS**: `/rss.xml` を `@astrojs/rss` で配信している
 - **OGP**: 当面はサイト共通の静的画像1枚。記事別 OGP は wwwyo/tools の satori + `@resvg/resvg-js` ビルド時静的生成の知見を流用して、記事が増えてから導入
