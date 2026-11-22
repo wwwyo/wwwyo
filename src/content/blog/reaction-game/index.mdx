@@ -1,0 +1,119 @@
+---
+title: "Arduinoで反応速度ゲームを作った"
+description: "将来のボケ防止に、LEDが点いてからボタンを押すまでの反応時間を測るゲームを作った"
+pubDate: 2026-11-22
+---
+
+import { Image } from "astro:assets";
+import board from "./_images/board.jpg";
+
+将来のボケ防止のために反応速度ゲームを作った。
+
+仕組みは簡単でランダム時間後にLEDがつく、そしてボタンを押す。LEDがついてからボタンを押すまでの反応時間を見てボケているかを判定できる。
+
+arduinoのコードをAIがかいてくれるのでかなり楽。
+
+<Image src={board} alt="Arduino UNO とブレッドボード。緑の LED が光っていて、その下にタクトスイッチがある" />
+
+<details>
+<summary>メモ</summary>
+
+### わかったこと
+
+- 何もつながっていない入力ピンはふらつく。`INPUT_PULLUP` で 5V に弱くつなぐと、押していないときは HIGH、押すと LOW になる
+- LED の抵抗は (5V − LED の電圧) ÷ 電流。赤なら (5 − 2) ÷ 15mA ≒ 200Ω で 220Ω
+- 割り込みで書き換える変数には `volatile` を付ける
+- `Serial.begin(115200)` の数字はポートではなく通信速度
+
+### 失敗
+
+押されたフラグを false に戻し忘れて、毎回フライングになるコードを書いていた。
+
+### コード
+
+```cpp
+enum State { IDLE, ARMED, LIT, RESULT };
+State state = IDLE;
+
+const int LED_PIN = 8;
+const int BUTTON_PIN = 2;
+
+volatile unsigned long pressedAt = 0;
+volatile bool pressed = false;
+
+unsigned long armedAt = 0;
+unsigned long waitMs = 0;
+unsigned long litAt = 0;
+unsigned long best = 0;          // 0 = まだ記録なし
+
+void onPress() {
+  unsigned long now = millis();
+  if (now - pressedAt < 30) return;   // 30ms以内はチャタリングとして無視
+  pressedAt = now;
+  pressed = true;
+}
+
+void setup() {
+  pinMode(LED_PIN, OUTPUT);
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(BUTTON_PIN), onPress, FALLING);
+  Serial.begin(115200);
+  randomSeed(analogRead(A0));
+  Serial.println("ボタンでスタート");
+}
+
+void loop() {
+  switch (state) {
+    case IDLE:
+      if (pressed) {
+        pressed = false;
+        waitMs = random(1000, 4000);
+        armedAt = millis();
+        Serial.println("ゲーム開始");
+        state = ARMED;
+      }
+      break;
+
+    case ARMED:
+      if (pressed) {                       // 点く前に押した
+        pressed = false;
+        Serial.println("フライング！");
+        state = IDLE;
+      } else if (millis() - armedAt >= waitMs) {
+        digitalWrite(LED_PIN, HIGH);
+        litAt = millis();
+        state = LIT;
+      }
+      break;
+
+    case LIT:
+      if (pressed) {
+        pressed = false;
+        digitalWrite(LED_PIN, LOW);
+        unsigned long result = pressedAt - litAt;
+        Serial.print("反応: ");
+        Serial.print(result);
+        Serial.println(" ms");
+        if (best == 0 || result < best) {
+          best = result;
+          Serial.println("ベスト更新！");
+        }
+        Serial.print("ベスト: ");
+        Serial.print(best);
+        Serial.println(" ms");
+        state = RESULT;
+      }
+      break;
+
+    case RESULT:
+      if (pressed) {
+        pressed = false;
+        state = IDLE;
+        Serial.println("ボタンでスタート");
+      }
+      break;
+  }
+}
+```
+
+</details>
