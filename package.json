@@ -18,7 +18,7 @@
     "@astrojs/react": "7.1.9",
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.6",
-    "astro": "7.4.11",
+    "astro": "7.4.13",
     "react": "19.3.1",
     "react-dom": "19.3.1"
   },
