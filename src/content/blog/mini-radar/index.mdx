@@ -4,15 +4,14 @@ description: "首を振る超音波センサーで周りの物までの距離を
 pubDate: 2026-11-27
 ---
 
-import { Image } from "astro:assets";
-import board from "./_images/board.jpg";
+import devicePoster from "./_images/device-poster.jpg";
 import radarPoster from "./_images/radar-poster.jpg";
 
 サーボと超音波センサーでミニ・レーダーを作った。
 
 サーボの羽に超音波センサーを貼り付けて、0〜180° を2° ずつ首振りさせながら距離を測る。測った「角度と距離」を USB のシリアルで PC に送り、ブラウザの Web Serial API で受け取って canvas にレーダーっぽく点を打つ。
 
-<Image src={board} alt="Arduino UNO とブレッドボードから伸びたジャンパー線が、青いサーボの上にテープで留めた超音波センサーにつながっている" />
+<video src="/videos/blog-mini-radar-device.mp4" poster={devicePoster.src} autoplay loop muted playsinline controls aria-label="サーボの上に留めた超音波センサーが左右に首を振り、奥のノートPCの画面にレーダーが描かれていく"></video>
 
 ブラウザ側の画面。緑の線が今センサーが向いている方向で、赤い点が見つけた物までの距離。
 
