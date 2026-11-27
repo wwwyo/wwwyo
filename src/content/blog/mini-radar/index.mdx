@@ -1,0 +1,95 @@
+---
+title: "サーボと超音波でミニ・レーダーを作った"
+description: "モーターが届くまでの間に、首を振る超音波センサーで周りの物までの距離を測り、ブラウザにレーダー画面を描いた"
+pubDate: 2026-11-27
+---
+
+import { Image } from "astro:assets";
+import board from "./_images/board.jpg";
+
+2か月目のモーターが12月まで届かないので、その間にキットに入っていたサーボと超音波センサーでミニ・レーダーを作った。
+
+サーボの羽に超音波センサーを貼り付けて、0〜180° を2° ずつ首振りさせながら距離を測る。測った「角度と距離」を USB のシリアルで PC に送り、ブラウザの Web Serial API で受け取って canvas にレーダーっぽく点を打つ。
+
+センサーをサーボに付けるのが一番むずかった。結局テープで留めた。
+
+ブラウザで接続しても何も出なくてハマったが、原因は Chrome のポート選択で USB ハブの別のポートを選んでいただけだった。
+
+<Image src={board} alt="Arduino UNO とブレッドボードから伸びたジャンパー線が、青いサーボの上にテープで留めた超音波センサーにつながっている" />
+
+<details>
+<summary>メモ</summary>
+
+### わかったこと
+
+- 超音波センサー（HC-SR04）は 40kHz の音を出して、跳ね返ってくるまでの時間で距離を出す。往復なので 2 で割る。測れるのは 2cm〜4m くらい
+- サーボ（SG90）が回れるのは 0〜180° だけ。マイナスや 180 を超える値は丸められる
+- `Servo myservo;` に `()` を付けると関数の宣言として読まれてしまう。引数が無いときは何も付けない
+- `.h` は宣言だけを集めたファイル。中身は `.cpp` にある。TypeScript の `.d.ts` に近い
+- シリアルは「1本の線で1ビットずつ送る」やり方。Arduino のチップは UART でしか話せず、ボード上の 16U2 が USB に変換している。Mac からは `/dev/cu.usbmodem1401` というファイルに見える
+- シリアルには TCP みたいな宛先・区切り・再送が無い。区切りは改行で自分で決める
+- ボーレートは 1 秒に送るビット数。クロックの線が無いので、両側で揃えないと文字化けする
+- 1 つのシリアルポートは同時に 1 つのアプリしか開けない。シリアルモニタを開いたままだと書き込みもブラウザ接続も失敗する
+
+### 失敗
+
+- 型を書き忘れた `const TRIGGER_PIN = 11;`、`usiged`、引数に型の無い関数で、コンパイルが通らなかった
+- 1 つ目の for を抜けた時点で `pos` が 182 になっていた
+- Chrome のポート選択で「USB BillBoard」（ハブの部品）を選んでいて、接続中のまま何も届かなかった。Arduino は `cu.usbmodem1401` の方
+
+### コード
+
+```cpp
+#include <Servo.h>
+#include <NewPing.h>
+
+const int TRIGGER_PIN = 11;
+const int ECHO_PIN = 12;
+const int MAX_DISTANCE = 200;
+const int SERVO_PIN = 9;
+
+Servo servo;
+NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
+
+void setup() {
+  servo.attach(SERVO_PIN);
+  Serial.begin(115200);
+}
+
+void printReading(unsigned int dis, int pos) {
+  Serial.print(dis);
+  Serial.print(" cm / ");
+  Serial.print(pos);
+  Serial.println("度");
+}
+
+void measure(int pos) {
+  servo.write(pos);
+  delay(30);                       // NewPing は 29ms 以上あける
+  printReading(sonar.ping_cm(), pos);  // 0 は「200cm 以内に何もない」
+}
+
+void loop() {
+  for (int pos = 0; pos <= 180; pos += 2) measure(pos);
+  for (int pos = 180; pos >= 0; pos -= 2) measure(pos);
+}
+```
+
+ブラウザ側は、届いた文字をつなげて改行で分け、「12 cm / 40度」から角度と距離を取り出して canvas に描いている。
+
+```js
+const port = await navigator.serial.requestPort();
+await port.open({ baudRate: 115200 });
+const reader = port.readable.pipeThrough(new TextDecoderStream()).getReader();
+let buffer = "";
+while (true) {
+  const { value, done } = await reader.read();
+  if (done) break;
+  buffer += value;
+  const lines = buffer.split("\n");
+  buffer = lines.pop();            // 途中の行は次回に回す
+  lines.forEach(handleLine);       // 角度ごとに点を打つ
+}
+```
+
+</details>
