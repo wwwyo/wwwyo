@@ -6,6 +6,7 @@ pubDate: 2026-11-27
 
 import { Image } from "astro:assets";
 import board from "./_images/board.jpg";
+import radarPoster from "./_images/radar-poster.jpg";
 
 2か月目のモーターが12月まで届かないので、その間にキットに入っていたサーボと超音波センサーでミニ・レーダーを作った。
 
@@ -16,6 +17,10 @@ import board from "./_images/board.jpg";
 ブラウザで接続しても何も出なくてハマったが、原因は Chrome のポート選択で USB ハブの別のポートを選んでいただけだった。
 
 <Image src={board} alt="Arduino UNO とブレッドボードから伸びたジャンパー線が、青いサーボの上にテープで留めた超音波センサーにつながっている" />
+
+ブラウザ側の画面。緑の線が今センサーが向いている方向で、赤い点が見つけた物までの距離。
+
+<video src="/videos/blog-mini-radar.mp4" poster={radarPoster.src} autoplay loop muted playsinline controls aria-label="レーダー画面の録画。緑の線が首振りに合わせて左右に動き、近くの物の位置に赤い点が並んでいく"></video>
 
 <details>
 <summary>メモ</summary>
