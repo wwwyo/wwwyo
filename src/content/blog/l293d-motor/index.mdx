@@ -4,9 +4,13 @@ description: "モータードライバ IC の L293D で DC モーターを正転
 pubDate: 2026-11-28
 ---
 
+import poster from "./_images/poster.jpg";
+
 L293D でモーターを回した。
 
 L293D はモーターの向きと速さを Arduino から変えられるようにする IC。Enable に PWM を入れると速さ、Input 1・2 の HIGH/LOW の組み合わせで向きが変わる。正転・逆転・ブレーキ・惰性停止を試して、最後はジョイスティックを倒した向きと量でモーターを回せるようにした。
+
+<video src="/videos/blog-l293d-motor.mp4" poster={poster.src} autoplay loop muted playsinline controls aria-label="ブレッドボードの L293D につないだ DC モーターのファンが回り、横から猫が前足を伸ばしてくる"></video>
 
 参考にしたのは Last Minute Engineers の [In-Depth: Control DC Motors with L293D Motor Driver IC & Arduino](https://lastminuteengineers.com/l293d-dc-motor-arduino-tutorial/)。記事はモーター2台で IN1〜IN4 を使っているけど、キットのモーターは1台なので片側だけ使った。
 
